@@ -12,7 +12,6 @@ TRANSFORM_RUNTIME=ray
 ## override settings in .make.default as they assume old structure with ray being the current folder
 DOCKER_IMAGE_NAME=$(TRANSFORM_NAME)-$(TRANSFORM_RUNTIME)
 DOCKER_LOCAL_IMAGE=$(DOCKER_IMAGE_NAME):$(DOCKER_IMAGE_VERSION)
-DOCKER_REMOTE_IMAGE=$(DOCKER_REGISTRY_ENDPOINT)/$(DOCKER_IMAGE_NAME):$(DOCKER_IMAGE_VERSION)
 
 
 # Only build the image with -f Dockerfile.ray
@@ -50,7 +49,9 @@ workflow-build: workflow-venv
 
 .PHONY: workflow-test
 workflow-test: workflow-build
-	$(MAKE) .workflows.test-pipeline TRANSFORM_SRC=${SRC_DIR} PIPELINE_FILE=html2parquet_wf.yaml
+	$(MAKE) TRANSFORM_SRC=${SRC_DIR} \
+		DOCKER_REMOTE_IMAGE=$(DOCKER_REGISTRY_ENDPOINT)/$(DOCKER_IMAGE_NAME):$(DOCKER_IMAGE_VERSION) \
+		PIPELINE_FILE=html2parquet_wf.yaml .workflows.test-pipeline
 
 .PHONY: workflow-upload
 workflow-upload:
