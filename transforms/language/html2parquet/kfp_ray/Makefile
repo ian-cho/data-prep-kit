@@ -7,6 +7,11 @@ include $(REPOROOT)/transforms/.make.workflows
 #include ../transform.config
 
 SRC_DIR=${CURDIR}/../
+# Use the docker image that is built for ray runtime
+TRANSFORM_RUNTIME=ray
+DOCKER_IMAGE_NAME=$(TRANSFORM_NAME)-$(TRANSFORM_RUNTIME)
+
+# Only build the image with -f Dockerfile.ray
 BUILD_SPECIFIC_RUNTIME=ray
 
 PYTHON_WF := $(shell find ./ -name '*_wf.py')
