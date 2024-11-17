@@ -44,7 +44,6 @@ FORCE:
 		cd ${REPOROOT} && make -C scripts/k8s-setup setup;  \
 	fi
 ifeq ($(USE_DEV_IMAGES), 1)
-	echo ******###**** $(DOCKER_REMOTE_IMAGE)
 	cd ${TRANSFORM_SRC} && $(MAKE) image && $(MAKE) kind-load-image
 	cd ${REPOROOT}/kfp/kfp_ray_components && $(MAKE) image && $(MAKE) kind-load-image
 endif

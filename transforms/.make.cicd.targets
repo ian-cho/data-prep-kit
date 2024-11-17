@@ -120,25 +120,25 @@ kind-load-image:: .transforms.kind-load-image
 .PHONY: workflow-vent
 workflow-venv:
 	if [ -e kfp_ray ]; then                 \
-	    $(MAKE) -C kfp_ray workflow-venv;   \
+	    $(MAKE) -C kfp_ray TRANSFORM_NAME=$(TRANSFORM_NAME) workflow-venv;   \
 	fi
 
 .PHONY: workflow-test
 workflow-test:
 	if [ -e kfp_ray ]; then                 \
-	    $(MAKE) -C kfp_ray workflow-test;   \
+	    $(MAKE) -C kfp_ray TRANSFORM_NAME=$(TRANSFORM_NAME) workflow-test;   \
 	fi
 
 .PHONY: workflow-upload
 workflow-upload:
 	if [ -e kfp_ray ]; then                 \
-	    $(MAKE) -C kfp_ray workflow-upload; \
+	    $(MAKE) -C kfp_ray TRANSFORM_NAME=$(TRANSFORM_NAME) workflow-upload; \
 	fi
 
 .PHONY: workflow-build
 workflow-build:
 	if [ -e kfp_ray ]; then                 \
-	    $(MAKE) -C  kfp_ray workflow-build; \
+	    $(MAKE) -C  kfp_ray TRANSFORM_NAME=$(TRANSFORM_NAME) workflow-build; \
 	fi
 
 

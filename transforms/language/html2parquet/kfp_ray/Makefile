@@ -50,6 +50,9 @@ workflow-build: workflow-venv
 .PHONY: workflow-test
 workflow-test: workflow-build
 	$(MAKE) TRANSFORM_SRC=${SRC_DIR} \
+		TRANSFORM_RUNTIME=$(TRANSFORM_RUNTIME) \
+		TRANSFORM_NAME=$(TRANSFORM_NAME) \
+		BUILD_SPECIFIC_RUNTIME=$(BUILD_SPECIFIC_RUNTIME) \
 		DOCKER_REMOTE_IMAGE=$(DOCKER_REGISTRY_ENDPOINT)/$(DOCKER_IMAGE_NAME):$(DOCKER_IMAGE_VERSION) \
 		PIPELINE_FILE=html2parquet_wf.yaml .workflows.test-pipeline
 
