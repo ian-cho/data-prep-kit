@@ -1,78 +1,56 @@
 REPOROOT=../../..
 # Use make help, to see the available rules
-include $(REPOROOT)/.make.defaults
+include $(REPOROOT)/transforms/.make.cicd.targets
 
-setup::
-	@# Help: Recursively make $@ all subdirs 
-	$(MAKE) RULE=$@ .recurse
+#
+# This is intended to be included across the Makefiles provided within
+# a given transform's directory tree,  so must use compatible syntax.
+#
+################################################################################
+# This defines the name of the transform and is used to match against
+# expected files and is used to define the transform's image name. 
+TRANSFORM_NAME=$(shell basename `pwd`)
 
-clean::
-	@# Help: Recursively make $@ all subdirs 
-	$(MAKE) RULE=$@ .recurse
+# Used as entry point: 
+# python -m dpk_html2parquet.ray.transform --help
+# or
+# python -m dpk_html2parquet.transform_python --help
+TRANSFORM_RUNTIME_SRC_FILE=-m dpk_$(TRANSFORM_NAME).ray.transform
 
-build::
-	@# Help: Recursively make $@ in subdirs 
-	$(MAKE) RULE=$@ .recurse
-venv::
-	@# Help: Recursively make $@ in subdirs 
-	$(MAKE) RULE=$@ .recurse
+################################################################################
+# This defines the transforms' version number as would be used
+# when publishing the wheel.  In general, only the micro version
+# number should be advanced relative to the DPK_VERSION. 
+#
+# If you change the versions numbers, be sure to run "make set-versions" to 
+# update version numbers across the transform (e.g., pyproject.toml).
+#TRANSFORM_VERSION=$(DPK_VERSION)
 
-image:: 
-	@# Help: Recursively make $@ in all subdirs 
-	@$(MAKE) RULE=$@ .recurse
+test-image-default:: image .transforms.test-image-help .transforms.clean
 
-set-versions:  
-	@# Help: Recursively $@ in all subdirs 
-	@$(MAKE) RULE=$@ .recurse
-
-publish:: 
-	@# Help: Recursively make $@ in all subdirs 
-	@$(MAKE) RULE=$@ .recurse
-
-test-image:: 
-	@# Help: Recursively make $@ in all subdirs 
-	@$(MAKE) RULE=$@ .recurse
-
-test:: 
-	@# Help: Recursively make $@ in all subdirs 
-	@$(MAKE) RULE=$@ .recurse
-
-test-src::
-	@# Help: Recursively make $@ in all subdirs 
-	$(MAKE) RULE=$@ .recurse
-
-kind-load-image::
-	@# Help: Recursively make $@ in all subdirs 
-	$(MAKE) RULE=$@ .recurse
-
-docker-load-image::
-	@# Help: Recursively make $@ in all subdirs
-	$(MAKE) RULE=$@ .recurse
-
-docker-save-image::
-	@# Help: Recursively make $@ in all subdirs 
-	$(MAKE) RULE=$@ .recurse
 
 .PHONY: workflow-vent
 workflow-venv:
-	if [ -e kfp_ray ]; then                 \
-	    $(MAKE) -C kfp_ray workflow-venv;   \
-	fi
+#	if [ -e kfp_ray ]; then                 \
+#	    $(MAKE) -C kfp_ray workflow-venv;   \
+#	fi
 
 .PHONY: workflow-test
 workflow-test:
-	if [ -e kfp_ray ]; then                 \
-	    $(MAKE) -C kfp_ray workflow-test;   \
-	fi
-	
+#	if [ -e kfp_ray ]; then                 \
+#	    $(MAKE) -C kfp_ray workflow-test;   \
+#	fi
+
 .PHONY: workflow-upload
 workflow-upload:
-	if [ -e kfp_ray ]; then                 \
-	    $(MAKE) -C kfp_ray workflow-upload; \
-	fi
+#	if [ -e kfp_ray ]; then                 \
+#	    $(MAKE) -C kfp_ray workflow-upload; \
+#	fi
 
 .PHONY: workflow-build
 workflow-build:
-	if [ -e kfp_ray ]; then                 \
-	    $(MAKE) -C  kfp_ray workflow-build; \
-	fi
+#	if [ -e kfp_ray ]; then                 \
+#	    $(MAKE) -C  kfp_ray workflow-build; \
+#	fi
+
+
