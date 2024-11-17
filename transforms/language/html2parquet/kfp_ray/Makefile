@@ -3,9 +3,10 @@ WORKFLOW_VENV_ACTIVATE=${REPOROOT}/transforms/venv/bin/activate
 include $(REPOROOT)/transforms/.make.workflows
 
 # Include the common configuration for this transform
-include ../transform.config
+#include ../transform.config
 
-SRC_DIR=${CURDIR}/../ray/
+SRC_DIR=${CURDIR}/../
+BUILD_SPECIFIC_RUNTIME=ray
 
 PYTHON_WF := $(shell find ./ -name '*_wf.py')
 YAML_WF := $(patsubst %.py, %.yaml, ${PYTHON_WF})
