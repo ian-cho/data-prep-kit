@@ -38,15 +38,15 @@ build:: image
 publish:
 	@if [ -e Dockerfile.python ]; then \
 		$(MAKE) DOCKER_REMOTE_IMAGE=$(DOCKER_REGISTRY_ENDPOINT)/$(TRANSFORM_NAME)-python:$(DOCKER_IMAGE_VERSION) \
-				.default.publish-image ; \
+				.defaults.publish-image ; \
 	fi
 	@if [ -e Dockerfile.ray ]; then \
 		$(MAKE) DOCKER_REMOTE_IMAGE=$(DOCKER_REGISTRY_ENDPOINT)/$(TRANSFORM_NAME)-ray:$(DOCKER_IMAGE_VERSION) \
-				.default.publish-image ; \
+				.defaults.publish-image ; \
 	fi
 	@if [ -e Dockerfile.spark ]; then \
 		$(MAKE) DOCKER_REMOTE_IMAGE=$(DOCKER_REGISTRY_ENDPOINT)/$(TRANSFORM_NAME)-spark:$(DOCKER_IMAGE_VERSION) \
-				.default.publish-image ; \
+				.defaults.publish-image ; \
 	fi
 
 test-image-sequence:: .defaults.lib-whl-image .transforms.test-image-help .transforms.clean
