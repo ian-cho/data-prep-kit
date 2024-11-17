@@ -115,6 +115,8 @@ test-src:: .transforms.test-src
 
 setup:: .transforms.setup
 
+kind-load-image:: .transforms.kind-load-image
+
 .PHONY: workflow-vent
 workflow-venv:
 	if [ -e kfp_ray ]; then                 \
