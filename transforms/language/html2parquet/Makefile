@@ -12,13 +12,6 @@ include $(REPOROOT)/transforms/.make.cicd.targets
 TRANSFORM_NAME=$(shell basename `pwd`)
 
 ################################################################################
-# This defines the transforms' version number as would be used
-# when publishing the wheel.  In general, only the micro version
-# number should be advanced relative to the DPK_VERSION. 
-#
-# If you change the versions numbers, be sure to run "make set-versions" to 
-# update version numbers across the transform (e.g., pyproject.toml).
-#TRANSFORM_VERSION=$(DPK_VERSION)
 
 
 
