@@ -248,7 +248,7 @@ __check_defined = \
 	
 .PHONY: .default.build-lib-wheel
 .default.build-lib-wheel:
-	make -C $(REPOROOT)/data-processing-lib build-pkg-dist
+	$(MAKE) -C $(REPOROOT)/data-processing-lib build-pkg-dist
 	rm -rf data-processing-dist && mkdir data-processing-dist
 	cp $(REPOROOT)/data-processing-lib/dist/*.whl data-processing-dist
 
