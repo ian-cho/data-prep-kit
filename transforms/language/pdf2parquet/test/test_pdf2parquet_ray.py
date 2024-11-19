@@ -17,7 +17,7 @@ from data_processing.test_support.launch.transform_test import (
     AbstractTransformLauncherTest,
 )
 from data_processing_ray.runtime.ray import RayTransformLauncher
-from pdf2parquet_transform_ray import Pdf2ParquetRayTransformConfiguration
+from dpk_pdf2parquet.ray.transform import Pdf2ParquetRayTransformConfiguration
 
 
 class TestRayPdf2ParquetTransform(AbstractTransformLauncherTest):

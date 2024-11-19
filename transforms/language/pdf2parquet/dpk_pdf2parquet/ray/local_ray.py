@@ -16,20 +16,15 @@ import sys
 
 from data_processing.utils import ParamsUtils
 from data_processing_ray.runtime.ray import RayTransformLauncher
-from pdf2parquet_transform_ray import Pdf2ParquetRayTransformConfiguration
+from dpk_pdf2parquet.ray.transform import Pdf2ParquetRayTransformConfiguration
 
 
-# create launcher
-launcher = RayTransformLauncher(Pdf2ParquetRayTransformConfiguration())
 # create parameters
-s3_cred = {
-    "access_key": "localminioaccesskey",
-    "secret_key": "localminiosecretkey",
-    "url": "http://localhost:9000",
-}
-s3_conf = {
-    "input_folder": "test/pdf2parquet/input",
-    "output_folder": "test/pdf2parquet/output",
+input_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "test-data", "input"))
+output_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "output"))
+local_conf = {
+    "input_folder": input_folder,
+    "output_folder": output_folder,
 }
 worker_options = {"num_cpus": 0.8}
 code_location = {"github": "github", "commit_hash": "12345", "path": "path"}
@@ -37,8 +32,7 @@ params = {
     # where to run
     "run_locally": True,
     # Data access. Only required parameters are specified
-    "data_s3_cred": ParamsUtils.convert_to_ast(s3_cred),
-    "data_s3_config": ParamsUtils.convert_to_ast(s3_conf),
+    "data_local_config": ParamsUtils.convert_to_ast(local_conf),
     "data_files_to_use": ast.literal_eval("['.pdf','.zip']"),
     # orchestrator
     "runtime_worker_options": ParamsUtils.convert_to_ast(worker_options),
@@ -47,11 +41,12 @@ params = {
     "runtime_job_id": "job_id",
     "runtime_creation_delay": 0,
     "runtime_code_location": ParamsUtils.convert_to_ast(code_location),
-    # pdf2ms params
+    # pdf2parquet params
 }
-sys.argv = ParamsUtils.dict_to_req(d=params)
-# for arg in sys.argv:
-#     print(arg)
-
-# launch
-launcher.launch()
+if __name__ == "__main__":
+    # Set the simulated command line args
+    sys.argv = ParamsUtils.dict_to_req(d=params)
+    # create launcher
+    launcher = RayTransformLauncher(Pdf2ParquetRayTransformConfiguration())
+    # Launch the ray actor(s) to process the input
+    launcher.launch()

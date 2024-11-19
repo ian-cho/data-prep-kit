@@ -10,21 +10,13 @@
 # limitations under the License.
 ################################################################################
 
-import time
-from argparse import ArgumentParser, Namespace
-from typing import Any
-
 import pyarrow as pa
-from data_processing.runtime.pure_python.runtime_configuration import (
-    PythonTransformRuntimeConfiguration,
-)
-from data_processing.transform import AbstractTableTransform, TransformConfiguration
-from data_processing.utils import CLIArgumentProvider, get_logger
+from data_processing.utils import ParamsUtils, get_logger
 from data_processing_ray.runtime.ray import RayTransformLauncher
 from data_processing_ray.runtime.ray.runtime_configuration import (
     RayTransformRuntimeConfiguration,
 )
-from pdf2parquet_transform import (
+from dpk_pdf2parquet.transform import (
     Pdf2ParquetTransform,
     Pdf2ParquetTransformConfiguration,
 )
@@ -64,6 +56,32 @@ class Pdf2ParquetRayTransformConfiguration(RayTransformRuntimeConfiguration):
         :param base_configuration - base configuration class
         """
         super().__init__(transform_config=Pdf2ParquetTransformConfiguration(transform_class=Pdf2ParquetRayTransform))
+
+
+
+#Class used by the notebooks to ingest binary files and create parquet files
+class Pdf2ParquetRuntime():
+    def __init__(self, **kwargs):
+        self.params={}
+        for key in kwargs:
+            self.params[key]=kwargs[key]
+        # if input_folder and output_folder are specified, then assume it is represent data_local_config
+        try:
+            local_conf={k:self.params[k] for k in ('input_folder', 'output_folder')}
+            self.params['data_local_config']= ParamsUtils.convert_to_ast(local_conf)
+            del self.params['input_folder']
+            del self.params['output_folder']
+        except:
+            pass        
+    
+    def transform(self):
+        sys.argv = ParamsUtils.dict_to_req(d=(self.params))
+        # create launcher
+        launcher = RayTransformLauncher(Pdf2ParquetRayTransformConfiguration())
+        # launch
+        return_code = launcher.launch()
+        return return_code
+
 
 
 if __name__ == "__main__":

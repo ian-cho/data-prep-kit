@@ -20,7 +20,7 @@ from data_processing.test_support.launch.transform_test import (
     AbstractTransformLauncherTest,
 )
 from docling_core.types.doc import DocItem, DoclingDocument, TextItem
-from pdf2parquet_transform_python import Pdf2ParquetPythonTransformConfiguration
+from dpk_pdf2parquet.transform_python import Pdf2ParquetPythonTransformConfiguration
 from pydantic import ValidationError
 
 

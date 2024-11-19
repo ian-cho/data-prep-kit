@@ -26,28 +26,17 @@ RUN  pip install data-processing-dist/${DPK_WHEEL_FILE_NAME}
 
 # END OF STEPS destined for a data-prep-kit base image 
 
-COPY --chown=dpk:root pyproject.toml pyproject.toml 
+COPY --chown=dpk:root dpk_pdf2parquet/ dpk_pdf2parquet/
 COPY --chown=dpk:root requirements.txt requirements.txt
-RUN pip install ${PIP_INSTALL_EXTRA_ARGS} --no-cache-dir -e .
+RUN pip install ${PIP_INSTALL_EXTRA_ARGS}-r requirements.txt
+
+# Set environment
+ENV PYTHONPATH /home/dpk
 
 # Download models
 RUN python -c 'from deepsearch_glm.utils.load_pretrained_models import load_pretrained_nlp_models; load_pretrained_nlp_models(verbose=True);'
 RUN python -c 'from docling.pipeline.standard_pdf_pipeline import StandardPdfPipeline; s=StandardPdfPipeline.download_models_hf(); print(f"Models cached in {s}")'
 
-# copy the main() entry point to the image
-COPY --chown=dpk:root src/pdf2parquet_transform.py ./
-COPY --chown=dpk:root src/pdf2parquet_transform_python.py ./
-
-# copy some of the samples in
-COPY --chown=dpk:root ./src/pdf2parquet_local.py local/
-
-
-# copy test
-COPY test/ test/
-COPY test-data/ test-data/
-
-# Set environment
-ENV PYTHONPATH /home/dpk
 
 # Parallelism
 ENV OMP_NUM_THREADS=2

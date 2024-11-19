@@ -86,7 +86,11 @@ web2parquet = { file = ["universal/web2parquet/requirements.txt"]}
 [tool.setuptools.packages.find]
 where = ["src"]
 
+# To include this, comment out the package.find section, 
+# uncomment the package-dir section and rerun the build 
+# while keeping the build folder from previous run
 #[tool.setuptools.package-dir]
+#dpk_html2parquet = "language/html2parquet/dpk_html2parquet"
 #dpk_web2parquet = "universal/web2parquet/dpk_web2parquet"
 
 [options]

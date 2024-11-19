@@ -17,7 +17,7 @@ from data_processing.data_access.data_access_local import DataAccessLocal
 from data_processing.test_support import get_files_in_folder
 from data_processing.test_support.transform import AbstractBinaryTransformTest
 from data_processing.utils import TransformUtils
-from pdf2parquet_transform import Pdf2ParquetTransform
+from dpk_pdf2parquet.transform import Pdf2ParquetTransform
 
 
 class TestPdf2ParquetTransform(AbstractBinaryTransformTest):

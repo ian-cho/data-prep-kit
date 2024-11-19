@@ -21,12 +21,9 @@ RUN \
 COPY --chown=ray:users data-processing-dist data-processing-dist
 RUN  pip install data-processing-dist/${DPK_WHEEL_FILE_NAME}[ray]
     
-## Copy the python version of the tansform    
-COPY --chown=ray:users python-transform/  python-transform/
-RUN cd python-transform && pip install ${PIP_INSTALL_EXTRA_ARGS} --no-cache-dir -e .
 
-
-COPY --chown=ray:users pyproject.toml pyproject.toml 
+## Copy the python version of the tansform
+COPY --chown=ray:users dpk_pdf2parquet/ dpk_pdf2parquet/
 COPY --chown=ray:users requirements.txt requirements.txt
 RUN pip install ${PIP_INSTALL_EXTRA_ARGS} --no-cache-dir -e .
 
@@ -35,16 +32,6 @@ RUN python -c 'from deepsearch_glm.utils.load_pretrained_models import load_pret
 # RUN python -c 'from docling.document_converter import DocumentConverter; from pathlib import Path; DocumentConverter.download_models_hf(local_dir=Path("./artifacts/"));'
 RUN python -c 'from docling.pipeline.standard_pdf_pipeline import StandardPdfPipeline; s=StandardPdfPipeline.download_models_hf(); print(f"Models cached in {s}")'
 
-
-# copy the main() entry point to the image
-COPY --chown=ray:users src/pdf2parquet_transform_ray.py ./
-
-# copy some of the samples in
-COPY --chown=ray:users ./src/pdf2parquet_local_ray.py local/
-
-# copy test
-COPY test/ test/
-COPY test-data/ test-data/
 
 # Set environment
 ENV PYTHONPATH /home/ray
