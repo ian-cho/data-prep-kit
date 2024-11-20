@@ -10,12 +10,15 @@
 # limitations under the License.
 ################################################################################
 
-import pyarrow as pa
+import sys
 from data_processing.utils import ParamsUtils, get_logger
-from data_processing_ray.runtime.ray import RayTransformLauncher
-from data_processing_ray.runtime.ray.runtime_configuration import (
-    RayTransformRuntimeConfiguration,
-)
+
+try:
+    from data_processing_ray.runtime.ray import RayTransformLauncher
+    from data_processing_ray.runtime.ray.runtime_configuration import  RayTransformRuntimeConfiguration
+except ImportError:
+    raise ImportError("Please install data_prep_toolkit[ray]")
+
 from dpk_pdf2parquet.transform import (
     Pdf2ParquetTransform,
     Pdf2ParquetTransformConfiguration,
@@ -59,6 +62,7 @@ class Pdf2ParquetRayTransformConfiguration(RayTransformRuntimeConfiguration):
 
 
 
+
 #Class used by the notebooks to ingest binary files and create parquet files
 class Pdf2ParquetRuntime():
     def __init__(self, **kwargs):
@@ -73,6 +77,14 @@ class Pdf2ParquetRuntime():
             del self.params['output_folder']
         except:
             pass        
+        try:
+            worker_options={k:self.params[k] for k in ('num_cpus', 'memory')}
+            self.params['runtime_worker_options']= ParamsUtils.convert_to_ast(worker_options)
+            del self.params['num_cpus']
+            del self.params['memory']
+        except:
+            pass
+
     
     def transform(self):
         sys.argv = ParamsUtils.dict_to_req(d=(self.params))

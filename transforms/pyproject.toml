@@ -90,6 +90,7 @@ where = ["src"]
 # uncomment the package-dir section and rerun the build 
 # while keeping the build folder from previous run
 #[tool.setuptools.package-dir]
+#dpk_pdf2parquet = "language/html2parquet/dpk_pdf2parquet"
 #dpk_html2parquet = "language/html2parquet/dpk_html2parquet"
 #dpk_web2parquet = "universal/web2parquet/dpk_web2parquet"
 

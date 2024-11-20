@@ -15,8 +15,11 @@ import os
 import sys
 
 from data_processing.utils import ParamsUtils
-from data_processing_ray.runtime.ray import RayTransformLauncher
-from dpk_pdf2parquet.ray.transform import Pdf2ParquetRayTransformConfiguration
+try:
+    from data_processing_ray.runtime.ray import RayTransformLauncher
+    from dpk_pdf2parquet.ray.transform import Pdf2ParquetRayTransformConfiguration
+except ImportError:
+    raise ImportError("Please install data_prep_toolkit[ray]")
 
 
 # create parameters
