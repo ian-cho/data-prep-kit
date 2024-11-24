@@ -25,7 +25,9 @@ RUN  pip install data-processing-dist/${DPK_WHEEL_FILE_NAME}[ray]
 ## Copy the python version of the tansform
 COPY --chown=ray:users dpk_pdf2parquet/ dpk_pdf2parquet/
 COPY --chown=ray:users requirements.txt requirements.txt
-RUN pip install ${PIP_INSTALL_EXTRA_ARGS} --no-cache-dir -e .
+RUN pip install ${PIP_INSTALL_EXTRA_ARGS} -r requirements.txt
+
+
 
 # Download models
 RUN python -c 'from deepsearch_glm.utils.load_pretrained_models import load_pretrained_nlp_models; load_pretrained_nlp_models(verbose=True);'
