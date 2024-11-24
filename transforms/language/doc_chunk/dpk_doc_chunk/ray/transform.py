@@ -10,21 +10,29 @@
 # limitations under the License.
 ################################################################################
 
-from data_processing.runtime.pure_python import PythonTransformLauncher
+from argparse import ArgumentParser, Namespace
+from typing import Any
+
+import pyarrow as pa
 from data_processing.runtime.pure_python.runtime_configuration import (
     PythonTransformRuntimeConfiguration,
 )
-from data_processing.utils import get_logger
-from doc_chunk_transform import DocChunkTransformConfiguration
+from data_processing.transform import AbstractTableTransform, TransformConfiguration
+from data_processing.utils import CLIArgumentProvider, get_logger
+from data_processing_ray.runtime.ray import RayTransformLauncher
+from data_processing_ray.runtime.ray.runtime_configuration import (
+    RayTransformRuntimeConfiguration,
+)
+from dpk_doc_chunk.transform import DocChunkTransformConfiguration
 
 
 logger = get_logger(__name__)
 
 
-class DocChunkPythonTransformConfiguration(PythonTransformRuntimeConfiguration):
+class DocChunkRayTransformConfiguration(RayTransformRuntimeConfiguration):
     """
-    Implements the PythonTransformConfiguration for DocChunk as required by the PythonTransformLauncher.
-    DocChunk does not use a RayRuntime class so the superclass only needs the base
+    Implements the RayTransformConfiguration for Doc Chunk as required by the RayTransformLauncher.
+    Doc Chunk does not use a RayRuntime class so the superclass only needs the base
     python-only configuration.
     """
 
@@ -37,7 +45,6 @@ class DocChunkPythonTransformConfiguration(PythonTransformRuntimeConfiguration):
 
 
 if __name__ == "__main__":
-    # launcher = DocChunkRayLauncher()
-    launcher = PythonTransformLauncher(DocChunkPythonTransformConfiguration())
-    logger.info("Launching DocChunk transform")
+    launcher = RayTransformLauncher(DocChunkRayTransformConfiguration())
+    logger.info("Launching doc_chunk transform")
     launcher.launch()
