@@ -17,7 +17,7 @@ from data_processing.runtime.pure_python.runtime_configuration import (
     PythonTransformRuntimeConfiguration,
 )
 from data_processing.utils import get_logger
-from text_encoder_transform import TextEncoderTransformConfiguration
+from dpk_text_encoder.transform import TextEncoderTransformConfiguration
 
 
 logger = get_logger(__name__)
