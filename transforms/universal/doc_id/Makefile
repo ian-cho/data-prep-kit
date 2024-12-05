@@ -15,8 +15,9 @@ TRANSFORM_NAME=$(shell basename `pwd`)
 
 
 
-run-cli-say-sample: 
-	$(MAKE) RUN_FILE="-m dpk_$(TRANSFORM_NAME).ray.transform" \
-                RUN_ARGS="--run_locally True --data_local_config \"{ 'input_folder' : '../test-data/input', 'output_folder' : '../output'}\"  \
-                --doc_id_int True "	\
-                .transforms.run-src-file
+run-cli-ray-sample: 
+	#make venv
+	source venv/bin/activate && \
+	$(PYTHON) -m dpk_$(TRANSFORM_NAME).ray.transform \
+                --run_locally True --data_local_config "{ 'input_folder' : '../test-data/input', 'output_folder' : '../output'}"  \
+                --doc_id_int True
