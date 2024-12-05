@@ -1,31 +1,41 @@
 # Document ID Python Annotator
 
-The Document ID transforms adds a document identification (unique integers and content hashes), which later can be 
-used in de-duplication operations, per the set of 
-[transform project conventions](../../README.md#transform-project-conventions)
-the following runtimes are available:
+Please see the set of [transform project conventions](../../../README.md) for details on general project conventions,
+transform configuration, testing and IDE set up.
 
-## Summary
+## Contributors
+- Boris Lublinsky (blublinsk@ibm.com)
 
-This transform annotates documents with document "ids".
-It supports the following transformations of the original data:
-* Adding document hash: this enables the addition of a document hash-based id to the data.
-  The hash is calculated with `hashlib.sha256(doc.encode("utf-8")).hexdigest()`.
-  To enable this annotation, set `hash_column` to the name of the column,
-  where you want to store it.
-* Adding integer document id: this allows the addition of an integer document id to the data that
-  is unique across all rows in all tables provided to the `transform()` method.
-  To enable this annotation, set `int_id_column` to the name of the column, where you want
-  to store it.
+## Description
 
-Document IDs are generally useful for tracking annotations to specific documents. Additionally
-[fuzzy deduping](../fdedup) relies on integer IDs to be present. If your dataset does not have
-document ID column(s), you can use this transform to create ones.
+This transform assigns unique identifiers to the documents in a dataset and supports the following annotations to the
+original data:
+* **Adding a Document Hash** to each document. The unique hash-based ID is generated using
+`hashlib.sha256(doc.encode("utf-8")).hexdigest()`. To store this hash in the data specify the desired column name using
+the `hash_column` parameter.
+* **Adding an Integer Document ID**: to each document. The integer ID is unique across all rows and tables processed by
+the `transform()` method. To store this ID in the data, specify the desired column name using the `int_id_column`
+parameter.
 
+Document IDs are essential for tracking annotations linked to specific documents. They are also required for processes
+like [fuzzy deduplication](../../fdedup/README.md), which depend on the presence of integer IDs. If your dataset lacks document ID
+columns, this transform can be used to generate them.
 
-## Configuration and command line Options
+## Input Columns Used by This Transform
 
-The set of dictionary keys defined in [DocIDTransform](src/doc_id_transform_ray.py)
+| Input Column Name                                                | Data Type | Description                      |
+|------------------------------------------------------------------|-----------|----------------------------------|
+| Column specified by the _contents_column_ configuration argument | str       | Column that stores document text |
+
+## Output Columns Annotated by This Transform
+| Output Column Name | Data Type | Description                                 |
+|--------------------|-----------|---------------------------------------------|
+| hash_column        | str       | Unique hash assigned to each document       |
+| int_id_column      | uint64    | Unique integer ID assigned to each document |
+
+## Configuration and Command Line Options
+
+The set of dictionary keys defined in [DocIDTransform](src/doc_id_transform_base.py)
 configuration for values are as follows:
 
 * _doc_column_ - specifies name of the column containing the document (required for ID generation)
@@ -35,7 +45,7 @@ configuration for values are as follows:
 
 At least one of _hash_column_ or _int_id_column_ must be specified.
 
-## Running
+## Usage
 
 ### Launched Command Line Options 
 When running the transform with the Ray launcher (i.e. TransformLauncher),
@@ -53,11 +63,113 @@ the following command line arguments are available in addition to
 ```
 These correspond to the configuration keys described above.
 
+### Running the samples
+To run the samples, use the following `make` targets
+
+* `run-cli-sample` - runs src/doc_id_transform_python.py using command line args
+* `run-local-sample` - runs src/doc_id_local_python.py
+
+These targets will activate the virtual environment and set up any configuration needed.
+Use the `-n` option of `make` to see the detail of what is done to run the sample.
+
+For example, 
+```shell
+make run-cli-sample
+...
+```
+Then 
+```shell
+ls output
+```
+To see results of the transform.
+
+### Code example
+
+[notebook](../doc_id.ipynb)
+
+### Transforming data using the transform image
 
 To use the transform image to transform your data, please refer to the 
 [running images quickstart](../../../../doc/quick-start/run-transform-image.md),
 substituting the name of this transform image and runtime as appropriate.
 
+## Testing
+
+Following [the testing strategy of data-processing-lib](../../../../data-processing-lib/doc/transform-testing.md)
+
+Currently we have:
+- [Unit test](test/test_doc_id_python.py)
+- [Integration test](test/test_doc_id.py)
+
+
+# Document ID Ray Annotator
+
+Please see the set of
+[transform project conventions](../../../README.md)
+for details on general project conventions, transform configuration,
+testing and IDE set up.
+
+## Ray Summary
+This project wraps the Document ID transform with a Ray runtime.
+
+## Configuration and command line Options
+
+Document ID configuration and command line options are the same as for the
+[base python transform](../python/README.md).
+
+## Building
+
+A [docker file](Dockerfile) that can be used for building docker image. You can use
+
+```shell
+make build 
+```
+
+## Driver options
+
+## Configuration and command line Options
+
+See [Python documentation](../python/README.md)
+
+## Running
+
+### Launched Command Line Options 
+When running the transform with the Ray launcher (i.e. TransformLauncher),
+the following [command line arguments](../python/README.md) are available in addition to 
+[the options provided by the ray launcher](../../../../data-processing-lib/doc/ray-launcher-options.md).
+
+To use the transform image to transform your data, please refer to the
+[running images quickstart](../../../../doc/quick-start/run-transform-image.md),
+substituting the name of this transform image and runtime as appropriate.
+
+# Document ID Spark Annotator
+
+## Summary 
+
+This transform assigns a unique integer ID to each row in a Spark DataFrame. It relies on the
+[monotonically_increasing_id](https://spark.apache.org/docs/3.1.3/api/python/reference/api/pyspark.sql.functions.monotonically_increasing_id.html)
+pyspark function to generate the unique integer IDs. As described in the documentation of this function:
+> The generated ID is guaranteed to be monotonically increasing and unique, but not consecutive. 
+
+## Configuration and command line Options
+
+Document ID configuration and command line options are the same as for the
+[base python transform](../python/README.md).
+
+## Running
+You can run the [doc_id_local.py](src/doc_id_local_spark.py) (spark-based implementation) to transform the
+`test1.parquet` file in [test input data](test-data/input) to an `output` directory.  The directory will contain both
+the new annotated `test1.parquet` file and the `metadata.json` file.
+
+### Launched Command Line Options 
+When running the transform with the Spark launcher (i.e. SparkTransformLauncher), the following command line arguments
+are available in addition to the options provided by the
+[python launcher](../../../../data-processing-lib/doc/python-launcher-options.md).
+
+```
+  --doc_id_column_name DOC_ID_COLUMN_NAME
+                        name of the column that holds the generated document ids
+```
 
 ### Running as spark-based application
 ```
@@ -87,4 +199,3 @@ The metadata generated by the Spark `doc_id` transform contains the following st
 To use the transform image to transform your data, please refer to the 
 [running images quickstart](../../../../doc/quick-start/run-transform-image.md),
 substituting the name of this transform image and runtime as appropriate.
-

@@ -15,8 +15,15 @@ TRANSFORM_NAME=$(shell basename `pwd`)
 
 
 
+run-cli-spark-sample: 
+	make venv
+	source venv/bin/activate && \
+	$(PYTHON) -m dpk_$(TRANSFORM_NAME).spark.transform \
+                --run_locally True --data_local_config "{ 'input_folder' : '../test-data/input', 'output_folder' : '../output'}"  \
+                --doc_id_int True
+
 run-cli-ray-sample: 
-	#make venv
+	make venv
 	source venv/bin/activate && \
 	$(PYTHON) -m dpk_$(TRANSFORM_NAME).ray.transform \
                 --run_locally True --data_local_config "{ 'input_folder' : '../test-data/input', 'output_folder' : '../output'}"  \
