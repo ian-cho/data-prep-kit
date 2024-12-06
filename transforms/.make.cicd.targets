@@ -83,7 +83,7 @@ test-image:: .default.build-lib-wheel
 			$(MAKE) DOCKER_FILE=Dockerfile.spark \
 					TRANSFORM_RUNTIME_SRC_FILE=$(TRANSFORM_SPARK_SRC) \
 					DOCKER_IMAGE_NAME=$(TRANSFORM_NAME)-spark \
-					BASE_IMAGE=$(DOCKER_HOSTNAME)/$(DOCKER_NAMESPACE)/$(DOCKER_SPARK_BASE_IMAGE)  \
+					BASE_IMAGE=$(SPARK_BASE_IMAGE)  \
 					test-image-sequence ; \
 		fi ;\
 	fi
@@ -120,7 +120,7 @@ image:: .default.build-lib-wheel
 		if [ -e Dockerfile.spark ]; then \
 			$(MAKE) DOCKER_FILE=Dockerfile.spark \
 					DOCKER_IMAGE_NAME=$(TRANSFORM_NAME)-spark \
-					BASE_IMAGE=$(DOCKER_HOSTNAME)/$(DOCKER_NAMESPACE)/$(DOCKER_SPARK_BASE_IMAGE)  \
+					BASE_IMAGE=$(SPARK_BASE_IMAGE)  \
 					.defaults.lib-whl-image ; \
 		fi ; \
 	fi
