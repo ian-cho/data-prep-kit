@@ -93,8 +93,8 @@ jobs:
         runs-on: ubuntu-22.04
         timeout-minutes: 120
         env:
-            DOCKER_REGISTRY_USER: ${{ secrets.DOCKER_REGISTRY_USER }}
-            DOCKER_REGISTRY_KEY: ${{ secrets.DOCKER_REGISTRY_KEY }}
+            DOCKER_REGISTRY_USER: ${{ secrets.DPK_DOCKER_REGISTRY_USER }}
+            DOCKER_REGISTRY_KEY: ${{ secrets.DPK_DOCKER_REGISTRY_KEY }}
         steps:
             - name: Checkout
               uses: actions/checkout@v4
@@ -114,7 +114,7 @@ jobs:
                       if [ -d "transforms/universal/doc_id/spark" ]; then
                           make -C data-processing-lib/spark DOCKER=docker image
                       fi
-                      make -C transforms/universal/doc_id DOCKER=docker DOCKER_REGISTRY_USER=${{ secrets.DOCKER_REGISTRY_USER }} DOCKER_REGISTRY_KEY=${{ secrets.DOCKER_REGISTRY_KEY }} test-image
+                      make -C transforms/universal/doc_id DOCKER=docker test-image
                   else
                       echo "transforms/universal/doc_id/Makefile not found - testing disabled for this transform."
                   fi
