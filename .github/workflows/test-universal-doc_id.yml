@@ -115,7 +115,7 @@ jobs:
                       if [ -d "transforms/universal/doc_id/spark" ]; then
                           make -C data-processing-lib/spark DOCKER=docker image
                       fi
-                      echo "DPK_TEST= $(DPK_TEST) 
+                      echo "DPK_TEST= $(DPK_TEST) ""
                       echo " $DPK_TEST "
                       echo " ${{ secrets.DPK_TEST }} "
                       make -C transforms/universal/doc_id DOCKER=docker test-image
