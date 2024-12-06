@@ -61,6 +61,7 @@ test-image-spark:
 	$(MAKE) BUILD_SPECIFIC_RUNTIME=spark test-image
 
 test-image:: .default.build-lib-wheel
+	$(DOCKER) login $(DOCKER_HOSTNAME) -u '$(DOCKER_REGISTRY_USER)' -p '$(DOCKER_REGISTRY_KEY)'
 	@if [ -z "$(BUILD_SPECIFIC_RUNTIME)" ] || [ "$(BUILD_SPECIFIC_RUNTIME)" == "python" ]; then \
 		if [ -e Dockerfile.python ]; then \
 			$(MAKE) DOCKER_FILE=Dockerfile.python \
@@ -101,6 +102,7 @@ image-spark:
 
 image:: .default.build-lib-wheel
 	## Build all possible images unless a specific runtime is specified
+	$(DOCKER) login $(DOCKER_HOSTNAME) -u '$(DOCKER_REGISTRY_USER)' -p '$(DOCKER_REGISTRY_KEY)'
 	@if [ -z "$(BUILD_SPECIFIC_RUNTIME)" ] || [ "$(BUILD_SPECIFIC_RUNTIME)" == "python" ]; then \
 		if [ -e Dockerfile.python ]; then \
 			$(MAKE) DOCKER_FILE=Dockerfile.python \
