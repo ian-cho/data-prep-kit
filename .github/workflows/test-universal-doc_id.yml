@@ -109,6 +109,9 @@ jobs:
                   sudo docker rmi $(docker image ls -aq) >/dev/null 2>&1 || true
                   df -h
             - name: Test transform image in transforms/universal/doc_id
+              env:
+                DOCKER_REGISTRY_USER: ${{ secrets.DPK_DOCKER_REGISTRY_USER }}
+                DOCKER_REGISTRY_KEY: ${{ secrets.DPK_DOCKER_REGISTRY_KEY }}
               run: |
                   if [ -e "transforms/universal/doc_id/Makefile" ]; then
                       if [ -d "transforms/universal/doc_id/spark" ]; then
