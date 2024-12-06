@@ -114,6 +114,7 @@ jobs:
                       if [ -d "transforms/universal/doc_id/spark" ]; then
                           make -C data-processing-lib/spark DOCKER=docker image
                       fi
+                      echo DOCKER_REGISTRY_USER="$DOCKER_REGISTRY_USER" - secret="${{ secrets.DPK_DOCKER_REGISTRY_USER }}"
                       make -C transforms/universal/doc_id DOCKER=docker test-image
                   else
                       echo "transforms/universal/doc_id/Makefile not found - testing disabled for this transform."
