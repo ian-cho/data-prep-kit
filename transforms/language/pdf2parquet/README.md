@@ -1,12 +1,12 @@
 # Pdf2Parquet Transform 
 
-The Pdf2Parquet transforms iterate through PDF, Docx, Pptx, Images files or zip of files and generates parquet files
+The Pdf2Parquet transform iterates through PDF, Docx, Pptx, Images files or zip of files and generates parquet files
 containing the converted document in Markdown or JSON format.
 
 The conversion is using the [Docling package](https://github.com/DS4SD/docling).
 
 Please see the set of
-[transform project conventions](../../../README.md#transform-project-conventions)
+[transform project conventions](../../README.md#transform-project-conventions)
 for details on general project conventions, transform configuration,
 testing and IDE set up.
 
@@ -86,84 +86,13 @@ Example
 
 ### Launched Command Line Options 
 
-When invoking the CLI, the parameters must be set as `--pdf2parquet_<name>`, e.g. `--pdf2parquet_do_ocr=true`.
+When invoking the CLI, the parameters must be set as `--pdf2parquet_<name>`, e.g., `--pdf2parquet_do_ocr=true`.
 
 
 ### Running the samples
-To run the samples, use the following `make` targets
+To run the samples, use the following `make` target
 
-* `run-cli-sample` - runs src/pdf2parquet_transform_python.py using command line args
-* `run-local-sample` - runs src/pdf2parquet_local.py
-* `run-local-python-sample` - runs src/pdf2parquet_local_python.py
-
-These targets will activate the virtual environment and set up any configuration needed.
-Use the `-n` option of `make` to see the detail of what is done to run the sample.
-
-For example, 
-```shell
-make run-local-python-sample
-...
-```
-Then 
-```shell
-ls output
-```
-To see results of the transform.
-
-
-### Code example
-
-TBD (link to the notebook will be provided)
-
-See the sample script [src/pdf2parquet_local_python.py](src/pdf2parquet_local_python.py).
-
-
-### Transforming data using the transform image
-
-To use the transform image to transform your data, please refer to the 
-[running images quickstart](../../../../doc/quick-start/run-transform-image.md),
-substituting the name of this transform image and runtime as appropriate.
-
-## Testing
-
-Following [the testing strategy of data-processing-lib](../../../../data-processing-lib/doc/transform-testing.md)
-
-Currently we have:
-- [Unit test](transforms/language/pdf2parquet/python/test/test_pdf2parquet_python.py)
-- [Integration test](transforms/language/pdf2parquet/python/test/test_pdf2parquet.py)
-
-
-
-
-# Pdf2parquet Ray Transform 
-
-This module implements the ray version of the [pdf2parquet transform](../python/).
-
-
-## Summary 
-This project wraps the [Ingest PDF to Parquet transform](../python) with a Ray runtime.
-
-
-## Configuration and command line Options
-
-Ingest PDF to Parquet configuration and command line options are the same as for the base python transform. 
-
-
-## Running
-
-### Launched Command Line Options 
-When running the transform with the Ray launcher (i.e. TransformLauncher),
-In addition to those available to the transform as defined in [here](../python/README.md),
-the set of 
-[ray launcher](../../../../data-processing-lib/doc/ray-launcher-options.md) are available.
-
-### Running the samples
-To run the samples, use the following `make` targets
-
-* `run-cli-sample` - runs src/pdf2parquet_transform_ray.py using command line args
-* `run-local-sample` - runs src/pdf2parquet_local_ray.py
-* `run-s3-sample` - runs src/pdf2parquet_s3_ray.py
-    * Requires prior invocation of `make minio-start` to load data into local minio for S3 access.
+* `run-cli-sample` - runs dpk_pdf2parquet/transform_python.py using command line args
 
 These targets will activate the virtual environment and set up any configuration needed.
 Use the `-n` option of `make` to see the detail of what is done to run the sample.
@@ -180,10 +109,45 @@ ls output
 To see results of the transform.
 
 
+### Code example
+
+See the [sample notebook](pdf2parquet.ipynb) for an example
+
 ### Transforming data using the transform image
 
 To use the transform image to transform your data, please refer to the 
-[running images quickstart](../../../../doc/quick-start/run-transform-image.md),
+[running images quickstart](../../../doc/quick-start/run-transform-image.md),
+substituting the name of this transform image and runtime as appropriate.
+
+## Testing
+
+Following [the testing strategy of data-processing-lib](../../../data-processing-lib/doc/transform-testing.md)
+
+Currently we have:
+- [Unit test](test/test_pdf2parquet_python.py)
+- [Integration test](test/test_pdf2parquet.py)
+
+# Pdf2parquet Ray Transform 
+
+This module implements the ray version of the [pdf2parquet transform](dpk_pdf2parquet/ray/).
+
+## Configuration and command line Options
+
+Ingest PDF to Parquet configuration and command line options are the same as for the base python transform. 
+
+
+## Running
+
+### Launched Command Line Options 
+When running the transform with the Ray launcher (i.e., TransformLauncher),
+in addition to those available to the transform for the Python version in this file,
+the set of 
+[ray launcher](../../../data-processing-lib/doc/ray-launcher-options.md) are available.
+
+### Transforming data using the transform image
+
+To use the transform image to transform your data, please refer to the 
+[running images quickstart](../../../doc/quick-start/run-transform-image.md),
 substituting the name of this transform image and runtime as appropriate.
 
 
