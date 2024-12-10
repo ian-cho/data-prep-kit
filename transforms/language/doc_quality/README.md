@@ -1,7 +1,7 @@
 # Document Quality Transform 
 
 Please see the set of
-[transform project conventions](../../../README.md#transform-project-conventions)
+[transform project conventions](../../README.md#transform-project-conventions)
 for details on general project conventions, transform configuration,
 testing and IDE set up.
 
@@ -41,7 +41,7 @@ You can see more detailed backgrounds of some columns in [Deepmind's Gopher pape
 
 ## Configuration
 
-The set of dictionary keys holding [DocQualityTransform](src/doc_quality_transform.py) 
+The set of dictionary keys holding [DocQualityTransform](dpk_doc_quality/transform.py) 
 configuration for values are as follows:
 
 * _text_lang_ - specifies language used in the text content. By default, "en" is used.
@@ -69,12 +69,11 @@ The following command line arguments are available
 These correspond to the configuration keys described above.
 
 ### Running the samples
-To run the samples, use the following `make` targets
+To run the samples, use the following `make` target
 
-* `run-cli-sample` - runs src/doc_quality_transform.py using command line args
-* `run-local-sample` - runs src/doc_quality_local.py
+* `run-cli-sample` - runs dpk_doc_quality/transform.py using command line args
 
-These targets will activate the virtual environment and set up any configuration needed.
+This target will activate the virtual environment and sets up any configuration needed.
 Use the `-n` option of `make` to see the detail of what is done to run the sample.
 
 For example, 
@@ -90,17 +89,17 @@ To see results of the transform.
 
 ### Code example
 
-[notebook](../doc_quality.ipynb)
+[notebook](./doc_quality.ipynb)
 
 ### Transforming data using the transform image
 
 To use the transform image to transform your data, please refer to the 
-[running images quickstart](../../../../doc/quick-start/run-transform-image.md),
+[running images quickstart](../../../doc/quick-start/run-transform-image.md),
 substituting the name of this transform image and runtime as appropriate.
 
 ## Testing
 
-Following [the testing strategy of data-processing-lib](../../../../data-processing-lib/doc/transform-testing.md)
+Following [the testing strategy of data-processing-lib](../../../data-processing-lib/doc/transform-testing.md)
 
 Currently we have:
 - [Unit test](test/test_doc_quality_python.py)
@@ -121,12 +120,12 @@ Currently we have:
 
 ### Troubleshooting guide
 
-For M1 Mac user, if you see following error during make command, `error: command '/usr/bin/clang' failed with exit code 1`, you may better follow [this step](https://freeman.vc/notes/installing-fasttext-on-an-m1-mac)
+For M1 Mac user, if you see following error during make command, `error: command '/usr/bin/clang' failed with exit code 1`, you should follow [this step](https://freeman.vc/notes/installing-fasttext-on-an-m1-mac)
 
 
 ## Document Quality Ray Transform 
 Please see the set of
-[transform project conventions](../../../README.md#transform-project-conventions)
+[transform project conventions](../../README.md#transform-project-conventions)
 for details on general project conventions, transform configuration,
 testing and IDE set up.
 
@@ -138,25 +137,22 @@ Document Quality configuration and command line options are the same as for the 
 ### Running
 
 #### Launched Command Line Options 
-When running the transform with the Ray launcher (i.e. TransformLauncher),
-In addition to those available to the transform as defined in [here](../python/README.md),
+When running the transform with the Ray launcher (i.e., TransformLauncher),
+In addition to those available to the transform as defined here,
 the set of 
-[ray launcher](../../../../data-processing-lib/doc/ray-launcher-options.md) are available.
+[ray launcher](../../../data-processing-lib/doc/ray-launcher-options.md) are available.
 
 #### Running the samples
-To run the samples, use the following `make` targets
+To run the samples, use the following `make` target
 
-* `run-cli-sample` - runs src/doc_quality_transform.py using command line args
-* `run-local-sample` - runs src/doc_quality_local_ray.py
-* `run-s3-sample` - runs src/doc_quality_s3_ray.py
-    * Requires prior invocation of `make minio-start` to load data into local minio for S3 access.
+* `run-ray-cli-sample` - runs dpk_doc_quality/ray/transform.py using command line args
 
-These targets will activate the virtual environment and set up any configuration needed.
+This target will activate the virtual environment and sets up any configuration needed.
 Use the `-n` option of `make` to see the detail of what is done to run the sample.
 
 For example, 
 ```shell
-make run-cli-sample
+make run-ray-cli-sample
 ...
 ```
 Then 
@@ -169,7 +165,7 @@ To see results of the transform.
 #### Transforming data using the transform image
 
 To use the transform image to transform your data, please refer to the 
-[running images quickstart](../../../../doc/quick-start/run-transform-image.md),
+[running images quickstart](../../../doc/quick-start/run-transform-image.md),
 substituting the name of this transform image and runtime as appropriate.
 
 
