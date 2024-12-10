@@ -18,15 +18,16 @@ TRANSFORM_NAME=$(shell basename `pwd`)
 run-cli-sample:
 	make venv
 	$(PYTHON) -m dpk_$(TRANSFORM_NAME).transform_python \
-                --data_local_config "{ 'input_folder' : '../test-data/input', 'output_folder' : '../output'}"  \
+                --data_local_config "{ 'input_folder' : 'test-data/input', 'output_folder' : 'output'}"  \
                 --lang_id_model_credential "ANY CREDENTIAL"	\
 				--lang_id_model_kind "fasttext"	\
 				--lang_id_model_url "facebook/fasttext-language-identification" \
 				--lang_id_content_column_name "text"
 
 run-cli-ray-sample: 
+	make venv
 	$(PYTHON) -m dpk_$(TRANSFORM_NAME).ray.transform \
-                --run_locally True --data_local_config "{ 'input_folder' : '../test-data/input', 'output_folder' : '../output'}"  \
+                --run_locally True --data_local_config "{ 'input_folder' : 'test-data/input', 'output_folder' : 'output'}"  \
                 --lang_id_model_credential "ANY CREDENTIAL"	\
 				--lang_id_model_kind "fasttext"	\
 				--lang_id_model_url "facebook/fasttext-language-identification" \
