@@ -63,25 +63,6 @@ the following command line arguments are available in addition to
 ```
 These correspond to the configuration keys described above.
 
-### Running the samples
-To run the samples, use the following `make` target
-
-* `run-cli-sample` - runs dpk_doc_id/transform_python.py using command line args
-
-This target will activate the virtual environment and sets up any configuration needed.
-Use the `-n` option of `make` to see the detail of what is done to run the sample.
-
-For example, 
-```shell
-make run-cli-sample
-...
-```
-Then 
-```shell
-ls output
-```
-To see results of the transform.
-
 ### Code example
 
 [notebook](doc_id.ipynb)
@@ -123,8 +104,6 @@ A [docker file](Dockerfile.ray) that can be used for building docker the ray ima
 ```shell
 make build 
 ```
-
-## Running
 
 ### Launched Command Line Options 
 When running the transform with the Ray launcher (i.e., RayTransformLauncher), in addition to Python 
