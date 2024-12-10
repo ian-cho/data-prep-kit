@@ -9,13 +9,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ################################################################################
+import sys
 import time
 
 from data_processing.runtime.pure_python import PythonTransformLauncher
 from data_processing.runtime.pure_python.runtime_configuration import (
     PythonTransformRuntimeConfiguration,
 )
-from data_processing.utils import get_logger
+from data_processing.utils import ParamsUtils, get_logger
 from dpk_hap.transform import HAPTransformConfiguration
 
 
@@ -52,7 +53,7 @@ class HAPRuntime:
     def transform(self):
         sys.argv = ParamsUtils.dict_to_req(d=(self.params))
         # create launcher
-        launcher = PythonTransformLauncher(Pdf2ParquetPythonTransformConfiguration())
+        launcher = PythonTransformLauncher(HAPPythonTransformConfiguration())
         # launch
         return_code = launcher.launch()
         return return_code
