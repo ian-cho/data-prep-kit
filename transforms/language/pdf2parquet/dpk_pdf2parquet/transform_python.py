@@ -9,7 +9,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ################################################################################
-
+import sys
 import time
 
 from data_processing.runtime.pure_python import PythonTransformLauncher
@@ -36,22 +36,21 @@ class Pdf2ParquetPythonTransformConfiguration(PythonTransformRuntimeConfiguratio
         super().__init__(transform_config=Pdf2ParquetTransformConfiguration())
 
 
-
-#Class used by the notebooks to ingest binary files and create parquet files
-class Pdf2ParquetRuntime():
+# Class used by the notebooks to ingest binary files and create parquet files
+class Pdf2ParquetRuntime:
     def __init__(self, **kwargs):
-        self.params={}
+        self.params = {}
         for key in kwargs:
-            self.params[key]=kwargs[key]
+            self.params[key] = kwargs[key]
         # if input_folder and output_folder are specified, then assume it is represent data_local_config
         try:
-            local_conf={k:self.params[k] for k in ('input_folder', 'output_folder')}
-            self.params['data_local_config']= ParamsUtils.convert_to_ast(local_conf)
-            del self.params['input_folder']
-            del self.params['output_folder']
+            local_conf = {k: self.params[k] for k in ("input_folder", "output_folder")}
+            self.params["data_local_config"] = ParamsUtils.convert_to_ast(local_conf)
+            del self.params["input_folder"]
+            del self.params["output_folder"]
         except:
-            pass        
-    
+            pass
+
     def transform(self):
         sys.argv = ParamsUtils.dict_to_req(d=(self.params))
         # create launcher
