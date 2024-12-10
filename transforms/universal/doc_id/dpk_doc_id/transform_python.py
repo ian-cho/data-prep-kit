@@ -70,7 +70,7 @@ class DocIDTransformConfiguration(DocIDTransformConfigurationBase):
         return super().apply_input_params(args=args)
 
 
-class DocIDRuntime(DefaultPythonTransformRuntime):
+class DocIDPythonRuntime(DefaultPythonTransformRuntime):
     """
     Exact dedup runtime support
     """
@@ -110,7 +110,7 @@ class DocIDPythonTransformRuntimeConfiguration(PythonTransformRuntimeConfigurati
     def __init__(self):
         super().__init__(
             transform_config=DocIDTransformConfiguration(),
-            runtime_class=DocIDRuntime,
+            runtime_class=DocIDPythonRuntime,
         )
 
 
