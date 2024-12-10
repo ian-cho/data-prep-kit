@@ -10,26 +10,55 @@
 # limitations under the License.
 ################################################################################
 import time
+
 from data_processing.runtime.pure_python import PythonTransformLauncher
 from data_processing.runtime.pure_python.runtime_configuration import (
     PythonTransformRuntimeConfiguration,
 )
 from data_processing.utils import get_logger
-from hap_transform import HAPTransformConfiguration
+from dpk_hap.transform import HAPTransformConfiguration
+
+
 logger = get_logger(__name__)
+
 
 class HAPPythonTransformConfiguration(PythonTransformRuntimeConfiguration):
     """
     Implements the PythonTransformConfiguration for HAP as required by the PythonTransformLauncher.
     """
+
     def __init__(self):
         """
         Initialization
         :param base_configuration - base configuration class
         """
         super().__init__(transform_config=HAPTransformConfiguration())
-        
+
+
+class HAPRuntime:
+    def __init__(self, **kwargs):
+        self.params = {}
+        for key in kwargs:
+            self.params[key] = kwargs[key]
+        # if input_folder and output_folder are specified, then assume it is represent data_local_config
+        try:
+            local_conf = {k: self.params[k] for k in ("input_folder", "output_folder")}
+            self.params["data_local_config"] = ParamsUtils.convert_to_ast(local_conf)
+            del self.params["input_folder"]
+            del self.params["output_folder"]
+        except:
+            pass
+
+    def transform(self):
+        sys.argv = ParamsUtils.dict_to_req(d=(self.params))
+        # create launcher
+        launcher = PythonTransformLauncher(Pdf2ParquetPythonTransformConfiguration())
+        # launch
+        return_code = launcher.launch()
+        return return_code
+
+
 if __name__ == "__main__":
     launcher = PythonTransformLauncher(HAPPythonTransformConfiguration())
     logger.info("Launching HAP transform")
-    launcher.launch()    
+    launcher.launch()
