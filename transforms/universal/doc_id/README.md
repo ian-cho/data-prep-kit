@@ -1,6 +1,6 @@
 # Document ID Python Annotator
 
-Please see the set of [transform project conventions](../../../README.md) for details on general project conventions,
+Please see the set of [transform project conventions](../../README.md#transform-project-conventions) for details on general project conventions,
 transform configuration, testing and IDE set up.
 
 ## Contributors
@@ -18,7 +18,7 @@ the `transform()` method. To store this ID in the data, specify the desired colu
 parameter.
 
 Document IDs are essential for tracking annotations linked to specific documents. They are also required for processes
-like [fuzzy deduplication](../../fdedup/README.md), which depend on the presence of integer IDs. If your dataset lacks document ID
+like [fuzzy deduplication](../fdedup/README.md), which depend on the presence of integer IDs. If your dataset lacks document ID
 columns, this transform can be used to generate them.
 
 ## Input Columns Used by This Transform
@@ -35,7 +35,7 @@ columns, this transform can be used to generate them.
 
 ## Configuration and Command Line Options
 
-The set of dictionary keys defined in [DocIDTransform](src/doc_id_transform_base.py)
+The set of dictionary keys defined in [DocIDTransform](dpk_doc_id/transform.py)
 configuration for values are as follows:
 
 * _doc_column_ - specifies name of the column containing the document (required for ID generation)
@@ -50,7 +50,7 @@ At least one of _hash_column_ or _int_id_column_ must be specified.
 ### Launched Command Line Options 
 When running the transform with the Ray launcher (i.e. TransformLauncher),
 the following command line arguments are available in addition to 
-[the options provided by the ray launcher](../../../../data-processing-lib/doc/ray-launcher-options.md).
+[the options provided by the ray launcher](../../../data-processing-lib/doc/ray-launcher-options.md).
 ```
   --doc_id_doc_column DOC_ID_DOC_COLUMN
                         doc column name
@@ -64,12 +64,11 @@ the following command line arguments are available in addition to
 These correspond to the configuration keys described above.
 
 ### Running the samples
-To run the samples, use the following `make` targets
+To run the samples, use the following `make` target
 
-* `run-cli-sample` - runs src/doc_id_transform_python.py using command line args
-* `run-local-sample` - runs src/doc_id_local_python.py
+* `run-cli-sample` - runs dpk_doc_id/transform_python.py using command line args
 
-These targets will activate the virtual environment and set up any configuration needed.
+This target will activate the virtual environment and sets up any configuration needed.
 Use the `-n` option of `make` to see the detail of what is done to run the sample.
 
 For example, 
@@ -85,17 +84,17 @@ To see results of the transform.
 
 ### Code example
 
-[notebook](../doc_id.ipynb)
+[notebook](doc_id.ipynb)
 
 ### Transforming data using the transform image
 
 To use the transform image to transform your data, please refer to the 
-[running images quickstart](../../../../doc/quick-start/run-transform-image.md),
+[running images quickstart](../../../doc/quick-start/run-transform-image.md),
 substituting the name of this transform image and runtime as appropriate.
 
 ## Testing
 
-Following [the testing strategy of data-processing-lib](../../../../data-processing-lib/doc/transform-testing.md)
+Following [the testing strategy of data-processing-lib](../../../data-processing-lib/doc/transform-testing.md)
 
 Currently we have:
 - [Unit test](test/test_doc_id_python.py)
@@ -105,7 +104,7 @@ Currently we have:
 # Document ID Ray Annotator
 
 Please see the set of
-[transform project conventions](../../../README.md)
+[transform project conventions](../../README.md#transform-project-conventions)
 for details on general project conventions, transform configuration,
 testing and IDE set up.
 
@@ -115,31 +114,25 @@ This project wraps the Document ID transform with a Ray runtime.
 ## Configuration and command line Options
 
 Document ID configuration and command line options are the same as for the
-[base python transform](../python/README.md).
+base python transform.
 
 ## Building
 
-A [docker file](Dockerfile) that can be used for building docker image. You can use
+A [docker file](Dockerfile.ray) that can be used for building docker the ray image. You can use
 
 ```shell
 make build 
 ```
 
-## Driver options
-
-## Configuration and command line Options
-
-See [Python documentation](../python/README.md)
-
 ## Running
 
 ### Launched Command Line Options 
-When running the transform with the Ray launcher (i.e. TransformLauncher),
-the following [command line arguments](../python/README.md) are available in addition to 
-[the options provided by the ray launcher](../../../../data-processing-lib/doc/ray-launcher-options.md).
+When running the transform with the Ray launcher (i.e., RayTransformLauncher), in addition to Python 
+command line options, 
+[there are options provided by the ray launcher](../../../data-processing-lib/doc/ray-launcher-options.md).
 
 To use the transform image to transform your data, please refer to the
-[running images quickstart](../../../../doc/quick-start/run-transform-image.md),
+[running images quickstart](../../../doc/quick-start/run-transform-image.md),
 substituting the name of this transform image and runtime as appropriate.
 
 # Document ID Spark Annotator
@@ -147,24 +140,24 @@ substituting the name of this transform image and runtime as appropriate.
 ## Summary 
 
 This transform assigns a unique integer ID to each row in a Spark DataFrame. It relies on the
-[monotonically_increasing_id](https://spark.apache.org/docs/3.1.3/api/python/reference/api/pyspark.sql.functions.monotonically_increasing_id.html)
+[monotonically_increasing_id](https://spark.apache.org/docs/latest/api/python/reference/pyspark.sql/api/pyspark.sql.functions.monotonically_increasing_id.html)
 pyspark function to generate the unique integer IDs. As described in the documentation of this function:
 > The generated ID is guaranteed to be monotonically increasing and unique, but not consecutive. 
 
 ## Configuration and command line Options
 
 Document ID configuration and command line options are the same as for the
-[base python transform](../python/README.md).
+base python transform.
 
 ## Running
-You can run the [doc_id_local.py](src/doc_id_local_spark.py) (spark-based implementation) to transform the
+You can run the [doc_id_local.py](dpk_doc_id/local.py) (spark-based implementation) to transform the
 `test1.parquet` file in [test input data](test-data/input) to an `output` directory.  The directory will contain both
 the new annotated `test1.parquet` file and the `metadata.json` file.
 
 ### Launched Command Line Options 
-When running the transform with the Spark launcher (i.e. SparkTransformLauncher), the following command line arguments
+When running the transform with the Spark launcher (i.e., SparkTransformLauncher), the following command line arguments
 are available in addition to the options provided by the
-[python launcher](../../../../data-processing-lib/doc/python-launcher-options.md).
+[python launcher](../../../data-processing-lib/doc/python-launcher-options.md).
 
 ```
   --doc_id_column_name DOC_ID_COLUMN_NAME
@@ -197,5 +190,5 @@ The metadata generated by the Spark `doc_id` transform contains the following st
 ### Transforming data using the transform image
 
 To use the transform image to transform your data, please refer to the 
-[running images quickstart](../../../../doc/quick-start/run-transform-image.md),
+[running images quickstart](../../../doc/quick-start/run-transform-image.md),
 substituting the name of this transform image and runtime as appropriate.
