@@ -102,8 +102,6 @@ This project wraps the doc_chunck transform python implementation with a Ray run
 
 chunk documents configuration and command line options are the same as for the base python transform. 
 
-## Running
-
 ### Launched Command Line Options 
 In addition to those available to the transform as defined above,
 the set of 
