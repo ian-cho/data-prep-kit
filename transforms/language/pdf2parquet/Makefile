@@ -26,8 +26,8 @@ ifeq ($(OS),Linux)
 endif
 
 run-cli-sample:
-	$(MAKE) RUN_FILE=-"m dpk_$(TRANSFORM_NAME).transform_python" \
-            RUN_ARGS=" --data_local_config \"{ 'input_folder' : '../test-data/input', 'output_folder' : '../output'}\"  \
-				--data_files_to_use \"['.pdf','.zip']\" " \
-            .transforms.run-src-file
+	make venv
+	$(PYTHON) -m dpk_$(TRANSFORM_NAME).transform_python \
+             --data_local_config "{ 'input_folder' : 'test-data/input', 'output_folder' : 'output'}"  \
+				--data_files_to_use "['.pdf','.zip']"
 
