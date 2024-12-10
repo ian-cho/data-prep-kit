@@ -1,7 +1,7 @@
 # Chunk documents Transform 
 
 Please see the set of
-[transform project conventions](../../../README.md#transform-project-conventions)
+[transform project conventions](../../README.md#transform-project-conventions)
 for details on general project conventions, transform configuration,
 testing and IDE set up.
 
@@ -15,7 +15,7 @@ This transform is chunking documents. It supports multiple _chunker modules_ (se
 
 When using documents converted to JSON, the transform leverages the [Docling Core](https://github.com/DS4SD/docling-core) `HierarchicalChunker`
 to chunk according to the document layout segmentation, i.e. respecting the original document components as paragraphs, tables, enumerations, etc.
-It relies on documents converted with the Docling library in the [pdf2parquet transform](../../pdf2parquet/python/README.md) using the option `contents_type: "application/json"`,
+It relies on documents converted with the Docling library in the [pdf2parquet transform](../pdf2parquet/README.md) using the option `contents_type: "application/json"`,
 which provides the required JSON structure.
 
 When using documents converted to Markdown, the transform leverages the [Llama Index](https://docs.llamaindex.ai/en/stable/module_guides/loading/node_parsers/modules/#markdownnodeparser) `MarkdownNodeParser`, which is relying on its internal Markdown splitting logic.
@@ -65,43 +65,19 @@ The transform can be tuned with the following parameters.
 
 When invoking the CLI, the parameters must be set as `--doc_chunk_<name>`, e.g. `--doc_chunk_column_name_key=myoutput`.
 
-
-### Running the samples
-To run the samples, use the following `make` targets
-
-* `run-cli-sample` - runs src/doc_chunk_transform.py using command line args
-* `run-local-sample` - runs src/doc_chunk_local.py
-
-These targets will activate the virtual environment and set up any configuration needed.
-Use the `-n` option of `make` to see the detail of what is done to run the sample.
-
-For example, 
-```shell
-make run-cli-sample
-...
-```
-Then 
-```shell
-ls output
-```
-To see results of the transform.
-
 ### Code example
 
-TBD (link to the notebook will be provided)
-
-See the sample script [src/doc_chunk_local_python.py](src/doc_chunk_local_python.py).
-
+See a sample [notebook](doc_chunk.ipynb)
 
 ### Transforming data using the transform image
 
 To use the transform image to transform your data, please refer to the 
-[running images quickstart](../../../../doc/quick-start/run-transform-image.md),
+[running images quickstart](../../../doc/quick-start/run-transform-image.md),
 substituting the name of this transform image and runtime as appropriate.
 
 ## Testing
 
-Following [the testing strategy of data-processing-lib](../../../../data-processing-lib/doc/transform-testing.md)
+Following [the testing strategy of data-processing-lib](../../../data-processing-lib/doc/transform-testing.md)
 
 Currently we have:
 - [Unit test](test/test_doc_chunk_python.py)
@@ -131,34 +107,10 @@ chunk documents configuration and command line options are the same as for the b
 ### Launched Command Line Options 
 In addition to those available to the transform as defined above,
 the set of 
-[ray launcher](../../../../data-processing-lib/doc/ray-launcher-options.md) are available.
-
-### Running the samples
-To run the samples, use the following `make` targets
-
-* `run-cli-sample` - runs src/doc_chunk_transform.py using command line args
-* `run-local-sample` - runs src/doc_chunk_local_ray.py
-* `run-s3-sample` - runs src/doc_chunk_s3_ray.py
-    * Requires prior installation of minio, depending on your platform (e.g., from [here](https://min.io/docs/minio/macos/index.html)
-     and [here](https://min.io/docs/minio/linux/index.html) 
-     and invocation of `make minio-start` to load data into local minio for S3 access.
-
-These targets will activate the virtual environment and set up any configuration needed.
-Use the `-n` option of `make` to see the detail of what is done to run the sample.
-
-For example, 
-```shell
-make run-cli-sample
-...
-```
-Then 
-```shell
-ls output
-```
-To see results of the transform.
+[ray launcher](../../../data-processing-lib/doc/ray-launcher-options.md) are available.
 
 ### Transforming data using the transform image
 
 To use the transform image to transform your data, please refer to the 
-[running images quickstart](../../../../doc/quick-start/run-transform-image.md),
+[running images quickstart](../../../doc/quick-start/run-transform-image.md),
 substituting the name of this transform image and runtime as appropriate.
