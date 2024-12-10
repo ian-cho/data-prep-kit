@@ -192,8 +192,8 @@ Chicago |
 Run the transform with the following command:
 
 ```
-python ../html2parquet/python/src/html2parquet_transform_python.py \
-  --data_local_config "{'input_folder': '../html2parquet/python/test-data/input', 'output_folder': '../html2parquet/python/test-data/expected'}" \
+python ./dpk_html2parquet/transform_python.py \
+  --data_local_config "{'input_folder': './test-data/input', 'output_folder': './test-data/expected'}" \
   --data_files_to_use '[".html", ".zip"]'
 ```
 
@@ -202,7 +202,7 @@ python ../html2parquet/python/src/html2parquet_transform_python.py \
 
 ### Sample Notebook
 
-See the [sample notebook](../notebooks/html2parquet.ipynb)
+See the [sample notebook](./notebooks/html2parquet.ipynb)
 ) for an example.
 
 
@@ -211,7 +211,7 @@ See the [sample notebook](../notebooks/html2parquet.ipynb)
 - [Trafilatura](https://trafilatura.readthedocs.io/en/latest/usage-python.html).
 # html2parquet Ray Transform 
 
-This module implements the ray version of the [html2parquet transform](https://github.com/IBM/data-prep-kit/blob/dev/transforms/language/html2parquet/python/README.md).
+This module implements the ray version of the [html2parquet transform](./dpk_html2parquet/ray/).
 
 The HTML conversion is using the [Trafilatura](https://trafilatura.readthedocs.io/en/latest/usage-python.html).
 
