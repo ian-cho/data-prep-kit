@@ -1,27 +1,14 @@
 # Language Identification Transform 
 The Language Identification transforms serves as a simple exemplar to demonstrate the development
-of a simple 1:1 transform.  Per the set of 
-[transform project conventions](../../README.md#transform-project-conventions)
-the following runtimes are available:
-
-* [python](python/README.md) - provides the base python-based transformation 
-implementation.
-* [ray](ray/README.md) - enables the running of the base python transformation
-in a Ray runtime
-* [kfp](kfp_ray/README.md) - enables running the ray docker image 
-in a kubernetes cluster using a generated `yaml` file.
-# Language Identification Transform 
-Please see the set of
-[transform project conventions](../../../README.md#transform-project-conventions)
-for details on general project conventions, transform configuration,
-testing and IDE set up.
+of a simple 1:1 transform.  
+Please see the set of [transform project conventions](../../README.md#transform-project-conventions) for details on general project conventions, transform configuration, testing and IDE set up.
 
 ## Summary 
 This transform will identify language of each text with confidence score with fasttext language identification model. [ref](https://huggingface.co/facebook/fasttext-language-identification)
 
 ## Configuration and command line Options
 
-The set of dictionary keys holding [LangIdentificationTransform](src/lang_id_transform.py) 
+The set of dictionary keys holding [LangIdentificationTransform](dpk_lang_id/transform.py) 
 configuration for values are as follows:
 
 | Key name  | Default  | Description |
@@ -38,7 +25,7 @@ configuration for values are as follows:
 ### Launched Command Line Options 
 The following command line arguments are available in addition to 
 the options provided by 
-the [python launcher](../../../../data-processing-lib/doc/python-launcher-options.md).
+the [python launcher options](../../../data-processing-lib/doc/python-launcher-options.md).
 ```
   --lang_id_model_credential LANG_ID_MODEL_CREDENTIAL   the credential you use to get model. This will be huggingface token.
   --lang_id_model_kind LANG_ID_MODEL_KIND   what kind of model you want to use for language identification. Currently, only `fasttext` is available.
@@ -49,83 +36,40 @@ the [python launcher](../../../../data-processing-lib/doc/python-launcher-option
 ```
 These correspond to the configuration keys described above.
 
-### Running the samples
-To run the samples, use the following `make` targets
-
-* `run-cli-sample` - runs src/lang_id_transform.py using command line args
-* `run-local-sample` - runs src/lang_id_local.py
-
-These targets will activate the virtual environment and set up any configuration needed.
-Use the `-n` option of `make` to see the detail of what is done to run the sample.
-
-For example, 
-```shell
-make run-cli-sample
-...
-```
-Then 
-```shell
-ls output
-```
-To see results of the transform.
+### Code example
+Here is a sample [notebook](lang_id_python.ipynb)
 
 ## Troubleshooting guide
 
-For M1 Mac user, if you see following error during make command, `error: command '/usr/bin/clang' failed with exit code 1`, you may better follow [this step](https://freeman.vc/notes/installing-fasttext-on-an-m1-mac)
+For M1 Mac user, if you see following error during make command, `error: command '/usr/bin/clang' failed with exit code 1`, you should follow [this step](https://freeman.vc/notes/installing-fasttext-on-an-m1-mac)
 
 
 ### Transforming data using the transform image
 
 To use the transform image to transform your data, please refer to the 
-[running images quickstart](../../../../doc/quick-start/run-transform-image.md),
+[running images quickstart](../../../doc/quick-start/run-transform-image.md),
 substituting the name of this transform image and runtime as appropriate.
+
 # Language Identification Ray Transform 
 Please see the set of
-[transform project conventions](../../../README.md#transform-project-conventions)
+[transform project conventions](../../README.md#transform-project-conventions)
 for details on general project conventions, transform configuration,
 testing and IDE set up.
 
 ## Summary 
-This project wraps the [language identification transform](../python) with a Ray runtime.
+This project wraps the language identification transform with a Ray runtime.
 
 ## Configuration and command line Options
 
 Language Identification configuration and command line options are the same as for the base python transform. 
 
-## Running
-
 ### Launched Command Line Options 
-When running the transform with the Ray launcher (i.e. TransformLauncher),
-In addition to those available to the transform as defined in [here](../python/README.md),
+In addition to those available to the transform as defined here,
 the set of 
-[ray launcher](../../../../data-processing-lib/doc/ray-launcher-options.md) are available.
-
-### Running the samples
-To run the samples, use the following `make` targets
-
-* `run-cli-sample` - runs src/lang_id_transform.py using command line args
-* `run-local-sample` - runs src/lang_id_local_ray.py
-* `run-s3-sample` - runs src/lang_id_s3_ray.py
-    * Requires prior installation of minio, depending on your platform (e.g., from [here](https://min.io/docs/minio/macos/index.html)
-     and [here](https://min.io/docs/minio/linux/index.html) 
-     and invocation of `make minio-start` to load data into local minio for S3 access.
-
-These targets will activate the virtual environment and set up any configuration needed.
-Use the `-n` option of `make` to see the detail of what is done to run the sample.
-
-For example, 
-```shell
-make run-cli-sample
-...
-```
-Then 
-```shell
-ls output
-```
-To see results of the transform.
+[ray launcher options](../../../data-processing-lib/doc/ray-launcher-options.md) are available.
 
 ### Transforming data using the transform image
 
 To use the transform image to transform your data, please refer to the 
-[running images quickstart](../../../../doc/quick-start/run-transform-image.md),
+[running images quickstart](../../../doc/quick-start/run-transform-image.md),
 substituting the name of this transform image and runtime as appropriate.
