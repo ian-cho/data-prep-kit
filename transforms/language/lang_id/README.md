@@ -37,7 +37,7 @@ the [python launcher options](../../../data-processing-lib/doc/python-launcher-o
 These correspond to the configuration keys described above.
 
 ### Code example
-Here is a sample [notebook](lang_id_python.ipynb)
+Here is a sample [notebook](lang_id.ipynb)
 
 ## Troubleshooting guide
 
