@@ -18,7 +18,7 @@ from workflow_support.compile_utils import ONE_HOUR_SEC, ONE_WEEK_SEC, Component
 
 
 # the name of the job script
-EXEC_SCRIPT_NAME: str = "-m tokenization.ray.transform"
+EXEC_SCRIPT_NAME: str = "-m dpk_tokenization.ray.transform"
 
 task_image = "quay.io/dataprep1/data-prep-kit/tokenization-ray:latest"
 
