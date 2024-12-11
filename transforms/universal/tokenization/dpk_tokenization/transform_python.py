@@ -10,16 +10,42 @@
 # limitations under the License.
 ################################################################################
 
+import sys
+
 from data_processing.runtime.pure_python import (
     PythonTransformLauncher,
     PythonTransformRuntimeConfiguration,
 )
+from data_processing.utils import ParamsUtils
 from dpk_tokenization.transform import TokenizationTransformConfiguration
 
 
 class TokenizationPythonConfiguration(PythonTransformRuntimeConfiguration):
     def __init__(self):
         super().__init__(transform_config=TokenizationTransformConfiguration())
+
+
+class TokenizationRuntime:
+    def __init__(self, **kwargs):
+        self.params = {}
+        for key in kwargs:
+            self.params[key] = kwargs[key]
+        # if input_folder and output_folder are specified, then assume it is represent data_local_config
+        try:
+            local_conf = {k: self.params[k] for k in ("input_folder", "output_folder")}
+            self.params["data_local_config"] = ParamsUtils.convert_to_ast(local_conf)
+            del self.params["input_folder"]
+            del self.params["output_folder"]
+        except:
+            pass
+
+    def transform(self):
+        sys.argv = ParamsUtils.dict_to_req(d=(self.params))
+        # create launcher
+        launcher = PythonTransformLauncher(TokenizationPythonConfiguration())
+        # launch
+        return_code = launcher.launch()
+        return return_code
 
 
 if __name__ == "__main__":
