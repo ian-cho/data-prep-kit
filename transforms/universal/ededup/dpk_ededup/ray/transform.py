@@ -24,14 +24,14 @@ from data_processing_ray.runtime.ray import (
 from data_processing_ray.runtime.ray.runtime_configuration import (
     RayTransformRuntimeConfiguration,
 )
-from ededup_transform_base import (
+from dpk_ededup.transform_base import (
     EdedupTransformBase,
     EdedupTransformConfigurationBase,
     HashFilter,
     cli_prefix,
+    use_snapshot_key,
 )
 from ray.actor import ActorHandle
-from ededup_transform_base import use_snapshot_key
 
 
 hash_cpu_key = "hash_cpu"

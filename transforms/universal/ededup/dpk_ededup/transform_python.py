@@ -19,12 +19,13 @@ from data_processing.runtime.pure_python import (
     PythonTransformRuntimeConfiguration,
 )
 from data_processing.transform import TransformStatistics
-from ededup_transform_base import (
+from dpk_ededup.transform_base import (
     EdedupTransformBase,
     EdedupTransformConfigurationBase,
     HashFilter,
+    snapshot_directory_key,
+    use_snapshot_key,
 )
-from ededup_transform_base import use_snapshot_key, snapshot_directory_key
 
 
 class EdedupTransform(EdedupTransformBase):
@@ -61,11 +62,10 @@ class EdedupRuntime(DefaultPythonTransformRuntime):
 
     def __init__(self, params: dict[str, Any]):
         from data_processing.utils import get_logger
+
         super().__init__(params=params)
         self.filter = None
         self.logger = get_logger(__name__)
-
-
 
     def get_transform_config(
         self, data_access_factory: DataAccessFactoryBase, statistics: TransformStatistics, files: list[str]
