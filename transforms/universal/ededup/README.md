@@ -37,7 +37,7 @@ This transform does not perform any annotations; it only filters out the documen
 
 ## Configuration
 
-The set of dictionary keys holding [EdedupTransform](dpk_ededup/transform_python.py)
+The set of dictionary keys holding [EdedupTransform](dpk_ededup/transform_base.py)
 configuration for values (common for Python and Ray) are as follows:
 
 * _doc_column_ - specifies name of the column containing documents
