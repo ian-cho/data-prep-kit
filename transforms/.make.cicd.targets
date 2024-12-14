@@ -65,7 +65,7 @@ test-image:: .default.build-lib-wheel
 		if [ -e Dockerfile.python ]; then \
 			$(MAKE) DOCKER_FILE=Dockerfile.python \
 					TRANSFORM_RUNTIME_SRC_FILE=$(TRANSFORM_PYTHON_SRC) \
-					DOCKER_IMAGE_NAME=dpk_$(TRANSFORM_NAME)-python \
+					DOCKER_IMAGE_NAME=$(TRANSFORM_NAME)-python \
 					test-image-sequence ; \
 		fi ;\
 	fi
@@ -73,7 +73,7 @@ test-image:: .default.build-lib-wheel
 		if [ -e Dockerfile.ray ]; then \
 			$(MAKE) DOCKER_FILE=Dockerfile.ray \
 					TRANSFORM_RUNTIME_SRC_FILE=$(TRANSFORM_RAY_SRC) \
-					DOCKER_IMAGE_NAME=dpk_$(TRANSFORM_NAME)-ray \
+					DOCKER_IMAGE_NAME=$(TRANSFORM_NAME)-ray \
 					BASE_IMAGE=$(RAY_BASE_IMAGE)  \
 					test-image-sequence ; \
 		fi ;\
@@ -82,7 +82,7 @@ test-image:: .default.build-lib-wheel
 		if [ -e Dockerfile.spark ]; then \
 			$(MAKE) DOCKER_FILE=Dockerfile.spark \
 					TRANSFORM_RUNTIME_SRC_FILE=$(TRANSFORM_SPARK_SRC) \
-					DOCKER_IMAGE_NAME=dpk_$(TRANSFORM_NAME)-spark \
+					DOCKER_IMAGE_NAME=$(TRANSFORM_NAME)-spark \
 					BASE_IMAGE=$(SPARK_BASE_IMAGE)  \
 					test-image-sequence ; \
 		fi ;\
@@ -104,14 +104,14 @@ image:: .default.build-lib-wheel
 	@if [ -z "$(BUILD_SPECIFIC_RUNTIME)" ] || [ "$(BUILD_SPECIFIC_RUNTIME)" == "python" ]; then \
 		if [ -e Dockerfile.python ]; then \
 			$(MAKE) DOCKER_FILE=Dockerfile.python \
-					DOCKER_IMAGE_NAME=dpk_$(TRANSFORM_NAME)-python \
+					DOCKER_IMAGE_NAME=$(TRANSFORM_NAME)-python \
 					.defaults.lib-whl-image ; \
 		fi ; \
 	fi
 	@if [ -z "$(BUILD_SPECIFIC_RUNTIME)" ] || [ "$(BUILD_SPECIFIC_RUNTIME)" == "ray" ]; then \
 		if [ -e Dockerfile.ray ]; then \
 			$(MAKE) DOCKER_FILE=Dockerfile.ray \
-					DOCKER_IMAGE_NAME=dpk_$(TRANSFORM_NAME)-ray \
+					DOCKER_IMAGE_NAME=$(TRANSFORM_NAME)-ray \
 					BASE_IMAGE=$(RAY_BASE_IMAGE)  \
 					.defaults.lib-whl-image ; \
 		fi ; \
@@ -119,7 +119,7 @@ image:: .default.build-lib-wheel
 	@if [ -z "$(BUILD_SPECIFIC_RUNTIME)" ] || [ "$(BUILD_SPECIFIC_RUNTIME)" == "spark" ]; then \
 		if [ -e Dockerfile.spark ]; then \
 			$(MAKE) DOCKER_FILE=Dockerfile.spark \
-					DOCKER_IMAGE_NAME=dpk_$(TRANSFORM_NAME)-spark \
+					DOCKER_IMAGE_NAME=$(TRANSFORM_NAME)-spark \
 					BASE_IMAGE=$(SPARK_BASE_IMAGE)  \
 					.defaults.lib-whl-image ; \
 		fi ; \
