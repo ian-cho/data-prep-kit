@@ -6,7 +6,7 @@ SRC_DIR=${CURDIR}/../
 # Use the docker image that is built for ray runtime
 TRANSFORM_RUNTIME=ray
 ## override settings in .make.default as they assume old structure with ray being the current folder
-DOCKER_IMAGE_NAME=$(TRANSFORM_NAME)-$(TRANSFORM_RUNTIME)
+DOCKER_IMAGE_NAME=dpk_$(TRANSFORM_NAME)-$(TRANSFORM_RUNTIME)
 DOCKER_LOCAL_IMAGE=$(DOCKER_IMAGE_NAME):$(DOCKER_IMAGE_VERSION)
 
 # Only build the image with -f Dockerfile.ray
