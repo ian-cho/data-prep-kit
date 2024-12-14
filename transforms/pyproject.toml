@@ -38,7 +38,7 @@ all = { file = [
 ##### pii_redactor seem to be failing UT
 ## "language/pii_redactor/python/requirements.txt",
 "language/lang_id/python/requirements.txt",
-"language/text_encoder/python/requirements.txt",
+"language/text_encoder/requirements.txt",
 "language/pdf2parquet/python/requirements.txt",
 
 "universal/hap/python/requirements.txt",
@@ -67,7 +67,7 @@ doc_chunk = { file = ["language/doc_chunk/requirements.txt"]}
 html2parquet = { file = ["language/html2parquet/python/requirements.txt"]} 
 pii_redactor = { file = ["language/pii_redactor/python/requirements.txt"]} 
 lang_id = { file = ["language/lang_id/python/requirements.txt"]} 
-text_encoder = { file = ["language/text_encoder/python/requirements.txt"]} 
+text_encoder = { file = ["language/text_encoder/requirements.txt"]} 
 pdf2parquet = { file = ["language/pdf2parquet/python/requirements.txt"]} 
 
 hap = { file = ["universal/hap/python/requirements.txt"]} 
@@ -86,6 +86,9 @@ web2parquet = { file = ["universal/web2parquet/requirements.txt"]}
 [tool.setuptools.package-data]
 "*" = ["*.txt"]
 
+# To include this, comment out the package.find section, 
+# uncomment the package-dir section and rerun the build 
+# while keeping the build folder from previous run
 #[tool.setuptools.packages.find]
 #where = ["src"]
 
@@ -93,8 +96,9 @@ web2parquet = { file = ["universal/web2parquet/requirements.txt"]}
 # uncomment the package-dir section and rerun the build 
 # while keeping the build folder from previous run
 #[tool.setuptools.package-dir]
-#dpk_pdf2parquet = "language/pdf2parquet/dpk_pdf2parquet"
-#dpk_doc_chunk = "universal/doc_chunk/dpk_doc_chunk"
+#dpk_pdf2parquet = "language/html2parquet/dpk_pdf2parquet"
+#dpk_doc_chunck = "universal/doc_chunck/dpk_doc_chunk"
+#dpk_text_encoder = "language/text_encoder/dpk_text_encoder"
 #dpk_html2parquet = "language/html2parquet/dpk_html2parquet"
 #dpk_web2parquet = "universal/web2parquet/dpk_web2parquet"
 
