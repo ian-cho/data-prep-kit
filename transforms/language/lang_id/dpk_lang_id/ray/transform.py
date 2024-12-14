@@ -16,7 +16,7 @@ from data_processing_ray.runtime.ray import RayTransformLauncher
 from data_processing_ray.runtime.ray.runtime_configuration import (
     RayTransformRuntimeConfiguration,
 )
-from lang_id_transform import LangIdentificationTransformConfiguration
+from dpk_lang_id.transform import LangIdentificationTransformConfiguration
 
 
 logger = get_logger(__name__)

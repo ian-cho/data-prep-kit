@@ -30,7 +30,7 @@ mc cp --recursive ${REPOROOT}/transforms/code/repo_level_ordering/ray/test-data/
 mc cp --recursive ${REPOROOT}/transforms/code/license_select/ray/test-data/input/ kfp/test/license_select/input
 mc cp --recursive ${REPOROOT}/transforms/code/license_select/ray/test-data/sample_approved_licenses.json kfp/test/license_select/
 # language
-mc cp --recursive ${REPOROOT}/transforms/language/lang_id/ray/test-data/input/ kfp/test/lang_id/input
+mc cp --recursive ${REPOROOT}/transforms/language/lang_id/test-data/input/ kfp/test/lang_id/input
 mc cp --recursive ${REPOROOT}/transforms/language/doc_quality/test-data/input/ kfp/test/doc_quality/input
 mc cp --recursive ${REPOROOT}/transforms/language/pdf2parquet/test-data/input/2206.01062.pdf kfp/test/pdf2parquet/input
 mc cp --recursive ${REPOROOT}/transforms/language/text_encoder/test-data/input/ kfp/test/text_encoder/input
