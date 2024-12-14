@@ -30,7 +30,7 @@ all = { file = [
 "code/code2parquet/python/requirements.txt",
 
 "language/doc_quality/python/requirements.txt",
-"language/doc_chunk/python/requirements.txt",
+"language/doc_chunk/requirements.txt",
 ##### Cannot have html2parquet until we solve
 ## docling-ibm-models 1.1.7 depends on lxml<5.0.0 and >=4.9.1
 ## trafilatura 1.12.0 depends on lxml>=5.2.2; platform_system != "Darwin" or python_version > "3.8"
@@ -62,7 +62,7 @@ code_quality = { file = ["code/code_quality/python/requirements.txt"]}
 code2parquet = {file =  ["code/code2parquet/python/requirements.txt"]}
 
 doc_quality = { file = ["language/doc_quality/python/requirements.txt"]} 
-doc_chunk = { file = ["language/doc_chunk/python/requirements.txt"]} 
+doc_chunk = { file = ["language/doc_chunk/requirements.txt"]} 
 html2parquet = { file = ["language/html2parquet/python/requirements.txt"]} 
 pii_redactor = { file = ["language/pii_redactor/python/requirements.txt"]} 
 lang_id = { file = ["language/lang_id/python/requirements.txt"]} 
@@ -92,15 +92,10 @@ web2parquet = { file = ["universal/web2parquet/requirements.txt"]}
 # uncomment the package-dir section and rerun the build 
 # while keeping the build folder from previous run
 #[tool.setuptools.package-dir]
-#dpk_pdf2parquet = "language/html2parquet/dpk_pdf2parquet"
+#dpk_pdf2parquet = "language/pdf2parquet/dpk_pdf2parquet"
+#dpk_doc_chunk = "universal/doc_chunk/dpk_doc_chunk"
 #dpk_html2parquet = "language/html2parquet/dpk_html2parquet"
 #dpk_web2parquet = "universal/web2parquet/dpk_web2parquet"
-
-[options]
-package_dir = ["src","test"]
-
-[options.packages.find]
-where = ["src"]
 
 [tool.pytest.ini_options]
 # Currently we use low coverage since we have to run tests separately (see makefile)
