@@ -9,27 +9,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ################################################################################
-import time
-from data_processing.runtime.pure_python import PythonTransformLauncher
-from data_processing.runtime.pure_python.runtime_configuration import (
-    PythonTransformRuntimeConfiguration,
-)
+
 from data_processing.utils import get_logger
-from hap_transform import HAPTransformConfiguration
+from data_processing_ray.runtime.ray import RayTransformLauncher
+from data_processing_ray.runtime.ray.runtime_configuration import (
+    RayTransformRuntimeConfiguration,
+)
+from dpk_hap.transform import HAPTransformConfiguration
+
+
 logger = get_logger(__name__)
 
-class HAPPythonTransformConfiguration(PythonTransformRuntimeConfiguration):
+
+class HAPRayTransformConfiguration(RayTransformRuntimeConfiguration):
     """
-    Implements the PythonTransformConfiguration for HAP as required by the PythonTransformLauncher.
+    Implements the RayTransformConfiguration for HAP as required by the RayTransformLauncher.
     """
+
     def __init__(self):
         """
         Initialization
         :param base_configuration - base configuration class
         """
         super().__init__(transform_config=HAPTransformConfiguration())
-        
+
+
 if __name__ == "__main__":
-    launcher = PythonTransformLauncher(HAPPythonTransformConfiguration())
-    logger.info("Launching HAP transform")
-    launcher.launch()    
+    launcher = RayTransformLauncher(HAPRayTransformConfiguration())
+    logger.info("Launching hap transform")
+    launcher.launch()
