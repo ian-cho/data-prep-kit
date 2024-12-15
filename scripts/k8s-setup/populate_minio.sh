@@ -38,7 +38,7 @@ mc cp --recursive ${REPOROOT}/transforms/language/doc_chunk/ray/test-data/input/
 mc cp --recursive ${REPOROOT}/transforms/language/html2parquet/ray/test-data/input/test1.html kfp/test/html2parquet/input
 # universal
 mc cp --recursive ${REPOROOT}/transforms/universal/doc_id/ray/test-data/input/ kfp/test/doc_id/input
-mc cp --recursive ${REPOROOT}/transforms/universal/ededup/ray/test-data/input/ kfp/test/ededup/input
+mc cp --recursive ${REPOROOT}/transforms/universal/ededup/test-data-ray/input/ kfp/test/ededup/input
 mc cp --recursive ${REPOROOT}/transforms/universal/fdedup/ray/test-data/input/ kfp/test/fdedup/input
 mc cp --recursive ${REPOROOT}/transforms/universal/filter/ray/test-data/input/ kfp/test/filter/input
 mc cp --recursive ${REPOROOT}/transforms/universal/noop/ray/test-data/input/ kfp/test/noop/input
