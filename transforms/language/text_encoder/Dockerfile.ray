@@ -15,6 +15,8 @@ COPY --chown=ray:users dpk_text_encoder/ dpk_text_encoder/
 COPY --chown=ray:users requirements.txt requirements.txt
 RUN pip install ${PIP_INSTALL_EXTRA_ARGS} --no-cache-dir -r requirements.txt
 
+# Grant non-root users the necessary permissions to the ray directory
+RUN chmod 755 /home/ray
 
 # Set environment
 ENV PYTHONPATH /home/ray
