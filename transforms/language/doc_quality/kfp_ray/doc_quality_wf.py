@@ -130,7 +130,7 @@ def doc_quality(
     # doc_quality parameters
     docq_text_lang: str = "en",
     docq_doc_content_column: str = "contents",
-    docq_bad_word_filepath: str = "/home/ray/ldnoobw/en",
+    docq_bad_word_filepath: str = "/home/ray/dpk_doc_quality/ldnoobw/en",
     # additional parameters
     additional_params: str = '{"wait_interval": 2, "wait_cluster_ready_tmout": 400, "wait_cluster_up_tmout": 300, "wait_job_ready_tmout": 400, "wait_print_tmout": 30, "http_retries": 5, "delete_cluster_delay_minutes": 0}',
 ):
