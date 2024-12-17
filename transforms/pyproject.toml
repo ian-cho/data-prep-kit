@@ -62,7 +62,7 @@ language = { file = [
 
 "universal/hap/python/requirements.txt",
 "universal/tokenization/python/requirements.txt",
-"universal/ededup/python/requirements.txt",
+"universal/ededup/requirements.txt",
 "universal/fdedup/python/requirements.txt",
 
 "language/doc_quality/requirements.txt",
@@ -93,7 +93,6 @@ code_profiler = { file = ["code/code_profiler/python/requirements.txt"]}
 
 pii_redactor = { file = ["language/pii_redactor/python/requirements.txt"]} 
 
-ededup = { file = ["universal/ededup/python/requirements.txt"]} 
 fdedup = { file = ["universal/fdedup/python/requirements.txt"]} 
 profiler = { file = ["universal/profiler/python/requirements.txt"]} 
 filter = { file = ["universal/filter/python/requirements.txt"]} 
@@ -110,6 +109,8 @@ text_encoder = { file = ["language/text_encoder/requirements.txt"]}
 
 doc_id = { file = ["universal/doc_id/requirements.txt"]}
 hap = { file = ["universal/hap/requirements.txt"]}
+ededup = { file = ["universal/ededup/requirements.txt"]} 
+
 web2parquet = { file = ["universal/web2parquet/requirements.txt"]}
 
 # Does not seem to work for our custom layout
@@ -128,6 +129,7 @@ dpk_pdf2parquet = "language/pdf2parquet/dpk_pdf2parquet"
 dpk_text_encoder = "language/text_encoder/dpk_text_encoder"
 dpk_doc_id = "universal/doc_id/dpk_doc_id"
 dpk_hap = "universal/hap/dpk_hap"
+dpk_ededup = "universal/ededup/dpk_ededup"
 
 #[tool.setuptools.package-data]
 #"*" = ["*.txt"]
