@@ -23,7 +23,7 @@ task_image = "quay.io/dataprep1/data-prep-kit/html2parquet-ray:latest"
 EXEC_SCRIPT_NAME: str = "-m dpk_html2parquet.ray.transform"
 
 # components
-base_kfp_image = "quay.io/dataprep1/data-prep-kit/kfp-data-processing:latest"
+base_kfp_image = "quay.io/dataprep1/data-prep-kit/kfp-data-processing:0.2.3"
 
 # path to kfp component specifications files
 component_spec_path = "../../../../kfp/kfp_ray_components/"
