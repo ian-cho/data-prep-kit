@@ -1,2 +1,0 @@
-data-prep-toolkit>=0.2.3
-transformers==4.38.2
