@@ -1,7 +1,7 @@
 # Fuzzy Dedup
 
 Please see the set of
-[transform project conventions](../../../README.md)
+[transform project conventions](../../README.md#transform-project-conventions)
 for details on general project conventions, transform configuration,
 testing and IDE set up.
 
@@ -39,7 +39,7 @@ shingles.
 `num_minhashes_per_band` minhashes. For each document, generate a unique signature for every band.
 
 The values for `num_bands` and `num_minhashes_per_band` determine the likelihood that documents with a certain Jaccard
-similarity will be marked as duplicates. A Jupyter notebook in the [utils](../utils) folder generates a graph of this
+similarity will be marked as duplicates. A Jupyter notebook in the [utils](utils/calc_r_and_b.ipynb) folder generates a graph of this
 probability function, helping users explore how different settings for `num_bands` and `num_minhashes_per_band` impact
 the deduplication process.
 
@@ -99,7 +99,7 @@ The output dataset reflects the selected mode, providing flexibility for downstr
 
 ## Configuration and Usage
 ### Fuzzy Deduplication Transform
-The set of dictionary keys holding [Fuzzy Dedup](src/fdedup_transform_python.py) configuration for values are as
+The set of dictionary keys holding [Fuzzy Dedup](dpk_fdedup/transform_python.py) configuration for values are as
 follows:
 ```text
 --input_folder INPUT_FOLDER
@@ -136,7 +136,7 @@ follows:
 ```
 
 ### Signature Calculation Transform
-The set of dictionary keys holding [SignatureCalcTransform](src/signature_calc_transform.py) configuration for values
+The set of dictionary keys holding [SignatureCalcTransform](dpk_fdedup/signature_calc/transform.py) configuration for values
 are as follows:
 ```text
 --minhash_document_id_column MINHASH_DOCUMENT_ID_COLUMN
@@ -160,7 +160,7 @@ are as follows:
 ```
 
 ### Cluster Analysis Transform
-The set of dictionary keys holding [ClusterAnalysisTransform](src/cluster_analysis_transform.py) configuration for values
+The set of dictionary keys holding [ClusterAnalysisTransform](dpk_fdedup/cluster_analysis/transform.py) configuration for values
 are as follows:
 ```text
 --cluster_jaccard_similarity_threshold CLUSTER_JACCARD_SIMILARITY_THRESHOLD
@@ -175,7 +175,7 @@ are as follows:
 This transform currently has no configuration parameters.
 
 ### Data Cleaning Transform
-The set of dictionary keys holding [DataCleaningTransform](src/data_cleaning_transform.py) configuration for values
+The set of dictionary keys holding [DataCleaningTransform](dpk_fdedup/data_cleaning/transform.py) configuration for values
 are as follows:
 ```text
   --fdclean_document_id_column FDCLEAN_DOCUMENT_ID_COLUMN
@@ -193,17 +193,17 @@ make venv
 Subsequently, the main orchestration program can run with:
 ```commandline
 source venv/bin/activate
-cd src
-python fdedup_transform_python.py
+cd dpk_fdedup
+python transform_python.py
 ```
 Alternatively the transforms included in fuzzy dedup can be launched independently:
 ```commandline
 source venv/bin/activate
-cd src
-python signature_calc_local_python.py
-python cluster_analysis_local_python.py
-python get_duplicate_list_local_python.py
-python data_cleaning_local_python.py
+cd dpk_fdedup
+python signature_calc/local_python.py
+python cluster_analysis/local_python.py
+python get_duplicate_list/transform_local_python.py
+python data_cleaning/local_python.py
 ```
 After running the transforms, execute:
 ```shell
@@ -213,12 +213,12 @@ To see results of the transform.
 
 ### Code example
 
-This is a [sample notebook](../fdedup_python.ipynb) that shows how to invoke the python fuzzy dedup transform.
+This is a [sample notebook](fdedup_python.ipynb) that shows how to invoke the python fuzzy dedup transform.
 
 ### Transforming data using the transform image
 
 To use the transform image to transform your data, please refer to the 
-[running images quickstart](../../../../doc/quick-start/run-transform-image.md),
+[running images quickstart](../../../doc/quick-start/run-transform-image.md),
 substituting the name of this transform image and runtime as appropriate.
 
 ## Testing
@@ -239,12 +239,12 @@ make test-image
 
 # Fuzzy Dedup - Ray implementation
 
-Please see the set of [transform project conventions](../../../README.md) for details on general project conventions, transform
+Please see the set of [transform project conventions](../../README.md#transform-project-conventions) for details on general project conventions, transform
 configuration,  testing and IDE set up.
 
 ## Summary
 
-This project wraps the [Fuzzy Dedup transform](../python) with a Ray runtime.
+This project wraps the Fuzzy Dedup transform with a Ray runtime.
 
 ## Configuration and command line Options
 
@@ -252,10 +252,10 @@ Fuzzy Dedup configuration and command line options are the same as for the base 
 
 ## Running
 ### Launched Command Line Options 
-When running the transform with the Ray launcher (i.e. TransformLauncher),
-In addition to those available to the transform as defined in [here](../python/README.md),
+When running the transform with the Ray launcher (i.e., TransformLauncher),
+in addition to those available to the transform as defined in here,
 the set of 
-[ray launcher](../../../../data-processing-lib/doc/ray-launcher-options.md) are available.
+[ray launcher options](../../../data-processing-lib/doc/ray-launcher-options.md) are available.
 
 ### Running the samples
 To run the samples, use the following `make` target to create a virtual environment:
@@ -266,17 +266,17 @@ make venv
 Subsequently, the main orchestration program can run with:
 ```commandline
 source venv/bin/activate
-cd src
-python fdedup_transform_ray.py
+cd dpk_fdedup
+python ray/transform.py
 ```
 Alternatively the transforms included in fuzzy dedup can be launched independently:
 ```commandline
 source venv/bin/activate
-cd src
-python signature_calc_local_ray.py
-python cluster_analysis_local_ray.py
-python get_duplicate_list_local_ray.py
-python data_cleaning_local_ray.py
+cd dpk_fdedup
+python signature_calc/ray/local.py
+python cluster_analysis/ray/local.py
+python get_duplicate_list/ray/tarnsform.py
+python data_cleaning/ray/local.py
 ```
 After running the transforms, execute:
 ```shell
@@ -287,12 +287,12 @@ To see results of the transform.
 ### Transforming data using the transform image
 
 To use the transform image to transform your data, please refer to the 
-[running images quickstart](../../../../doc/quick-start/run-transform-image.md),
+[running images quickstart](../../../doc/quick-start/run-transform-image.md),
 substituting the name of this transform image and runtime as appropriate.
 
 ## Code Example
 
-This is a [sample notebook](../fdedup_ray.ipynb) that shows how to invoke the ray fuzzy dedup transform.
+This is a [sample notebook](fdedup_ray.ipynb) that shows how to invoke the ray fuzzy dedup transform.
 
 ## Testing
 
@@ -313,12 +313,12 @@ make test-image
 
 # Fuzzy Dedup -- Spark
 
-Please see the set of [transform project conventions](../../../README.md) for details on general project conventions, transform
+Please see the set of [transform project conventions](../../README.md#transform-project-conventions) for details on general project conventions, transform
 configuration,  testing and IDE set up.
 
 ## Summary
 
-This project wraps the [Fuzzy Dedup transform](../python) with a Spark runtime.
+This project wraps the Fuzzy Dedup transform with a Spark runtime.
 
 ## Configuration and command line Options
 
@@ -326,10 +326,10 @@ Fuzzy Dedup configuration and command line options are the same as for the base 
 
 ## Running
 ### Launched Command Line Options 
-When running the transform with the Spark launcher (i.e. TransformLauncher),
-In addition to those available to the transform as defined in [here](../python/README.md),
+When running the transform with the Spark launcher (i.e., TransformLauncher),
+in addition to those available to the transform as defined in here,
 the set of 
-[spark launcher](../../../../data-processing-lib/doc/spark-launcher-options.md) are available.
+[spark launcher options](../../../data-processing-lib/doc/spark-launcher-options.md) are available.
 
 ### Running the samples
 To run the samples, use the following `make` target to create a virtual environment:
@@ -340,17 +340,17 @@ make venv
 Subsequently, the main orchestration program can run with:
 ```commandline
 source venv/bin/activate
-cd src
-python fdedup_transform_spark.py
+cd dpk_fdedup
+python spark/transform.py
 ```
 Alternatively the transforms included in fuzzy dedup can be launched independently:
 ```commandline
 source venv/bin/activate
-cd src
-python signature_calc_local_spark.py
-python cluster_analysis_local_spark.py
-python get_duplicate_list_local_spark.py
-python data_cleaning_local_spark.py
+cd dpk_fdedup
+python signature_calc/spark/local.py
+python cluster_analysis/spark/local.py
+python get_duplicate_list/spark/transform.py
+python data_cleanin/spark/local.py
 ```
 After running the transforms, execute:
 ```shell
@@ -361,12 +361,12 @@ To see results of the transform.
 ### Transforming data using the transform image
 
 To use the transform image to transform your data, please refer to the 
-[running images quickstart](../../../../doc/quick-start/run-transform-image.md),
+[running images quickstart](../../../doc/quick-start/run-transform-image.md),
 substituting the name of this transform image and runtime as appropriate.
 
 ## Code Example
 
-This is a [sample notebook](../fdedup_spark.ipynb) that shows how to invoke the spark fuzzy dedup transform.
+This is a [sample notebook](fdedup_spark.ipynb) that shows how to invoke the spark fuzzy dedup transform.
 
 ## Testing
 
