@@ -14,15 +14,15 @@ import argparse
 import os
 import sys
 
-from cluster_analysis_transform_spark import ClusterAnalysisSparkTransformConfiguration
-from data_cleaning_transform_spark import DataCleaningSparkTransformConfiguration
+from dpk_fdedup.cluster_analysis.spark.transform import ClusterAnalysisSparkTransformConfiguration
+from dpk_fdedup.data_cleaning.spark.transform import DataCleaningSparkTransformConfiguration
 from data_processing.runtime.pure_python import PythonTransformLauncher
 from data_processing_spark.runtime.spark import SparkTransformLauncher
-from fdedup_transform_python import ServiceOrchestrator, parse_args
-from get_duplicate_list_transform_python import (
+from dpk_fdedup.transform_python import ServiceOrchestrator, parse_args
+from dpk_fdedup.get_duplicate_list.transform_python import (
     GetDuplicateListPythonTransformConfiguration,
 )
-from signature_calc_transform_spark import (
+from dpk_fdedup.signature_calc.spark.transform import (
     SignatureCalculationSparkTransformConfiguration,
 )
 

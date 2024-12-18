@@ -193,17 +193,15 @@ make venv
 Subsequently, the main orchestration program can run with:
 ```commandline
 source venv/bin/activate
-cd dpk_fdedup
-python transform_python.py
+python -m dpk_fdedup.transform_python
 ```
 Alternatively the transforms included in fuzzy dedup can be launched independently:
 ```commandline
 source venv/bin/activate
-cd dpk_fdedup
-python signature_calc/local_python.py
-python cluster_analysis/local_python.py
-python get_duplicate_list/transform_local_python.py
-python data_cleaning/local_python.py
+python -m dpk_fdedup.signature_calc.local_python
+python -m dpk_fdedup.cluster_analysis.local_python
+python -m dpk_fdedup.get_duplicate_list.transform_local_python
+python -m dpk_fdedup.data_cleaning.local_python
 ```
 After running the transforms, execute:
 ```shell
@@ -266,17 +264,15 @@ make venv
 Subsequently, the main orchestration program can run with:
 ```commandline
 source venv/bin/activate
-cd dpk_fdedup
-python ray/transform.py
+python -m dpk_fdedup.ray.transform
 ```
 Alternatively the transforms included in fuzzy dedup can be launched independently:
 ```commandline
 source venv/bin/activate
-cd dpk_fdedup
-python signature_calc/ray/local.py
-python cluster_analysis/ray/local.py
-python get_duplicate_list/ray/tarnsform.py
-python data_cleaning/ray/local.py
+python -m dpk_fdedup.signature_calc.ray.local
+python -m dpk_fdedup.cluster_analysis.ray.local
+python -m dpk_fdedup.get_duplicate_list.ray.tarnsform
+python -m dpk_fdedup.data_cleaning.ray.local
 ```
 After running the transforms, execute:
 ```shell
@@ -340,17 +336,15 @@ make venv
 Subsequently, the main orchestration program can run with:
 ```commandline
 source venv/bin/activate
-cd dpk_fdedup
-python spark/transform.py
+python -m dpk_fdedup.spark.transform
 ```
 Alternatively the transforms included in fuzzy dedup can be launched independently:
 ```commandline
 source venv/bin/activate
-cd dpk_fdedup
-python signature_calc/spark/local.py
-python cluster_analysis/spark/local.py
-python get_duplicate_list/spark/transform.py
-python data_cleanin/spark/local.py
+python -m dpk_fdedup.signature_calc.spark.local
+python -m dpk_fdedup.cluster_analysis.spark.local
+python -m dpk_fdedup.get_duplicate_list.transform
+python -m dpk_fdedup.data_cleaning.spark.local
 ```
 After running the transforms, execute:
 ```shell

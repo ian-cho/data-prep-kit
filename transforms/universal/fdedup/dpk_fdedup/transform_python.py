@@ -15,20 +15,20 @@ import ast
 import os
 import sys
 
-import cluster_analysis_transform
-import data_cleaning_transform
-import get_duplicate_list_transform
-import signature_calc_transform
-from cluster_analysis.transform_python import (
+import dpk_fdedup.cluster_analysis.transform
+import dpk_fdedup.data_cleaning.transform
+import dpk_fdedup.get_duplicate_list.transform
+import dpk_fdedup.signature_calc.transform
+from dpk_fdedup.cluster_analysis.transform_python import (
     ClusterAnalysisPythonTransformConfiguration,
 )
-from data_cleaning.transform_python import DataCleaningPythonTransformConfiguration
+from dpk_fdedup.data_cleaning.transform_python import DataCleaningPythonTransformConfiguration
 from data_processing.runtime.pure_python import PythonTransformLauncher
 from data_processing.utils import ParamsUtils, get_logger, str2bool
-from get_duplicate_list.transform_python import (
+from dpk_fdedup.get_duplicate_list.transform_python import (
     GetDuplicateListPythonTransformConfiguration,
 )
-from signature_calc.transform_python import (
+from dpk_fdedup.signature_calc.transform_python import (
     SignatureCalculationPythonTransformConfiguration,
 )
 
@@ -47,10 +47,10 @@ s3_creds = {
 }
 
 ARGS_MAP = {
-    "minhash": signature_calc_transform.captured_arg_keys,
-    "cluster": cluster_analysis_transform.captured_arg_keys,
-    "fdlist": get_duplicate_list_transform.captured_arg_keys,
-    "fdclean": data_cleaning_transform.captured_arg_keys,
+    "minhash": dpk_fdedup.signature_calc.transform.captured_arg_keys,
+    "cluster": dpk_fdedup.cluster_analysis.transform.captured_arg_keys,
+    "fdlist": dpk_fdedup.get_duplicate_list.transform.captured_arg_keys,
+    "fdclean": dpk_fdedup.data_cleaning.transform.captured_arg_keys,
 }
 
 
