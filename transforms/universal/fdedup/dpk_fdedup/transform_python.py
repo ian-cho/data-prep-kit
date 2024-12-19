@@ -261,6 +261,24 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+
+
+# Class used by the notebooks to ingest binary files and create parquet files
+class Fdedup:
+    def __init__(self, **kwargs):
+        self.params = {}
+        for key in kwargs:
+            self.params[key] = kwargs[key]
+
+    def transform(self):
+        sys.argv = ParamsUtils.dict_to_req(d=(self.params))
+        args = parse_args()
+        # Initialize the orchestrator
+        orchestrator = ServiceOrchestrator(global_params=args)
+        # Launch python fuzzy dedup execution
+        return orchestrator.orchestrate()
+
+
 if __name__ == "__main__":
 
     # Parse command line arguments
