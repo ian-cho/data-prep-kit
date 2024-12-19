@@ -14,8 +14,5 @@ TRANSFORM_NAME=$(shell basename `pwd`)
 ################################################################################
 
 
-#test-image::
-#	@echo "Skip... do nothing! pushing CI/CD over a cliff with OSError on text_encoder "
-
 publish:
 	@echo "Skip... do nothing! pushing CI/CD over a cliff with OSError on text_encoder "
