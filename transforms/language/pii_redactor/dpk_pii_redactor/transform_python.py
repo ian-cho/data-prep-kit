@@ -13,7 +13,7 @@ from data_processing.runtime.pure_python.runtime_configuration import (
     PythonTransformRuntimeConfiguration,
 )
 from data_processing.utils import get_logger
-from pii_redactor_transform import PIIRedactorTransformConfiguration
+from dpk_pii_redactor.transform import PIIRedactorTransformConfiguration
 
 
 log = get_logger(__name__)

@@ -12,7 +12,7 @@
 import logging
 
 import spacy
-from flair_recognizer import FlairRecognizer
+from dpk_pii_redactor.flair_recognizer import FlairRecognizer
 from presidio_analyzer import AnalyzerEngine, RecognizerRegistry
 from presidio_analyzer.nlp_engine import NlpEngineProvider
 
