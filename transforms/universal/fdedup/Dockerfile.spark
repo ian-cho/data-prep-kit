@@ -22,8 +22,8 @@ RUN pip install -r requirements.txt
 
 RUN mkdir -p /opt/spark/work-dir/src/templates && \
     mkdir -p /opt/spark/work-dir/config
-COPY --chown=spark:root spark-deployment/kubernetes/spark-executor-pod-template.yml /opt/spark/work-dir/src/templates/
-COPY --chown=spark:root spark-deployment/kubernetes/spark_profile.yml /opt/spark/work-dir/config/
+COPY --chown=spark:root spark/deployment/kubernetes/spark-executor-pod-template.yml /opt/spark/work-dir/src/templates/
+COPY --chown=spark:root spark/deployment/kubernetes/spark_profile.yml /opt/spark/work-dir/config/
 
 
 USER spark
