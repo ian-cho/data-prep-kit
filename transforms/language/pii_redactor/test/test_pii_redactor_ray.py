@@ -27,7 +27,7 @@ class TestRayPIIRedactorTransform(AbstractTransformLauncherTest):
     """
 
     def get_test_transform_fixtures(self) -> list[tuple]:
-        basedir = "../test-data"
+        basedir = "../ray/test-data"
         basedir = os.path.abspath(os.path.join(os.path.dirname(__file__), basedir))
         fixtures = []
         launcher = RayTransformLauncher(PIIRedactorRayTransformConfiguration())
