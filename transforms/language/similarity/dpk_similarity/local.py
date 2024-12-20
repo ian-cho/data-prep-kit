@@ -13,7 +13,7 @@
 import os
 
 from data_processing.data_access import DataAccessLocal
-from similarity_transform import SimilarityTransform
+from dpk_similarity.transform import SimilarityTransform
 
 
 # create parameters

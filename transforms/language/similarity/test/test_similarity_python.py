@@ -9,21 +9,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ################################################################################
+
 import os
 
-import pyarrow as pa
-from data_processing.test_support import get_tables_in_folder
-from data_processing.test_support.transform.table_transform_test import (
-    AbstractTableTransformTest,
+from data_processing.runtime.pure_python import PythonTransformLauncher
+from data_processing.test_support.launch.transform_test import (
+    AbstractTransformLauncherTest,
 )
-from similarity_transform import SimilarityTransform, ES_ENDPOINT_KEY
 
-# table = pa.Table.from_pydict({"name": pa.array(["Tom"]), "age": pa.array([23])})
-# expected_table = table
-# expected_metadata_list = [{"nfiles": 1, "nrows": 1}, {}]  # transform() result  # flush() result
+from dpk_similarity.transform import ES_ENDPOINT_CLI_PARAM
+from dpk_similarity.transform_python import SimilarityPythonTransformConfiguration
 
-
-class TestSimilarityTransform(AbstractTableTransformTest):
+class TestPythonSimilarityTransform(AbstractTransformLauncherTest):
     """
     Extends the super-class to define the test data for the tests defined there.
     The name of this class MUST begin with the word Test so that pytest recognizes it as a test class.
@@ -31,13 +28,20 @@ class TestSimilarityTransform(AbstractTableTransformTest):
 
     def get_test_transform_fixtures(self) -> list[tuple]:
         src_file_dir = os.path.abspath(os.path.dirname(__file__))
+        fixtures = []
+
+        launcher = PythonTransformLauncher(SimilarityPythonTransformConfiguration())
         input_dir = os.path.join(src_file_dir, "../test-data/input")
         expected_dir = os.path.join(src_file_dir, "../test-data/expected")
-        input_tables = get_tables_in_folder(input_dir)
-        expected_tables = get_tables_in_folder(expected_dir)
-        expected_metadata_list = [{"nrows": 8}, {}]
-        config = {ES_ENDPOINT_KEY: None}
-        fixtures = [
-            (SimilarityTransform(config), input_tables, expected_tables, expected_metadata_list),
-        ]
+        transform_config = {ES_ENDPOINT_CLI_PARAM: None}
+        fixtures.append(
+            (
+                launcher,
+                transform_config,
+                input_dir,
+                expected_dir,
+                [],  # optional list of column names to ignore in comparing test-generated with expected.
+            )
+        )
+
         return fixtures

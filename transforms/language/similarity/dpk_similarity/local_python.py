@@ -15,7 +15,7 @@ import sys
 
 from data_processing.runtime.pure_python import PythonTransformLauncher
 from data_processing.utils import ParamsUtils
-from similarity_transform_python import SimilarityPythonTransformConfiguration
+from dpk_similarity.transform_python import SimilarityPythonTransformConfiguration
 
 
 # create parameters
