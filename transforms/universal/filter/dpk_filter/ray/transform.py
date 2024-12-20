@@ -9,12 +9,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ################################################################################
-import os
 
-from filter_test_support import AbstractPythonFilterTransformTest
+from data_processing.utils import get_logger
+from data_processing_ray.runtime.ray import RayTransformLauncher
+from data_processing_ray.runtime.ray.runtime_configuration import (
+    RayTransformRuntimeConfiguration,
+)
+from dpk_filter.transform import FilterTransformConfiguration
 
 
-class TestPythonFilterTransform(AbstractPythonFilterTransformTest):
-    def _get_test_file_directory(self) -> str:
-        dir = os.path.abspath(os.path.dirname(__file__))
-        return dir
+logger = get_logger(__name__)
+
+
+class FilterRayTransformConfiguration(RayTransformRuntimeConfiguration):
+    def __init__(self):
+        super().__init__(transform_config=FilterTransformConfiguration())
+
+
+if __name__ == "__main__":
+    launcher = RayTransformLauncher(FilterRayTransformConfiguration())
+    logger.info("Launching filtering")
+    launcher.launch()

@@ -10,25 +10,27 @@
 # limitations under the License.
 ################################################################################
 
-import os
 import sys
 
 from data_processing.utils import ParamsUtils
 from data_processing_ray.runtime.ray import RayTransformLauncher
-from filter_transform import (
+from dpk_filter.transform import (
     filter_columns_to_drop_cli_param,
     filter_criteria_cli_param,
     filter_logical_operator_cli_param,
 )
-from filter_transform_ray import FilterRayTransformConfiguration
+from dpk_filter.ray.transform import FilterRayTransformConfiguration
 
 
 # create parameters
-input_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "../test-data/input"))
-output_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "../output"))
-local_conf = {
-    "input_folder": input_folder,
-    "output_folder": output_folder,
+s3_cred = {
+    "access_key": "localminioaccesskey",
+    "secret_key": "localminiosecretkey",
+    "url": "http://localhost:9000",
+}
+s3_conf = {
+    "input_folder": "test/filter/input",
+    "output_folder": "test/filter/output",
 }
 
 filter_criteria = [
@@ -50,7 +52,8 @@ launcher_params = {
     # where to run
     "run_locally": True,
     # Data access. Only required parameters are specified
-    "data_local_config": ParamsUtils.convert_to_ast(local_conf),
+    "data_s3_cred": ParamsUtils.convert_to_ast(s3_cred),
+    "data_s3_config": ParamsUtils.convert_to_ast(s3_conf),
     # orchestrator
     "runtime_worker_options": ParamsUtils.convert_to_ast(worker_options),
     "runtime_num_workers": 3,

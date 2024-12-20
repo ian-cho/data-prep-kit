@@ -9,33 +9,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ################################################################################
-
+from data_processing.runtime.pure_python import PythonTransformLauncher
+from data_processing.runtime.pure_python.runtime_configuration import (
+    PythonTransformRuntimeConfiguration,
+)
 from data_processing.utils import get_logger
-from data_processing_spark.runtime.spark import SparkTransformLauncher
-from data_processing_spark.runtime.spark import SparkTransformRuntimeConfiguration
-from filter_transform import FilterTransformConfiguration
+from dpk_filter.transform import FilterTransformConfiguration
 
 
 logger = get_logger(__name__)
 
 
-class FilterSparkTransformConfiguration(SparkTransformRuntimeConfiguration):
-    """
-    Implements the SparkTransformConfiguration for NOOP as required by the PythonTransformLauncher.
-    NOOP does not use a RayRuntime class so the superclass only needs the base
-    python-only configuration.
-    """
-
+class FilterPythonTransformConfiguration(PythonTransformRuntimeConfiguration):
     def __init__(self):
-        """
-        Initialization
-        """
         super().__init__(transform_config=FilterTransformConfiguration())
 
 
 if __name__ == "__main__":
-    # create launcher
-    launcher = SparkTransformLauncher(runtime_config=FilterSparkTransformConfiguration())
-    logger.info("Launching noop transform")
-    # Launch the ray actor(s) to process the input
+    launcher = PythonTransformLauncher(FilterPythonTransformConfiguration())
+    logger.info("Launching filtering")
     launcher.launch()

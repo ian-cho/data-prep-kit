@@ -17,13 +17,13 @@ from data_processing.runtime.pure_python import PythonTransformLauncher
 from data_processing.test_support.launch.transform_test import (
     AbstractTransformLauncherTest,
 )
-from filter_transform import (
+from dpk_filter.transform import (
     filter_columns_to_drop_cli_param,
     filter_criteria_cli_param,
     filter_logical_operator_cli_param,
     filter_logical_operator_default,
 )
-from filter_transform_python import FilterPythonTransformConfiguration
+from dpk_filter.transform_python import FilterPythonTransformConfiguration
 
 
 class AbstractPythonFilterTransformTest(AbstractTransformLauncherTest):

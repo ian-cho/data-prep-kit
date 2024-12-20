@@ -1,5 +1,4 @@
-ARG BASE_IMAGE=quay.io/dataprep1/data-prep-kit/data-prep-kit-spark-3.5.2:latest
-FROM ${BASE_IMAGE}
+FROM quay.io/dataprep1/data-prep-kit/data-prep-kit-spark-3.5.2:latest
 
 USER root
 # install pytest
@@ -13,23 +12,14 @@ ARG DPK_WHEEL_FILE_NAME
 COPY --chown=spark:root data-processing-dist data-processing-dist
 RUN  pip install data-processing-dist/${DPK_WHEEL_FILE_NAME}[spark]
 
-COPY --chown=spark:root python-transform/  python-transform/
-RUN cd python-transform && pip install --no-cache-dir -e .
 
 # Install project source
-COPY --chown=spark:root src/ src/
-COPY --chown=spark:root pyproject.toml pyproject.toml
-RUN pip install --no-cache-dir -e .
 
-# copy the main() entry point to the image 
-COPY ./src/filter_transform_spark.py .
+## Copy the python version of the tansform
+COPY --chown=spark:root dpk_filter/ dpk_filter/
+COPY --chown=spark:root requirements.txt requirements.txt
+RUN pip install -r requirements.txt
 
-# copy some of the samples in
-COPY src/filter_local_spark.py local/
-
-# copy test
-COPY test/ test/
-COPY test-data/ test-data/
 
 USER spark
 

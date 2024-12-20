@@ -9,15 +9,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ################################################################################
+
 import os
 
 from data_processing.runtime import AbstractTransformLauncher
-from data_processing_spark.runtime.spark import SparkTransformLauncher
-from filter_test_support import AbstractPythonFilterTransformTest
-from filter_transform_spark import FilterSparkTransformConfiguration
+from data_processing_ray.runtime.ray import RayTransformLauncher
+from dpk_filter.test_support import AbstractPythonFilterTransformTest
+from dpk_filter.ray.transform import FilterRayTransformConfiguration
 
 
-class TestSparkFilterTransform1(AbstractPythonFilterTransformTest):
+class TestPythonFilterTransform(AbstractPythonFilterTransformTest):
     """
     Extends the Python super-class to redefine the launcher as a RayTransformLauncher.
     The name of this class MUST begin with the word Test so that pytest recognizes it as a test class.
@@ -28,4 +29,4 @@ class TestSparkFilterTransform1(AbstractPythonFilterTransformTest):
         return dir
 
     def _get_launcher(self) -> (AbstractTransformLauncher, dict):
-        return (SparkTransformLauncher(FilterSparkTransformConfiguration()), {})
+        return (RayTransformLauncher(FilterRayTransformConfiguration()), {"run_locally": True})
