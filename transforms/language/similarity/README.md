@@ -105,9 +105,9 @@ When invoking the CLI, the parameters must be set as `--similarity_<name>`, e.g.
 ### Running the samples
 To run the samples, use the following `make` targets
 
-* `run-cli-sample` - runs src/similarity_transform_python.py using command line args
-* `run-local-sample` - runs src/similarity_local.py
-* `run-local-python-sample` - runs src/similarity_local_python.py
+* `run-cli-sample` - runs python -m dpk_similarity.transform_python using command line args
+* `run-local-sample` - runs python -m dpk_similarity.local
+* `run-local-python-sample` - runs python -m dpk_similarity.local_python
 
 These targets will activate the virtual environment and set up any configuration needed.
 Use the `-n` option of `make` to see the detail of what is done to run the sample.
