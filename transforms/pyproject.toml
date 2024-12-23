@@ -1,6 +1,6 @@
 [project]
 name = "data_prep_toolkit_transforms"
-version = "1.0.0a1"
+version = "1.0.0a2"
 requires-python = ">=3.10,<3.13"
 keywords = ["transforms", "data preprocessing", "data preparation", "llm", "generative", "ai", "fine-tuning", "llmapps" ]
 description = "Data Preparation Toolkit Transforms using Ray"
@@ -33,7 +33,6 @@ all = { file = [
 ## "language/pii_redactor/python/requirements.txt",
 
 "universal/profiler/python/requirements.txt",
-"universal/filter/python/requirements.txt",
 "universal/resize/python/requirements.txt",
 
 "language/lang_id/requirements.txt",
@@ -48,6 +47,7 @@ all = { file = [
 ## trafilatura 1.12.0 depends on lxml>=5.2.2; platform_system != "Darwin" or python_version > "3.8"
 ## "language/html2parquet/requirements.txt",
 
+"universal/filter/requirements.txt",
 "universal/doc_id/requirements.txt",
 "universal/ededup/requirements.txt",
 "universal/fdedup/requirements.txt",
@@ -72,6 +72,7 @@ language = { file = [
 ## trafilatura 1.12.0 depends on lxml>=5.2.2; platform_system != "Darwin" or python_version > "3.8"
 ## "language/html2parquet/requirements.txt",
 
+"universal/filter/requirements.txt",
 "universal/doc_id/requirements.txt",
 "universal/ededup/requirements.txt",
 "universal/fdedup/requirements.txt",
@@ -93,7 +94,6 @@ code_profiler = { file = ["code/code_profiler/python/requirements.txt"]}
 pii_redactor = { file = ["language/pii_redactor/python/requirements.txt"]} 
 
 profiler = { file = ["universal/profiler/python/requirements.txt"]} 
-filter = { file = ["universal/filter/python/requirements.txt"]} 
 resize = { file = ["universal/resize/python/requirements.txt"]} 
 
 ######## Named transforms
@@ -104,6 +104,7 @@ lang_id = { file = ["language/lang_id/requirements.txt"]}
 pdf2parquet = { file = ["language/pdf2parquet/requirements.txt"]}
 text_encoder = { file = ["language/text_encoder/requirements.txt"]}
 
+filter = { file = ["universal/filter/requirements.txt"]}
 doc_id = { file = ["universal/doc_id/requirements.txt"]}
 hap = { file = ["universal/hap/requirements.txt"]}
 ededup = { file = ["universal/ededup/requirements.txt"]} 
@@ -134,6 +135,8 @@ dpk_ededup = "universal/ededup/dpk_ededup"
 dpk_fdedup = "universal/fdedup/dpk_fdedup"
 dpk_tokenization = "universal/tokenization/dpk_tokenization"
 dpk_similarity = "language/similarity/dpk_similarity"
+dpk_filter = "universal/filter/dpk_filter"
+
 
 #[tool.setuptools.package-data]
 #"*" = ["*.txt"]
