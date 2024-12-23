@@ -40,6 +40,9 @@ Note: This list includes the transforms that were part of the release starting w
    
 ## Release notes:
 
+### 1.0.0.a2
+   Relax dependencies on pandas (use latest or whatever is installed by application)
+   Relax dependencies on requests (use latest or whatever is installed by application)
 
 
 
