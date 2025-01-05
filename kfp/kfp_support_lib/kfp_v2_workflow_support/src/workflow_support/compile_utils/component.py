@@ -40,6 +40,7 @@ class ComponentUtils:
         task: dsl.PipelineTask,
         timeout: int,
         image_pull_policy: str = "IfNotPresent",
+        secret_name: str = "",
         cache_strategy: bool = False,
     ) -> None:
         """
@@ -92,6 +93,10 @@ class ComponentUtils:
         task.set_caching_options(enable_caching=cache_strategy)
         # image pull policy
         kubernetes.set_image_pull_policy(task, image_pull_policy)
+        # image pull secret can only be set at the component level in kfp v2
+        # see: https://github.com/kubeflow/pipelines/issues/11498
+        if secret_name != "" and len(secret_name) != 0:
+            kubernetes.set_image_pull_secrets(task, [secret_name])
         # Set the timeout for the task to one day (in seconds)
         kubernetes.set_timeout(task, seconds=timeout)
         # Add tolerations if specified
