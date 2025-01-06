@@ -43,9 +43,9 @@ As shown in Table 2, the framework standardizes code representation by categoriz
 
 The offline path is critical for expanding and refining the syntactic rule database, enabling the UBSR framework to adapt to new languages and syntactic constructs. This process leverages LLMs to generate syntactic rules for languages that are not yet included in the rule database. To achieve this, we utilize a Few-shot Chain of Thought prompting technique, guiding the LLM through a step-by-step rule generation process. By providing carefully curated training exemplars and detailed instructions, this method ensures the LLM can accurately generalize from these examples to produce effective syntactic rules for a wide range of languages. This structured approach enhances the flexibility of the UBSR framework, allowing it to seamlessly handle evolving language constructs.
 
-The implementation for UI-based offline customization tool is present [here](python/src/offline-customizations). To run the tool, use the following command.
+The implementation for UI-based offline customization tool is present [here](dpk_code_profiler/offline-customizations). To run the tool, use the following command.
 
-`streamlit run LLM_runner_app.py`
+`streamlit run generic_LLM_runner_app.py`
 
 The high-level system design is as follows:
 
@@ -98,13 +98,6 @@ ls output
 ```
 To see results of the transform.
 
-
-### Transforming data using the transform image
-
-To use the transform image to transform your data, please refer to the 
-[running images quickstart](../../../doc/quick-start/run-transform-image.md),
-substituting the name of this transform image and runtime as appropriate.
-
 ## Testing
 
 Following [the testing strategy of data-processing-lib](../../../data-processing-lib/doc/transform-testing.md)
@@ -153,7 +146,7 @@ ls output
 To see results of the transform.
 
 
-#### Transforming data using the transform image
+### Transforming data using the transform image
 
 To use the transform image to transform your data, please refer to the 
 [running images quickstart](../../../doc/quick-start/run-transform-image.md),
