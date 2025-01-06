@@ -251,6 +251,9 @@ the [python launcher](../../../data-processing-lib/doc/python-launcher-options.m
                         logical operator (AND or OR) that joins filter criteria
 
 ```
+### Code example
+
+[notebook](filter.ipynb)
 
 ### Transforming data using the transform image
 
