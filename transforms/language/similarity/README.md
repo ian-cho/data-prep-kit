@@ -1,6 +1,6 @@
 # Similarity Transform 
 Please see the set of
-[transform project conventions](../../../README.md#transform-project-conventions)
+[transform project conventions](../../README.md#transform-project-conventions)
 for details on general project conventions, transform configuration, 
 testing and IDE set up.
 
@@ -76,7 +76,7 @@ Example
 ### Launched Command Line Options 
 The following command line arguments are available in addition to 
 the options provided by 
-the [python launcher](../../../../data-processing-lib/doc/python-launcher-options.md).
+the [python launcher options](../../../data-processing-lib/doc/python-launcher-options.md).
 ```
   --similarity_es_endpoint SIMILARITY_ES_ENDPOINT
                         The URL for Elasticsearch
@@ -125,5 +125,5 @@ To see results of the transform.
 
 ### Code example
 
-TBD (link to the notebook will be provided)
+See the [sample notebook](similarity.ipynb) for an example
 
