@@ -22,6 +22,7 @@ Note: This list includes the transforms that were part of the release starting w
     * [header_cleanser (Not available on MacOS)](https://github.com/IBM/data-prep-kit/blob/dev/transforms/code/header_cleanser/python/README.md)
     * [code_quality](https://github.com/IBM/data-prep-kit/blob/dev/transforms/code/code_quality/python/README.md)
     * [proglang_select](https://github.com/IBM/data-prep-kit/blob/dev/transforms/code/proglang_select/python/README.md)
+    * [code_profiler](https://github.com/IBM/data-prep-kit/blob/dev/transforms/code/code_profiler/README.md)
 * language
     * [doc_chunk](https://github.com/IBM/data-prep-kit/blob/dev/transforms/language/doc_chunk/README.md)
 	* [doc_quality](https://github.com/IBM/data-prep-kit/blob/dev/transforms/language/doc_quality/README.md)
@@ -40,6 +41,10 @@ Note: This list includes the transforms that were part of the release starting w
    
 ## Release notes:
 
+### 1.0.0.a4
+	Added ray notebooks for Doc Quality and Filter
+### 1.0.0.a3
+	Added code_profiler
 ### 1.0.0.a2
    Relax dependencies on pandas (use latest or whatever is installed by application)
    Relax dependencies on requests (use latest or whatever is installed by application)
