@@ -14,9 +14,9 @@ import kfp.compiler as compiler
 import kfp.components as comp
 import kfp.dsl as dsl
 from workflow_support.compile_utils import (
+    DEFAULT_KFP_COMPONENT_SPEC_PATH,
     ONE_HOUR_SEC,
     ONE_WEEK_SEC,
-    DEFAULT_KFP_COMPONENT_SPEC_PATH,
     ComponentUtils,
 )
 
