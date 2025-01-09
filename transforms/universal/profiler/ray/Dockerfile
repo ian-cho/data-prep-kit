@@ -39,9 +39,6 @@ COPY src/profiler_local_ray.py local/
 COPY test/ test/
 COPY test-data/ test-data/
 
-
-
-
 # Set environment
 ENV PYTHONPATH /home/ray
 
