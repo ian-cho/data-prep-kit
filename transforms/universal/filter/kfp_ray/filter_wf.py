@@ -14,7 +14,12 @@ import os
 import kfp.compiler as compiler
 import kfp.components as comp
 import kfp.dsl as dsl
-from workflow_support.compile_utils import ONE_HOUR_SEC, ONE_WEEK_SEC, ComponentUtils
+from workflow_support.compile_utils import (
+    ONE_HOUR_SEC,
+    ONE_WEEK_SEC,
+    DEFAULT_KFP_COMPONENT_SPEC_PATH,
+    ComponentUtils,
+)
 
 
 # the name of the job script
@@ -27,7 +32,7 @@ task_image = "quay.io/dataprep1/data-prep-kit/filter-ray:latest"
 base_kfp_image = "quay.io/dataprep1/data-prep-kit/kfp-data-processing:latest"
 
 # path to kfp component specifications files
-component_spec_path = os.getenv("KFP_COMPONENT_SPEC_PATH", "../../../../kfp/kfp_ray_components/")
+component_spec_path = os.getenv("KFP_COMPONENT_SPEC_PATH", DEFAULT_KFP_COMPONENT_SPEC_PATH)
 
 
 # compute execution parameters. Here different transforms might need different implementations. As

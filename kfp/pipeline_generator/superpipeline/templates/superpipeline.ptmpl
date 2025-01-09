@@ -4,11 +4,16 @@ import os
 import kfp.compiler as compiler
 import kfp.components as comp
 import kfp.dsl as dsl
-from workflow_support.compile_utils import ONE_HOUR_SEC, ONE_WEEK_SEC, ComponentUtils
+from workflow_support.compile_utils import (
+    ONE_HOUR_SEC,
+    ONE_WEEK_SEC,
+    DEFAULT_KFP_COMPONENT_SPEC_PATH,
+    ComponentUtils,
+)
 
 
 # path to kfp component specifications files
-component_spec_path = os.getenv("KFP_COMPONENT_SPEC_PATH", "../../../../kfp/kfp_ray_components/")
+component_spec_path = os.getenv("KFP_COMPONENT_SPEC_PATH", DEFAULT_KFP_COMPONENT_SPEC_PATH)
 # For every sub workflow we need a separate components, that knows about this subworkflow.
 __sub_workflows_components__
 

@@ -69,7 +69,7 @@ if __name__ == "__main__":
     pipeline_tasks = pipeline_definitions[PIPELINE_TASKS]
     common_input_params = pipeline_definitions[COMMON_INPUT_PARAMETERS]
 
-    component_spec_path = os.getenv("KFP_COMPONENT_SPEC_PATH", "../../../../kfp/kfp_ray_components/")
+    component_spec_path = os.getenv("KFP_COMPONENT_SPEC_PATH", DEFAULT_KFP_COMPONENT_SPEC_PATH)
 
     for task in pipeline_tasks:
         task_name = task["name"]
