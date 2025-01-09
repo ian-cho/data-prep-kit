@@ -35,7 +35,6 @@ RUN apt-get remove gcc g++ -y \
     && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 USER dpk
 
-
 # Set environment
 ENV PYTHONPATH /home/dpk
 
