@@ -47,9 +47,8 @@ if __name__ == "__main__":
     common_input_params_values = pipeline_definitions[PIPELINE_COMMON_INPUT_PARAMETERS_VALUES]
     pipeline_transform_input_parameters = pipeline_definitions[PIPELINE_TRANSFORM_INPUT_PARAMETERS]
 
-    component_spec_path = pipeline_parameters.get("component_spec_path", "")
-    if component_spec_path == "":
-        component_spec_path = "../../../../kfp/kfp_ray_components/"
+    component_spec_path = os.getenv("KFP_COMPONENT_SPEC_PATH", "../../../../kfp/kfp_ray_components/")
+    
 
     content = template.render(
         transform_image=common_input_params_values["transform_image"],

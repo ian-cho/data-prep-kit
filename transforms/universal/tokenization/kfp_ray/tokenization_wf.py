@@ -27,7 +27,8 @@ base_kfp_image = "quay.io/dataprep1/data-prep-kit/kfp-data-processing:latest"
 # path to kfp component specifications files
 
 # path to kfp component specifications files
-component_spec_path = "../../../../kfp/kfp_ray_components/"
+component_spec_path = os.getenv("KFP_COMPONENT_SPEC_PATH", "../../../../kfp/kfp_ray_components/")
+
 
 
 # compute execution parameters. Here different transforms might need different implementations. As
