@@ -1,6 +1,6 @@
 # Header cleanser
 Please see the set of
-[transform project conventions](../../../README.md)
+[transform project conventions](../../../README.md#transform-project-conventions)
 for details on general project conventions, transform configuration,
 testing and IDE set up.
 
@@ -21,7 +21,7 @@ The set of dictionary keys holding configuration for values are as follows:
 * copyright - write 'true' to remove copyright from input data else 'false'. by default set as 'true'.
 
 ## Running
-You can run the [header_cleanser_local.py](src/header_cleanser_local.py) (python-only implementation) or [header_cleanser_local_ray.py](ray/src/header_cleanser_local_ray.py) (ray-based  implementation) to transform the `test1.parquet` file in [test input data](test-data/input) to an `output` directory.  The directory will contain both the new annotated `test1.parquet` file and the `metadata.json` file.
+You can run the [header_cleanser_local.py](src/header_cleanser_local.py) (python-only implementation) or [header_cleanser_local_ray.py](../ray/src/header_cleanser_local_ray.py) (ray-based  implementation) to transform the `test1.parquet` file in [test input data](test-data/input) to an `output` directory.  The directory will contain both the new annotated `test1.parquet` file and the `metadata.json` file.
 
 ## Running
 
@@ -44,12 +44,12 @@ the [python launcher](../../../../data-processing-lib/doc/python-launcher-option
 - **File Format**: Parquet file containing code.
 - **Input Column**: The code should be in a column named `content`.
 - **Sample Input**:  
-  [Sample Input File](transforms/code/header_cleanser/python/test-data/input/test1.parquet)
+  [Sample Input File](./test-data/input/test1.parquet)
 
 ### Output
 - **File Format**: Parquet file with the updated code in the same column.
 - **Sample Output**:  
-  [Sample Output File](transforms/code/header_cleanser/python/test-data/expected/license-and-copyright-local/test1.parquet)
+  [Sample Output File](./test-data/expected/license-and-copyright-local/test1.parquet)
 
 ### CLI Syntax
 When invoking the CLI, use the following syntax for these parameters:
@@ -237,7 +237,7 @@ public class Person {
 
 ## Sample Notebook
 
-Check out the [example notebook](notebooks/header_cleanser.ipynb) for further details.
+Check out the [example notebook](../header_cleanser.ipynb) for further details.
 
 
 ### Transforming data using the transform image
