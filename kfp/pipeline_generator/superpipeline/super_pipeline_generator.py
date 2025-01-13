@@ -69,8 +69,6 @@ if __name__ == "__main__":
     pipeline_tasks = pipeline_definitions[PIPELINE_TASKS]
     common_input_params = pipeline_definitions[COMMON_INPUT_PARAMETERS]
 
-    component_spec_path = os.getenv("KFP_COMPONENT_SPEC_PATH", DEFAULT_KFP_COMPONENT_SPEC_PATH)
-
     for task in pipeline_tasks:
         task_name = task["name"]
         task_pipeline_name = task["pipeline_name"]
@@ -142,7 +140,6 @@ if __name__ == "__main__":
         superpipeline_name=pipeline_metadata[NAME],
         superpipeline_description=pipeline_metadata[DESCRIPTION],
         sub_workflows_components=pipeline_definitions[PIPELINE_TASKS],
-        component_spec_path=component_spec_path,
         p1_parameters=pipeline_definitions[PIPELINE_TASKS],
         add_p2_parameters=common_input_params,
         sub_workflows_parameters=sub_workflows_parameters,
