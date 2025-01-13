@@ -49,7 +49,6 @@ if __name__ == "__main__":
 
     component_spec_path = os.getenv("KFP_COMPONENT_SPEC_PATH", "../../../../kfp/kfp_ray_components/")
     
-
     content = template.render(
         transform_image=common_input_params_values["transform_image"],
         script_name=pipeline_parameters["script_name"],

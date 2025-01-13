@@ -11,7 +11,7 @@
 ################################################################################
 
 import yaml
-
+import os
 
 PRE_COMMIT = "../pre-commit-config.yaml"
 PIPELINE_TEMPLATE_FILE = "template_superpipeline.py"
@@ -69,9 +69,7 @@ if __name__ == "__main__":
     pipeline_tasks = pipeline_definitions[PIPELINE_TASKS]
     common_input_params = pipeline_definitions[COMMON_INPUT_PARAMETERS]
 
-    component_spec_path = pipeline_metadata.get("component_spec_path", "")
-    if component_spec_path == "":
-        component_spec_path = "../../../../../kfp/kfp_ray_components/"
+    component_spec_path = os.getenv("KFP_COMPONENT_SPEC_PATH", "../../../../kfp/kfp_ray_components/")
 
     for task in pipeline_tasks:
         task_name = task["name"]
