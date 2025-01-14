@@ -195,9 +195,10 @@ conda install gxx_linux-64
 
 ## Setting up Jupyter lab for local experimentation with transforms notebooks 
 
+```bash
 pip install jupyterlab   ipykernel  ipywidgets
 python -m ipykernel install --user --name=data-prep-kit --display-name "dataprepkit"
-
+```
 
 ## Citations <a name = "citations"></a>
 
