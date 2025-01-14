@@ -276,6 +276,10 @@ In addition to those available to the transform as defined here,
 the set of 
 [ray launcher options](../../../data-processing-lib/doc/ray-launcher-options.md) are available.
 
+### Code example (Ray)
+
+[notebook](filter-ray.ipynb)
+
 # Filtering Transform for Spark
 
 You can run the Spark filter transform [local.py](dpk_filter/spark/local.py) to filter the `test1.parquet` file in [test input data](test-data/input) to an `output` directory.  The directory will contain one or several filtered parquet files and the `metadata.json` file.
