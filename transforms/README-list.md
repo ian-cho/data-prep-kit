@@ -42,7 +42,8 @@ Note: This list includes the transforms that were part of the release starting w
 ## Release notes:
 
 ### 1.0.0.a4
-	Added ray notebooks for Doc Quality and Filter
+	Added missing ray implementation for lang_id, doc_quality, tokenization and filter
+	Added ray notebooks for lang id, Doc Quality, tokenization, and Filter
 ### 1.0.0.a3
 	Added code_profiler
 ### 1.0.0.a2
