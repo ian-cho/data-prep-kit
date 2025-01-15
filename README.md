@@ -173,33 +173,6 @@ When you finish working with the cluster, and want to clean up or destroy it. Se
 
 You can run transforms via docker image or using virtual environments. This [document](doc/quick-start/run-transform-venv.md) shows how to run a transform using virtual environment. You can follow this [document](doc/quick-start/run-transform-image.md) to run using docker image. 
 
-## Appendix
-### Create a Virtual Environment
-
-To run on a local machine, follow these steps to quickly set up and deploy the Data Prep Kit in your virtual Python environment.
-
-```bash
-conda create -n data-prep-kit -y python=3.11
-conda activate data-prep-kit
-python --version
-```
-
-Check if the python version is 3.11. 
-
-If you are using a linux system, install gcc using the below commands, as it will be required to compile and install [fasttext](https://fasttext.cc/) currently used by some of the transforms.
-
-```bash
-conda install gcc_linux-64
-conda install gxx_linux-64
-```
-
-## Setting up Jupyter lab for local experimentation with transform notebooks 
-
-```bash
-pip install jupyterlab ipykernel ipywidgets
-python -m ipykernel install --user --name=data-prep-kit --display-name "dataprepkit"
-```
-
 ## Citations <a name = "citations"></a>
 
 If you use Data Prep Kit in your research, please cite our paper:
