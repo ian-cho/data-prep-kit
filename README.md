@@ -55,7 +55,7 @@ Data modalities supported _today_: Code and Natural Language.
 
 ### Fastest way to experience Data Prep Kit
 
-With no setup necessary, let's use a Google Colab friendly notebook to try Data Prep Kit. This is a simple transform to extract content from PDF files: [examples/notebooks/Run_your_first_transform_colab.ipynb](examples/notebooks/Run_your_first_transform_colab.ipynb)  | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IBM/data-prep-kit/blob/dev/examples/notebooks/Run_your_first_transform_colab.ipynb). ([Here](doc/google-colab.md) are some tips for running Data Prep Kit transforms on Google Colab. For this simple example, these tips are either already taken care of, or are not needed.)  The same notebook can be downloaded and run on the local machine, without cloning the repo or any other setup. For additional guidance on setting up Jupyter lab, see the Appendix section below. 
+With no setup necessary, let's use a Google Colab friendly notebook to try Data Prep Kit. This is a simple transform to extract content from PDF files: [examples/notebooks/Run_your_first_transform_colab.ipynb](examples/notebooks/Run_your_first_transform_colab.ipynb)  | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IBM/data-prep-kit/blob/dev/examples/notebooks/Run_your_first_transform_colab.ipynb). ([Here](doc/google-colab.md) are some tips for running Data Prep Kit transforms on Google Colab. For this simple example, these tips are either already taken care of, or are not needed.)  The same notebook can be downloaded and run on the local machine, without cloning the repo or any other setup. For additional guidance on setting up Jupyter lab, click [here](doc/quick-start/quick-start.md#jupyter). 
 
 ### Install data prep kit from PyPi
 
@@ -71,7 +71,7 @@ When installing select transforms, users can specify the name of the transform i
 ```bash
 pip install 'data-prep-toolkit-transforms[pdf2parquet]'
 ```
-For guidance on creating the virtual environment for installing the data prep kit, refer to the Appendix section below.
+For additional guidance on creating the virtual environment for installing the data prep kit, click [here](doc/quick-start/quick-start.md#conda).
 
 ### Run your first data prep pipeline
 
