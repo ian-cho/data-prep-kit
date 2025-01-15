@@ -324,7 +324,7 @@ test-data/expected/metadata.json
 
 - Developers have some freedom in designing their unit tests. in this section we should how developers can use the test fixture defined in the framework to rapidly create unit tests
 
-**test/test_digest.py
+**test/test_digest.py**
 
 ```python
 # (C) Copyright IBM Corp. 2024.
@@ -344,7 +344,7 @@ import os
 from data_processing.test_support.launch.transform_test import (
     AbstractTransformLauncherTest,
 )
-from data_processing.runtime import PythonTransformLauncher
+from data_processing.runtime.pure_python import PythonTransformLauncher
 from dpk_digest.runtime import DigestRuntime
 
 
