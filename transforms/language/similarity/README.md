@@ -12,7 +12,8 @@ testing and IDE set up.
 The similarity transforms annotates each input document with potential matches found in a document collection.
 The annotation consists of a json object proving the id of the matched document in the collection and 
 the specific sentenced deemed as "similar" by the tranform.
-The Similarity Transorm relies on a running [ElasticSearch](https://www.elastic.co/elasticsearch) Index.
+The Similarity Transform relies on a running [ElasticSearch](https://www.elastic.co/elasticsearch) Index.
+We assume (and provide) a functioning endpoint, but you can spin up your own service (details in [ElasticSearch Configuration](./tools/load_elasticsearch/README.md)).
 
 ### Input files
 
@@ -105,9 +106,9 @@ When invoking the CLI, the parameters must be set as `--similarity_<name>`, e.g.
 ### Running the samples
 To run the samples, use the following `make` targets
 
-* `run-cli-sample` - runs python -m dpk_similarity.transform_python using command line args
-* `run-local-sample` - runs python -m dpk_similarity.local
-* `run-local-python-sample` - runs python -m dpk_similarity.local_python
+* `run-cli-sample` - runs src/similarity_transform_python.py using command line args
+* `run-local-sample` - runs src/similarity_local.py
+* `run-local-python-sample` - runs src/similarity_local_python.py
 
 These targets will activate the virtual environment and set up any configuration needed.
 Use the `-n` option of `make` to see the detail of what is done to run the sample.
