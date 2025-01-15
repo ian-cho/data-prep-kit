@@ -55,11 +55,11 @@ Data modalities supported _today_: Code and Natural Language.
 
 ### Fastest way to experience Data Prep Kit
 
-With no setup necessary, let's use a Google Colab friendly notebook to try Data Prep Kit. This is a simple transform to extract content from PDF files: [examples/notebooks/Run_your_first_transform_colab.ipynb](examples/notebooks/Run_your_first_transform_colab.ipynb)  | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IBM/data-prep-kit/blob/dev/examples/notebooks/Run_your_first_transform_colab.ipynb). ([Here](doc/google-colab.md) are some tips for running Data Prep Kit transforms on Google Colab. For this simple example, these tips are either already taken care of, or are not needed.)  The same notebook can be downloaded and run on the local machine, without cloning the repo or any other setup. For additional guidance on setting up jupyter lab, see appendix section below. 
+With no setup necessary, let's use a Google Colab friendly notebook to try Data Prep Kit. This is a simple transform to extract content from PDF files: [examples/notebooks/Run_your_first_transform_colab.ipynb](examples/notebooks/Run_your_first_transform_colab.ipynb)  | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IBM/data-prep-kit/blob/dev/examples/notebooks/Run_your_first_transform_colab.ipynb). ([Here](doc/google-colab.md) are some tips for running Data Prep Kit transforms on Google Colab. For this simple example, these tips are either already taken care of, or are not needed.)  The same notebook can be downloaded and run on the local machine, without cloning the repo or any other setup. For additional guidance on setting up Jupyter lab, see the Appendix section below. 
 
-### Install data prep kit from pypi
+### Install data prep kit from PyPi
 
-The latest version of the data prep kit is available on pypi for python 3.10, 3.11 or 3.12. It can be installed using: 
+The latest version of the Data Prep Kit is available on PyPi for Python 3.10, 3.11 or 3.12. It can be installed using: 
 
 ```bash
 pip install  'data-prep-toolkit-transforms[ray,all]'
@@ -67,11 +67,11 @@ pip install  'data-prep-toolkit-transforms[ray,all]'
 
 The above installs all available transforms. 
 
-When installing select transforms, users can use the name of the transform in the pip command, rather than [all]. For example, use the following command to install only the pdf2parquet transform:
+When installing select transforms, users can specify the name of the transform in the pip command, rather than [all]. For example, use the following command to install only the pdf2parquet transform:
 ```bash
 pip install 'data-prep-toolkit-transforms[pdf2parquet]'
 ```
-For guidance on creating the virtual environment for installing the data prep kit, refer to appendix section below.
+For guidance on creating the virtual environment for installing the data prep kit, refer to the Appendix section below.
 
 ### Run your first data prep pipeline
 
@@ -186,17 +186,17 @@ python --version
 
 Check if the python version is 3.11. 
 
-If you are using a linux system, install gcc using the below commands, as it will be required to compile and install fasttext currently used by some of the transforms.
+If you are using a linux system, install gcc using the below commands, as it will be required to compile and install [fasttext](https://fasttext.cc/) currently used by some of the transforms.
 
 ```bash
 conda install gcc_linux-64
 conda install gxx_linux-64
 ```
 
-## Setting up Jupyter lab for local experimentation with transforms notebooks 
+## Setting up Jupyter lab for local experimentation with transform notebooks 
 
 ```bash
-pip install jupyterlab   ipykernel  ipywidgets
+pip install jupyterlab ipykernel ipywidgets
 python -m ipykernel install --user --name=data-prep-kit --display-name "dataprepkit"
 ```
 
