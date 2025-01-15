@@ -23,48 +23,18 @@ from dpk_rep_removal.make_suffix_array import make_suffix_array
 from data_processing.transform import AbstractTableTransform
 
 
-# configuration keys
-contents_column_name_key = "contents_column_name"
-""" Key holds the name of the column holding the document text."""
-dedup_level_key = "dedup_level_name"
-""" Key holds the type of file to process."""
-length_thresh_key = "length_thresh"
-""" Key holds the length threshold for processing"""
-frequency_threshold_key = "frequency_threshold"
-""" Key holds the frequency threshold for processing"""
-retain_first_copy_key = "retain_first_copy"
-""" Key holds boolean value for whether to retain first copy"""
-tokenize_key = "tokenize"
-""" Key holds boolean value for whether to tokenize"""
-num_threads_key = "num_threads"
-""" Key holds value for number of threads to use for processing"""
-num_cpus_key = "num_cpus"
-""" Key holds number of allocated cpus if Ray """
-
-
-# defaults - these are the values used
-contents_column_name_default = "text"
-dedup_level_default = "parquet"
-length_thresh_default = str(50)
-frequency_threshold_default = str(1)
-retain_first_copy_default = True
-tokenize_default = True
-num_threads_default = str(4)
-num_cpus_default = cpu_count(logical=False)
-
-
 class RepRemovalTransform(AbstractTableTransform):
     def __init__(self, config: dict[str, Any]):
         super().__init__(config)
 
-        self.contents_column_name = config.get(contents_column_name_key, contents_column_name_default)
-        self.dedup_level = config.get(dedup_level_key, dedup_level_default)
-        self.length_thresh = config.get(length_thresh_key, length_thresh_default)
-        self.frequency_threshold = config.get(frequency_threshold_key, frequency_threshold_default)
-        self.retain_first_copy = config.get(retain_first_copy_key, retain_first_copy_default)
-        self.tokenize = config.get(tokenize_key, tokenize_default)
-        self.num_threads = config.get(num_threads_key, num_threads_default)
-        self.num_cpus = config.get(num_cpus_key, num_cpus_default)
+        self.contents_column_name = config.get("rep_removal_contents_column_name", "text")
+        self.dedup_level = config.get("rep_removal_dedup_level_name", "parquet")
+        self.length_thresh = config.get("rep_removal_length_thresh", str(50))
+        self.frequency_threshold = config.get("rep_removal_frequency_threshold", str(1))
+        self.retain_first_copy = config.get("rep_removal_retain_first_copy", True)
+        self.tokenize = config.get("rep_removal_tokenize", True)
+        self.num_threads = config.get("rep_removal_num_threads", str(4))
+        self.num_cpus = config.get("rep_removal_num_cpus", cpu_count(logical=False))
 
     def transform(self, table: pa.Table, file_name: str = None) -> tuple[list[pa.Table], dict[str, Any]]:
         """ """

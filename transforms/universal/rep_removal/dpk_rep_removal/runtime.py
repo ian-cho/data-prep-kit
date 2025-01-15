@@ -21,54 +21,8 @@ from data_processing.runtime.pure_python.runtime_configuration import (
 
 logger = get_logger(__name__)
 
-short_name = "rep_removal"
-cli_prefix = short_name + "_"
-
-# configuration keys
-contents_column_name_key = "contents_column_name"
-""" Key holds the name of the column holding the document text."""
-dedup_level_key = "dedup_level_name"
-""" Key holds the type of file to process."""
-length_thresh_key = "length_thresh"
-""" Key holds the length threshold for processing"""
-frequency_threshold_key = "frequency_threshold"
-""" Key holds the frequency threshold for processing"""
-retain_first_copy_key = "retain_first_copy"
-""" Key holds boolean value for whether to retain first copy"""
-tokenize_key = "tokenize"
-""" Key holds boolean value for whether to tokenize"""
-num_threads_key = "num_threads"
-""" Key holds value for number of threads to use for processing"""
-num_cpus_key = "num_cpus"
-""" Key holds number of allocated cpus if Ray """
-
-# CLI parameters corresponding to each config key
-contents_column_name_cli_param = f"{cli_prefix}{contents_column_name_key}"
-""" Name of the column holding the document text"""
-dedup_level_cli_param = f"{cli_prefix}{dedup_level_key}"
-""" Name of the type of file to process."""
-length_thresh_cli_param = f"{cli_prefix}{length_thresh_key}"
-""" Length threshold for processing"""
-frequency_threshold_cli_param = f"{cli_prefix}{frequency_threshold_key}"
-""" Frequency threshold for processing"""
-retain_first_copy_cli_param = f"{cli_prefix}{retain_first_copy_key}"
-""" Boolean value for whether to retain first copy"""
-tokenize_cli_param = f"{cli_prefix}{tokenize_key}"
-""" Boolean value for whether to tokenize"""
-num_threads_cli_param = f"{cli_prefix}{num_threads_key}"
-""" Value for number of threads to use for processing"""
-num_cpus_cli_param = f"{cli_prefix}{num_cpus_key}"
-""" Value of num cpus allocated for ray actor (if present)"""
-
 # defaults - these are the values used
-contents_column_name_default = "text"
-dedup_level_default = "parquet"
-length_thresh_default = str(50)
-frequency_threshold_default = str(1)
-retain_first_copy_default = True
-tokenize_default = True
-num_threads_default = str(4)
-num_cpus_default = cpu_count(logical=False)
+cli_prefix = "rep_removal_"
 
 
 class RepRemovalTransformConfiguration(TransformConfiguration):
@@ -86,59 +40,59 @@ class RepRemovalTransformConfiguration(TransformConfiguration):
         """
         # The DataAccess created by the DataAccessFactory below will use this url
         parser.add_argument(
-            f"--{contents_column_name_cli_param}",
+            "--rep_removal_contents_column_name",
             type=str,
             required=False,
-            default=contents_column_name_default,
+            default="text",
             help="Name of the column holding the document text",
         )
         parser.add_argument(
-            f"--{dedup_level_cli_param}",
+            "--rep_removal_dedup_level_name",
             type=str,
             required=False,
-            default=dedup_level_default,
+            default="parquet",
             help="Name of the type of file to process.",
         )
         parser.add_argument(
-            f"--{length_thresh_cli_param}",
+            "--rep_removal_length_thresh",
             type=str,
             required=False,
-            default=length_thresh_default,
+            default="50",
             help="Length threshold for processing",
         )
         parser.add_argument(
-            f"--{frequency_threshold_cli_param}",
+            "--rep_removal_frequency_threshold",
             type=str,
             required=False,
-            default=frequency_threshold_default,
+            default="1",
             help="Frequency threshold for processing.",
         )
         parser.add_argument(
-            f"--{retain_first_copy_cli_param}",
+            "--rep_removal_retain_first_copy",
             type=str,
             required=False,
-            default=retain_first_copy_default,
+            default=True,
             help="Boolean value for whether to retain first copy",
         )
         parser.add_argument(
-            f"--{tokenize_cli_param}",
+            "--rep_removal_tokenize",
             type=str,
             required=False,
-            default=tokenize_default,
+            default=True,
             help="Boolean value for whether to tokenize",
         )
         parser.add_argument(
-            f"--{num_threads_cli_param}",
+            "--rep_removal_num_threads",
             type=str,
             required=False,
-            default=num_threads_default,
+            default="4",
             help="Value for number of threads to use for processing",
         )
         parser.add_argument(
-            f"--{num_cpus_cli_param}",
+            "--rep_removal_num_cpus",
             type=str,
             required=False,
-            default=num_cpus_default,
+            default=cpu_count(logical=False),
             help="Value for number of cpus allocated for processing",
         )
 
@@ -149,7 +103,7 @@ class RepRemovalTransformConfiguration(TransformConfiguration):
         :return: True, if validate pass or False otherwise
         """
         # Capture the args that are specific to this transform
-        captured = CLIArgumentProvider.capture_parameters(args, cli_prefix, False)
+        captured = CLIArgumentProvider.capture_parameters(args, cli_prefix, True)
         self.params = self.params | captured
         return True
 
