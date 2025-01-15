@@ -24,7 +24,7 @@ import multiprocessing as mp
 import pandas as pd
 import struct
 from collections import defaultdict
-import utils
+import dpk_rep_removal.utils
 import transformers
 from transformers import GPT2Tokenizer
 
@@ -34,7 +34,7 @@ run_in_OCP = True
 #### Get tokenizer from the local path to speed up the process
 
 
-tokenizer_name = os.path.abspath(os.path.join(os.path.dirname(__file__), "/gpt2"))
+tokenizer_name = os.path.abspath(os.path.join(os.path.dirname(__file__), "gpt2"))
 tokenizer = GPT2Tokenizer.from_pretrained(tokenizer_name)
 transformers.utils.logging.set_verbosity_error()  ##disable the warnings
 

@@ -36,7 +36,7 @@ import os
 import time
 import subprocess
 import numpy as np
-from utils import calculate_timeout
+from dpk_rep_removal.utils import calculate_timeout
 
 def make_suffix_array(input, tmp_dir_sub, dedup_level, num_threads, num_cpus):
     # data_size = os.path.getsize(sys.argv[1])

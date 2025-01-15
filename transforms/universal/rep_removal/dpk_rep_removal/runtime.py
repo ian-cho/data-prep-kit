@@ -11,7 +11,7 @@
 ################################################################################
 import sys
 from psutil import cpu_count
-from transform import RepRemovalTransform
+from dpk_rep_removal.transform import RepRemovalTransform
 from data_processing.transform import TransformConfiguration
 from data_processing.utils import ParamsUtils, CLIArgumentProvider, get_logger
 from argparse import ArgumentParser, Namespace

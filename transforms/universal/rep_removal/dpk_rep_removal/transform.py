@@ -15,11 +15,11 @@ import os
 import tempfile
 import pyarrow as pa
 import pandas as pd
-import dedup_pq_level
-import dedup_Rust_scripts
+from dpk_rep_removal.dedup_pq_level import load_pq_docs_once_avoidIO, extract_dup_per_doc_avoidIO_further, save_deduped_pq_once
+from dpk_rep_removal.dedup_Rust_scripts import find_repeated_substrings, collect_duplicates_avoidIO
 from typing import Any
 from psutil import cpu_count
-from make_suffix_array import make_suffix_array
+from dpk_rep_removal.make_suffix_array import make_suffix_array
 from data_processing.transform import AbstractTableTransform
 
 
@@ -74,8 +74,8 @@ class RepRemovalTransform(AbstractTableTransform):
                 save_dir = os.path.join(td, 'save_dir')
                 encoded_pq = os.path.join(save_dir, self.dedup_level)
 
-                dedup_pq_level.load_pq_docs_once_avoidIO(pq_df, self.contents_column_name, save_dir, self.dedup_level,
-                                                         self.tokenize, int(self.num_threads))
+                load_pq_docs_once_avoidIO(pq_df, self.contents_column_name, save_dir, self.dedup_level,
+                                          self.tokenize, int(self.num_threads))
 
                 cache_dir = os.path.join(td, 'cache')
                 temp_dir = os.path.join(td, 'tmp')
@@ -83,16 +83,17 @@ class RepRemovalTransform(AbstractTableTransform):
                 os.makedirs(temp_dir)
 
                 make_suffix_array(encoded_pq, temp_dir, self.dedup_level, int(self.num_threads), int(self.num_cpus))
-                dedup_Rust_scripts.find_repeated_substrings(encoded_pq, self.length_thresh, cache_dir, self.num_threads,
-                                                            self.frequency_threshold, self.retain_first_copy)
+                find_repeated_substrings(encoded_pq, self.length_thresh, cache_dir, self.num_threads,
+                                         self.frequency_threshold, self.retain_first_copy)
 
-                repeated_pairs = dedup_Rust_scripts.collect_duplicates_avoidIO(encoded_pq, self.length_thresh, cache_dir)
-                dedup_pq_level.extract_dup_per_doc_avoidIO_further(repeated_pairs)
+                repeated_pairs = collect_duplicates_avoidIO(encoded_pq, self.length_thresh, cache_dir)
+                extract_dup_per_doc_avoidIO_further(repeated_pairs)
 
                 output_pq = os.path.join(td, 'output.parquet')
-                pre_content_col_size, deduped_content_col_size = dedup_pq_level.save_deduped_pq_once(pq_df, output_pq,
-                                                                                                     self.contents_column_name,
-                                                                                                     self.num_threads, self.tokenize)
+                pre_content_col_size, deduped_content_col_size = save_deduped_pq_once(pq_df, output_pq,
+                                                                                      self.contents_column_name,
+                                                                                      self.num_threads,
+                                                                                      self.tokenize)
 
                 metadata = {
                     "pre_content col size": pre_content_col_size,
