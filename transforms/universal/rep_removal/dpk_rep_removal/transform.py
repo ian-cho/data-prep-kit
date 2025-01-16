@@ -27,7 +27,7 @@ class RepRemovalTransform(AbstractTableTransform):
     def __init__(self, config: dict[str, Any]):
         super().__init__(config)
 
-        self.contents_column_name = config.get("rep_removal_contents_column_name", "text")
+        self.contents_column_name = config.get("rep_removal_contents_column_name", "contents")
         self.dedup_level = config.get("rep_removal_dedup_level_name", "parquet")
         self.length_thresh = config.get("rep_removal_length_thresh", str(50))
         self.frequency_threshold = config.get("rep_removal_frequency_threshold", str(1))

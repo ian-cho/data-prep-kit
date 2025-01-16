@@ -43,7 +43,7 @@ class RepRemovalTransformConfiguration(TransformConfiguration):
             "--rep_removal_contents_column_name",
             type=str,
             required=False,
-            default="text",
+            default="contents",
             help="Name of the column holding the document text",
         )
         parser.add_argument(

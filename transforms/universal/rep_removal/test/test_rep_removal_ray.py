@@ -16,7 +16,7 @@ from data_processing.test_support.launch.transform_test import (
     AbstractTransformLauncherTest,
 )
 from data_processing_ray.runtime.ray import RayTransformLauncher
-from dpk_rep_removal.ray.runtime import RepRemovalRayTransformRuntimeConfiguration
+from dpk_rep_removal.ray.runtime import RepRemovalRayTransformConfiguration
 
 
 class TestRayRepRemovalTransform(AbstractTransformLauncherTest):
@@ -27,8 +27,11 @@ class TestRayRepRemovalTransform(AbstractTransformLauncherTest):
         fixtures = []
         transform_config = {
             "run_locally": True,
+            "rep_removal_contents_column_name": 'text',
+            "rep_removal_num_threads":  '1',
+
         }
-        launcher = RayTransformLauncher(RepRemovalRayTransformRuntimeConfiguration())
+        launcher = RayTransformLauncher(RepRemovalRayTransformConfiguration())
         fixtures.append((launcher, transform_config,
                          basedir + "/input",
                          basedir + "/expected"))
