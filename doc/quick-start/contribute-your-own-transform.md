@@ -1,4 +1,4 @@
-<h1 align="center">Data Prep Kit</h1>
+<h1 align="center">Data Prep Kit- Developer Tutorial </h1>
 
 <div align="center"> 
 
@@ -17,9 +17,9 @@ In this tutorial we take the developers through the steps for contributing a new
 
 For this tutorial, we will follow a suggested flow. Developers are welcome to explore on their own to achieve the same results. Except for the transform name and module name, developers have a lot of freedom on how they choose their class name, file names and file structure. that said, following the convention listed below would make it easier for the community to chime-in to help with debugging and maintaining the code base.
 
-The new transform will annotate each document in the data set with a digest value that is calculated using a SHA256, SHA512 or MD5 hash function. The objective is to show how we can use a user defined function to build a transform and how developers can specify the configuration parameters for the transform. 
+The new transform we will build in this tutorial is designed to annotate each document in the data set with a digest value that is calculated using a SHA256, SHA512 or MD5 hash function. The objective is to show how we can use a user defined function to build a transform and how developers can specify the configuration parameters for the transform and how we integrate the transform with the orchestrator. 
 
-- For the purpose of this tutorial, our transform will be called **digest** and the python named module is **dpk_digest**. Developers have some freedom in how they name their modules to the extent that the choosen name does not collide with an existing transform name.
+- For the purpose of this tutorial, our transform will be called **digest** and the python named module is **dpk_digest**. Developers have some freedom in how they name their modules to the extent that the choosen name does not conflict with an existing transform name.
 
 - The user defined function for is tutorial is a simple annotator that uses the python hashlib package: 
  ```  
