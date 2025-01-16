@@ -21,23 +21,24 @@ from src.fdedup_compute_execution_params import (
     get_duplicate_list_compute_execution_params,
     signature_calc_compute_execution_params,
 )
-from workflow_support.compile_utils import ONE_HOUR_SEC, ONE_WEEK_SEC, ComponentUtils
+from workflow_support.compile_utils import ONE_HOUR_SEC, ONE_WEEK_SEC, DEFAULT_KFP_COMPONENT_SPEC_PATH, ComponentUtils
 
 
 task_image = os.getenv("FDEDUP_IMAGE_LOCATION", "quay.io/dataprep1/data-prep-kit/fdedup-ray:latest")
 image_pull_secret = os.getenv("FDEDUP_IMAGE_PULL_SECRET", "my_secret")
 
 # the name of the job script
-SIGNATURE_CALC_EXEC_SCRIPT_NAME: str = "signature_calc_transform_ray.py"
-CLUSTER_ANALYSIS_EXEC_SCRIPT_NAME: str = "cluster_analysis_transform_ray.py"
-GET_DUPLICATE_LIST_EXEC_SCRIPT_NAME: str = "get_duplicate_list_transform_ray.py"
-DATA_CLEANING_EXEC_SCRIPT_NAME: str = "data_cleaning_transform_ray.py"
+SIGNATURE_CALC_EXEC_SCRIPT_NAME: str = "-m dpk_fdedup.signature_calc.ray.transform"
+CLUSTER_ANALYSIS_EXEC_SCRIPT_NAME: str = "-m dpk_fdedup.cluster_analysis.ray.transform"
+GET_DUPLICATE_LIST_EXEC_SCRIPT_NAME: str = "-m dpk_fdedup.get_duplicate_list.ray.transform"
+DATA_CLEANING_EXEC_SCRIPT_NAME: str = "-m dpk_fdedup.data_cleaning.ray.transform"
 
 # components
 base_kfp_image = "quay.io/dataprep1/data-prep-kit/kfp-data-processing:latest"
 
 # path to kfp component specifications files
-component_spec_path = "../../../../kfp/kfp_ray_components/"
+component_spec_path = os.getenv("KFP_COMPONENT_SPEC_PATH", DEFAULT_KFP_COMPONENT_SPEC_PATH)
+
 
 # KFPv1 and KFP2 uses different methods to create a component from a function. KFPv1 uses the
 # `create_component_from_func` function, but it is deprecated by KFPv2 and so has a different import path.
