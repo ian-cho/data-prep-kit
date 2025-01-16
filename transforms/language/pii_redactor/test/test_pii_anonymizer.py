@@ -10,8 +10,8 @@
 ################################################################################
 
 import pytest
-from pii_analyzer import PIIAnalyzerEngine
-from pii_anonymizer import PIIAnonymizer
+from dpk_pii_redactor.pii_analyzer import PIIAnalyzerEngine
+from dpk_pii_redactor.pii_anonymizer import PIIAnonymizer
 
 
 @pytest.fixture(scope="module")

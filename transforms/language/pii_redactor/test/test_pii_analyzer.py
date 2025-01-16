@@ -10,7 +10,7 @@
 ################################################################################
 
 import pytest
-from pii_analyzer import PIIAnalyzerEngine
+from dpk_pii_redactor.pii_analyzer import PIIAnalyzerEngine
 
 
 @pytest.fixture(scope="module")
