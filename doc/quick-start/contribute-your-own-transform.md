@@ -31,12 +31,15 @@ The new transform will annotate each document in the data set with a digest valu
 
 ## 📝 List of Steps to follow in this tutorial
 
-1. [Create folder structure](#setup)
+1. [Create folder structure](#setup) - clone git repo and create file structure for new transform
 1. [Implement DigestTransform](#DigestTransform)- core functionality for annotating documents
 1. [Implement DigestConfiguration](#DigestConfiguration) - Configure and validate transform parameters
 1. [Implement DigestRuntime](#DigestRuntime) - wires the transform to the runtime so it is correctly invoked
 1. [Integrate with CI/CD](#cicd) - automate testing, integration and packaging
 1. [Develop Unit Test](#UnitTest) - get test data and write Unit Test
+1. [Create notebook](#notebook) - jupyter notebook showing how the transform can be invoked
+1. [Create Readme file](#readme) - Readme file explaining how the transform is used
+
 
 ## Step 1: Create folder structure <a name=setup></a>
 
@@ -90,9 +93,18 @@ data-prep-kit
 │            |          │ testfile.parquet
 │            |          │ markdown.json
 │            | 
+│            | requirements.txt
+│            | Dockerfile.python
 │            | digest.ipynb
 │            | README.md
 │            | Makefile
+```
+
+although our transform does not require additional packages, we need to create an empty requirements.txt file
+
+```shell
+cd data-prep-kit/transforms/universal/digest
+touch requirements.txt
 ```
 
 ## Step 2: Implemnt DigestTransform <a name="DigestTransform></a>
@@ -315,7 +327,7 @@ cp ../../language/doc_chunk/test-data/expected/*.parquet test-data/input
 cd data-prep-kit/transforms/universal/digest
 python -m venv venv && source venv/bin/activate
 pip intall data-prep-toolkit
-rm -fr test-data/expected/*
+pip install -r requirements.txt
 python -m dpk_digest.runtime --digest_algorithm sha256 --data_local_config "{ 'input_folder' : 'test-data/input', 'output_folder' : 'expected’}” 
 ```
 If the test code runs properly, we should see 2 new files creted in the test-data/expected folder:
@@ -365,22 +377,67 @@ class TestDigestTransform(AbstractTransformLauncherTest):
         return fixtures
 ```
 
-## Step 5: Integrate with CI/CD <a name="cicd"></a>
+## Step 6: Integrate with CI/CD <a name="cicd"></a>
 
 - The repo implements a rich set of functionality for setting up the environment, running unit tests, publish the transforms to pypi, building the transforms as part of a docker image and running it with Kubeflow. For the prupose of this section, we will explore only a portion of the capabilities for support this initial phase of the implementation
 
 we will first copy the Makefile template from the parent folder
+
 ```shell
 cd data-prep-kit/transforms/universal/digest
 cp ../../Makefile.transform.template Makefile
+cp ../../Dockerfile.python.template Dockerfile.python
+```
+
+- The Makefile has a number of predefined target that will be useful for testing and publish the trnasform. To get a list of target, run the following command from the digest folder:
+
+```shell
+make
+```
+Below is a small list of available targets that may be useful at this stage. 
+```
+Target               Description
+------               -----------
+clean                Clean up the virtual environment.
+venv                 Create the virtual environment using requirements.txt
+test-src             Create the virtual environment using requirements.txt and run the unit tests
+image                Build the docker image for the transform
+test-image           Build and test the docker image for the transform 
+publish              Publish the docker image to quay.io container registry
+```
+
+- create virtual environment with all preloaded dependencies
+```shell
+make clean && make venv
+```
+
+- run unit tests and verify the proper operations of the code
+
+```shell
+make test-src
+```
+
+- edit transforms/pyproject.toml and add the requirements.txt for the module and the name of the module and it package location.
+
+```shell
+digest = { file = ["universal/digest/requirements.txt"]}
+...
+[tool.setuptools.package-dir]
+...
+dpk_digest = "universal/digest/dpk_digest"
+...
 ```
 
 
+## Step 7: Create Notebook <a name="notebook"></a>
 
+The notebook should show how to run the notebook from the current folder. Guidance on how to setup jupyter lab can be found [here](quick-start.md). 
 
+![alt text](contribute-your-own-transform-notebook.png)
 
+## Step 8: Create Readme file <a name="readme"></a>
 
+Below is a template of what the readme.md file should contain.  
 
-
-
+![alt text](contribute-your-own-transform-readme.png)
 
