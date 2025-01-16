@@ -29,7 +29,7 @@ The new transform we will build in this tutorial is designed to annotate each do
 - The transform defines a single configuration parameter **digest_algortihm** that specifies the name of the digest algorithm to use and selected from a predefined list that includes **\['SHA256', 'SHA512' or 'MD5'\]**
 
 
-## 📝 List of Steps to follow in this part of the tutorial
+## List of Steps to follow in this part of the tutorial
 
 1. [Create folder structure](#setup) - clone git repo and create file structure for new transform
 1. [Implement DigestTransform](#DigestTransform)- core functionality for annotating documents
@@ -319,20 +319,40 @@ class Digest:
 
 **dpk_digest/ray/runtime.py** 
 
-- The next section of the file wires the transform into the the ray orchestrator
+- This file implements the necessary API for integrating the digest transfromw with the ray orchestrator
 
 ```Python
-class DigestRuntime(RayTransformRuntimeConfiguration):
+# (C) Copyright IBM Corp. 2024.
+# Licensed under the Apache License, Version 2.0 (the “License”);
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#  http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an “AS IS” BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+################################################################################
+import sys
+
+from data_processing.utils import ParamsUtils, get_logger
+from data_processing_ray.runtime.ray import RayTransformLauncher
+from data_processing_ray.runtime.ray.runtime_configuration import RayTransformRuntimeConfiguration
+from dpk_digest.runtime import DigestConfiguration
+
+logger = get_logger(__name__)
+
+class DigestRayRuntime(RayTransformRuntimeConfiguration):
 
     def __init__(self):
         super().__init__(transform_config=DigestConfiguration())
 
 if __name__ == "__main__":
-    launcher = RayTransformLauncher(DigestRuntime())
+    launcher = RayTransformLauncher(DigestRayRuntime())
     launcher.launch()
 ```
 
-- Similarly, we will use the same class name in the ray submodule to define a simplified method for the API
+- Similarly, we will implement the Digest api for the ray submodule to define a simplified method for the API
 
 ```Python
 class Digest:
@@ -340,18 +360,22 @@ class Digest:
         self.params = {}
         for key in kwargs:
             self.params[key] = kwargs[key]
-        # if input_folder and output_folder are specified, then assume it is represent data_local_config
         try:
             local_conf = {k: self.params[k] for k in ("input_folder", "output_folder")}
             self.params["data_local_config"] = ParamsUtils.convert_to_ast(local_conf)
-            del self.params["input_folder"]
-            del self.params["output_folder"]
+            del self.params["input_folder"], self.params["output_folder"]
+        except:
+            pass
+        try:
+            worker_options = {k: self.params[k] for k in ("num_cpus", "memory")}
+            self.params["runtime_worker_options"] = ParamsUtils.convert_to_ast(worker_options)
+            del self.params["num_cpus"], self.params["memory"]
         except:
             pass
 
     def transform(self):
         sys.argv = ParamsUtils.dict_to_req(d=(self.params))
-        launcher = PythonTransformLauncher(DigestRuntime())
+        launcher = RayTransformLauncher(DigestRayRuntime())
         return_code = launcher.launch()
         return return_code
 ```
