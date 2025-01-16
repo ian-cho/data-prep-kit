@@ -41,6 +41,8 @@ Note: This list includes the transforms that were part of the release starting w
    
 ## Release notes:
 
+### 1.0.0.a5
+	Added Pii Redactor
 ### 1.0.0.a4
 	Added missing ray implementation for lang_id, doc_quality, tokenization and filter
 	Added ray notebooks for lang id, Doc Quality, tokenization, and Filter
