@@ -82,7 +82,6 @@ data-prep-kit
 │            |           │ 
 │            └───test
 │            │    |
-│            │    |test_digest.py
 │            │    |test_digest_ray.py
 │            │
 │            └───test-data
