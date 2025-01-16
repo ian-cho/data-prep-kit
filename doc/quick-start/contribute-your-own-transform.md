@@ -7,10 +7,10 @@
 <?  [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylelobo/The-Documentation-Compendium.svg)](https://github.com/IBM/data-prep-kit/pulls) ?>
 </div> 
 
-In this tutorial we take the developers through the steps for contributing a new transform to the DPK. We will cover the steps for cloning the repo, writing the code and using the capabilities offered by the framework to accelerate development and testing. [Part 2 of the tutorial](tutorial-part-2) is found [here](tutorial-part-2) and covers how to enable Ray and KFP
+In this tutorial we take the developers through the steps for contributing a new transform to the DPK. We will cover the steps for cloning the repo, writing the code and using the capabilities offered by the framework to accelerate development and testing. 
 
 
-[This part of the tutorial](#part1) covers:
+This tutorial covers:
 1. How to clone the repo and setup the file structure for the transform
 1. Write the code by implementing the transform specific functionality 
 1. Use the framework capabilities to accelerate development, testing and deployment
@@ -29,12 +29,13 @@ The new transform we will build in this tutorial is designed to annotate each do
 - The transform defines a single configuration parameter **digest_algortihm** that specifies the name of the digest algorithm to use and selected from a predefined list that includes **\['SHA256', 'SHA512' or 'MD5'\]**
 
 
-## 📝 List of Steps to follow in this tutorial
+## 📝 List of Steps to follow in this part of the tutorial
 
 1. [Create folder structure](#setup) - clone git repo and create file structure for new transform
 1. [Implement DigestTransform](#DigestTransform)- core functionality for annotating documents
 1. [Implement DigestConfiguration](#DigestConfiguration) - Configure and validate transform parameters
 1. [Implement DigestRuntime](#DigestRuntime) - wires the transform to the runtime so it is correctly invoked
+1. [Implement ray.DigestRuntime](#RayRuntime) - extend the transform to scale up using ray
 1. [Integrate with CI/CD](#cicd) - automate testing, integration and packaging
 1. [Develop Unit Test](#UnitTest) - get test data and write Unit Test
 1. [Create notebook](#notebook) - jupyter notebook showing how the transform can be invoked
@@ -77,10 +78,15 @@ data-prep-kit
 │            |      │ __init__.py
 │            |      │ transform.py
 │            |      | runtime.py
-│            │
+│            │      |
+│            |      └───ray
+│            |           │ __init__.py
+│            |           | runtime.py
+│            |           │ 
 │            └───test
 │            │    |
 │            │    |test_digest.py
+│            │    |test_digest_ray.py
 │            │
 │            └───test-data
 │            │     |
@@ -309,8 +315,50 @@ class Digest:
         return return_code
 ```
 
+## Step 5: Implement ray.DigestRuntime <a name="rayDigestRuntime"></a>
 
-## Step 5: Develop Unit Test <a name="UnitTest"></a>
+**dpk_digest/ray/runtime.py** 
+
+- The next section of the file wires the transform into the the ray orchestrator
+
+```Python
+class DigestRuntime(RayTransformRuntimeConfiguration):
+
+    def __init__(self):
+        super().__init__(transform_config=DigestConfiguration())
+
+if __name__ == "__main__":
+    launcher = RayTransformLauncher(DigestRuntime())
+    launcher.launch()
+```
+
+- Similarly, we will use the same class name in the ray submodule to define a simplified method for the API
+
+```Python
+class Digest:
+    def __init__(self, **kwargs):
+        self.params = {}
+        for key in kwargs:
+            self.params[key] = kwargs[key]
+        # if input_folder and output_folder are specified, then assume it is represent data_local_config
+        try:
+            local_conf = {k: self.params[k] for k in ("input_folder", "output_folder")}
+            self.params["data_local_config"] = ParamsUtils.convert_to_ast(local_conf)
+            del self.params["input_folder"]
+            del self.params["output_folder"]
+        except:
+            pass
+
+    def transform(self):
+        sys.argv = ParamsUtils.dict_to_req(d=(self.params))
+        launcher = PythonTransformLauncher(DigestRuntime())
+        return_code = launcher.launch()
+        return return_code
+```
+
+
+
+## Step 6: Develop Unit Test <a name="UnitTest"></a>
 
 - For our testing, we will need some initial data as input to our transform. We will copy it from another transform test folder.
 
@@ -377,7 +425,7 @@ class TestDigestTransform(AbstractTransformLauncherTest):
         return fixtures
 ```
 
-## Step 6: Integrate with CI/CD <a name="cicd"></a>
+## Step 7: Integrate with CI/CD <a name="cicd"></a>
 
 - The repo implements a rich set of functionality for setting up the environment, running unit tests, publish the transforms to pypi, building the transforms as part of a docker image and running it with Kubeflow. For the prupose of this section, we will explore only a portion of the capabilities for support this initial phase of the implementation
 
@@ -429,13 +477,13 @@ dpk_digest = "universal/digest/dpk_digest"
 ```
 
 
-## Step 7: Create Notebook <a name="notebook"></a>
+## Step 8: Create Notebook <a name="notebook"></a>
 
 The notebook should show how to run the notebook from the current folder. Guidance on how to setup jupyter lab can be found [here](quick-start.md). 
 
 ![alt text](contribute-your-own-transform-notebook.png)
 
-## Step 8: Create Readme file <a name="readme"></a>
+## Step 9: Create Readme file <a name="readme"></a>
 
 Below is a template of what the readme.md file should contain.  
 
