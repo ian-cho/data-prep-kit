@@ -11,7 +11,9 @@
 ################################################################################
 
 import subprocess
-
+import os
+pwd = os.path.dirname(__file__)
+toml_path = f"{pwd}/Cargo.toml"
 
 def find_repeated_substrings(input, length_thresh, cache_dir, num_threads, frequency_threshold, retain_first_copy):
     ### Finding all repeated substrings within a document
@@ -20,7 +22,10 @@ def find_repeated_substrings(input, length_thresh, cache_dir, num_threads, frequ
     ### --length-threshold: The length threshold is dataset-dependent (50 tokens used in the paper).
 
     if retain_first_copy:
-        find_repetition_cmd = ['cargo', 'run', 'self-similar',
+        find_repetition_cmd = ['cargo', 'run',
+                               '--manifest-path', toml_path,
+                               '--',
+                               'self-similar',
                                '--data-file', input,
                                '--length-threshold', length_thresh,
                                '--cache-dir', cache_dir,
@@ -29,7 +34,10 @@ def find_repeated_substrings(input, length_thresh, cache_dir, num_threads, frequ
                                '--retain-first-copy']
         subprocess.run(find_repetition_cmd)
     else:
-        find_repetition_cmd = ['cargo', 'run', 'self-similar',
+        find_repetition_cmd = ['cargo', 'run',
+                               '--manifest-path', toml_path,
+                               '--',
+                               'self-similar',
                                '--data-file', input,
                                '--length-threshold', length_thresh,
                                '--cache-dir', cache_dir,
@@ -41,7 +49,10 @@ def find_repeated_substrings(input, length_thresh, cache_dir, num_threads, frequ
 def collect_duplicates(input, length_thresh, cache_dir, repeated_pairs_file):
     ### Collecting the duplicates together
     ### Finding string sequences that should be removed from the document
-    collect_cmd = ['cargo', 'run', 'collect',
+    collect_cmd = ['cargo', 'run',
+                   '--manifest-path', toml_path,
+                   '--',
+                   'collect',
                    '--data-file', input,
                    '--cache-dir', cache_dir,
                    '--length-threshold', length_thresh]
@@ -57,7 +68,10 @@ def collect_duplicates_avoidIO(input, length_thresh, cache_dir):
     ### repeated_pairs_list is a list not a file to avoid I/O
     repeated_pairs_list = []
 
-    collect_cmd = ['cargo', 'run', 'collect',
+    collect_cmd = ['cargo', 'run',
+                   '--manifest-path', toml_path,
+                   '--',
+                   'collect',
                    '--data-file', input,
                    '--cache-dir', cache_dir,
                    '--length-threshold', length_thresh]
