@@ -18,7 +18,7 @@ The new transform we will build  as part of this tutorial is meant to annotate e
 
 - For the purpose of this tutorial, our transform will be called **digest** and the python named module is **dpk_digest**. Developers have some freedom in how they name their modules to the extent that the choosen name does not conflict with an existing transform name.
 
-- The user defined function for is tutorial is a simple annotator that uses the python hashlib package: 
+- The user defined function for this tutorial is a simple annotator that uses the python hashlib package: 
  ```  
       hash = hashlib.new(self.algorithm)
       digest=hash.update(elt.encode('utf-8'))
@@ -115,7 +115,7 @@ touch requirements.txt
 
 **dpk_digest/transform.py** 
 
-This file implements the key logic for the transform. It receives a pyarrow table with a list of documents in the data set and append a new column with a digest value. We will described the contents of the file in 2 sections:
+This file implements the key logic for the transform. It receives a pyarrow table with a list of documents in the data set and append a new column with a digest value. We will describe the contents of the file in 2 sections:
 
 - The first portion of the file includes the language for the license used to distribute and use the code and a set of import statements for the library modules that will be needed for invoking this transfroms
 
@@ -143,7 +143,7 @@ from data_processing.utils import  TransformUtils
 
 **AbstractTableTransform** defines a template for the APIs that will be invoked by the runtime to trigger the transform.
 
-**TransformUtils** provides a number of shortcuts commonly used by transfdorms for data conversions, table manipulations, etc.
+**TransformUtils** provides a number of shortcuts commonly used by the transforms for data conversions, table manipulations, etc.
 
 
 
@@ -206,9 +206,10 @@ from .transform import *
 **dpk_digest/runtime.py** 
 
 This file implements a serie of user defined validation steps that must be executed prior to invoking the transform. 
-
-- The first portion of the file includes the language for the license used to distribute and use the code and a set of import statements for the library modules that will be needed to run validation
-
+Key Methods implemented by the developer:
+* **add_input_params() is called by the framework to validate the presence of all required configuration parameter for this transform 
+and specifies guidance to the user if any is missing
+* **apply_input_params() is called by the framework to validate the values associated with the configuration parameter.
 
 ```python
 # (C) Copyright IBM Corp. 2024.
@@ -231,20 +232,6 @@ from data_processing.runtime.pure_python import PythonTransformLauncher
 from data_processing.runtime.pure_python.runtime_configuration import (
     PythonTransformRuntimeConfiguration,)
 
-logger = get_logger(__name__)
-```
-
-- Some of the key classes indetified in this import list include:
-* **TransformConfiguration** Defines a template for the method that the DigestConfiguration implements
-* **ParamsUtils, CLIArgumentProvider** Utilities method provided by the framework for parsing the transform configuration as defined by the user of the transform
-* **ArgumentParser, Namespace** Standard python methods for parsing command line arguments and standard argument types
-* **PythonTransformLauncher, PythonTransformRuntimeConfiguration** Implemented by the framework for orchestration the execution of the transform
-
-
-
-- The next section of the file defines the implementation of the DigestConfiguration that will provide guidance to the user on how to configure the transform and also validate the associated configuration value
-
-```Python
 logger = get_logger(__name__)
 
 class DigestConfiguration(TransformConfiguration):
@@ -269,6 +256,8 @@ class DigestConfiguration(TransformConfiguration):
             return False
         return True
 ```
+
+
 
 ## Step 4: Implement PythonTransformRuntimeConfiguration <a name="DigestRuntime"></a>
 
@@ -317,7 +306,7 @@ class Digest:
 
 **dpk_digest/ray/runtime.py** 
 
-- This file implements the necessary API for integrating the digest transfromw with the ray orchestrator
+- This file implements the necessary API for integrating the digest transform with the ray orchestrator
 
 ```Python
 # (C) Copyright IBM Corp. 2024.
@@ -404,7 +393,7 @@ If the test code runs properly, we should see 2 new files creted in the test-dat
 test-data/expected/test1.parquet
 test-data/expected/metadata.json
 
-- Developers have some freedom in designing their unit tests. in this section we should how developers can use the test fixture defined in the framework to rapidly create unit tests
+- Developers have some freedom in designing their unit tests. in this section we show how developers can use the test fixture defined in the framework to rapidly create unit tests
 
 **test/test_digest.py**
 
@@ -449,7 +438,7 @@ class TestDigestTransform(AbstractTransformLauncherTest):
 
 ## Step 7: Integrate with CI/CD <a name="cicd"></a>
 
-- The repo implements a rich set of functionality for setting up the environment, running unit tests, publish the transforms to pypi, building the transforms as part of a docker image and running it with Kubeflow. For the prupose of this section, we will explore only a portion of the capabilities for support this initial phase of the implementation
+- The repo implements a rich set of functionality for setting up the environment, running unit tests, publishing the transforms to pypi, building the transforms as part of a docker image and running it with Kubeflow. For the purpose of this section, we will explore only a portion of the capabilities that support this initial phase of the implementation
 
 we will first copy the Makefile template from the parent folder
 
@@ -459,7 +448,7 @@ cp ../../Makefile.transform.template Makefile
 cp ../../Dockerfile.python.template Dockerfile.python
 ```
 
-- The Makefile has a number of predefined target that will be useful for testing and publish the trnasform. To get a list of target, run the following command from the digest folder:
+- The Makefile has a number of predefined targets that will be useful for testing and publish the transform. To get a list of available targets, run the following command from the digest folder:
 
 ```shell
 make
@@ -487,7 +476,7 @@ make clean && make venv
 make test-src
 ```
 
-- edit transforms/pyproject.toml and add the requirements.txt for the module and the name of the module and it package location.
+- edit transforms/pyproject.toml and add the requirements.txt for the module and the name of the module and its package location.
 
 ```shell
 digest = { file = ["universal/digest/requirements.txt"]}
