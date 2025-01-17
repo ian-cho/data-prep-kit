@@ -88,5 +88,5 @@ python -m ipykernel install --user --name=data-prep-kit --display-name "dataprep
     
 ## Creating transforms
 
-* [Tutorial](xxxx.md) - shows how to use the library to add a new transform.
+* [Tutorial](contribute-your-own-transform.md) - shows how to use the library to add a new transform.
 
