@@ -491,16 +491,12 @@ dpk_digest = "universal/digest/dpk_digest"
 
 ## Step 8: Create Notebook <a name="notebook"></a>
 
-The notebook should show how to run the notebook from the current folder. Guidance on how to setup jupyter lab can be found [here](quick-start.md). Below is a notebook for our digest transform. 
-
-![alt text](contribute-your-own-transform-notebook.png)
+The notebook should show how to run the notebook from the current folder. Guidance on how to setup jupyter lab can be found [here](quick-start.md). This is a simple [notebook](https://github.com/mt747/data-prep-kit/blob/block_digest/transforms/universal/digest/digest.ipynb) for our digest transform. 
 
 ## Step 9: Create Readme file <a name="readme"></a>
 
-Below is a template of what the readme.md file should contain.  
-
-![alt text](contribute-your-own-transform-readme.png)
-
+The README file for the transform should have, at a minimum, the following sections: Summary, Contributors, Configuration and command line options, an Example of how to run from command line and link to a notebook. If applicable, it should have more sections on Troubleshooting, Transforming data using the transform image and sections on Ray and/or Spark versions of the transform. 
+[This](https://github.com/mt747/data-prep-kit/blob/block_digest/transforms/universal/digest/README.md) is a minimal README file for our digest transform. 
 
 ## Contributors
 
