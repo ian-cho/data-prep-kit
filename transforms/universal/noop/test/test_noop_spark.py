@@ -16,7 +16,7 @@ from data_processing.test_support.launch.transform_test import (
     AbstractTransformLauncherTest,
 )
 from data_processing_spark.runtime.spark import SparkTransformLauncher
-from dpk_noop.spark.transform_spark import NOOPSparkTransformConfiguration
+from dpk_noop.spark.transform import NOOPSparkTransformConfiguration
 
 
 class TestSparkNOOPTransform(AbstractTransformLauncherTest):
