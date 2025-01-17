@@ -15,13 +15,14 @@ runtime images (`-ray` or `-spark` image name suffix instead of `-python`).
 ### Getting an image
 You may build the transform locally in the repository, for example,
 ```shell
-cd transforms/universal/noop/python
+cd transforms/universal/noop
 make image
 docker images | grep noop
 ```
 produces
 ```
 quay.io/dataprep1/data-prep-kit/noop-python                     latest   aac55fa3d82d  5 seconds ago  355 MB
+...
 ```
 Or, you can use the pre-built images (latest, or 0.2.1 or later tags) 
 on quay.io found at [https://quay.io/user/dataprep1](https://quay.io/user/dataprep1).
@@ -41,7 +42,7 @@ docker run  --rm
     -v /home/me/input:/input \
     -v /home/me/output:/output \
     noop-python:latest 	\
-	python noop_transform_python.py \
+	python -m dpk_noop.transform \
 	--data_local_config "{ \
 	    'input_folder'  : '/input', \
 	    'output_folder' : '/output' \
@@ -56,7 +57,7 @@ docker run  --rm
     -v /home/me/input:/input \
     -v /home/me/output:/output \
     quay.io/dataprep1/data-prep-kit/noop-python:latest 	\
-	python noop_transform_python.py \
+	python -m dpk_noop.transform \
 	--data_local_config "{ \
 	    'input_folder'  : '/input', \
 	    'output_folder' : '/output' \
@@ -74,7 +75,7 @@ docker run  --rm
     -v /home/me/input:/input \
     -v /home/me/output:/output \
     quay.io/dataprep1/data-prep-kit/noop-ray:latest 	\
-	python noop_transform_ray.py \
+	python -m dpk_noop.ray.transform \
 	--data_local_config "{ \
 	    'input_folder'  : '/input', \
 	    'output_folder' : '/output' \
@@ -93,7 +94,7 @@ and specify different `--data_s3_*` configuration as follows:
 ```shell
 docker run  --rm 
     noop-python:latest 	\
-	python noop_transform_python.py \
+	python -m dpk_noop.transform_python \
 	--data_s3_cred "{ \
 	    'access_key'  : '...', \
 	    'secret_key' : '...', \
