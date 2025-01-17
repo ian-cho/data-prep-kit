@@ -1,4 +1,4 @@
-# Repetition removal
+# Repetition Removal Transform
 
 This tranforms performs text repetition removal to remove sequences that frequently occur at documents within a single parquet file level.
 
@@ -31,6 +31,24 @@ Another modification has been made to retain the first copy of each duplicate cl
 
 This repetition removal task can be fine-tuned by adjusting the length_threshold(repeated text sequence length) and frequency_threshold. 
 Based on the analysis length_threshold=50 is used in the repetition removal task that also was used in the original work from google and in the RefinedWeb.
+
+## Requirements
+To run the repetition removal transform, **Rust** is required to be installed on the machine. 
+You can install rust following instructions [here](https://www.rust-lang.org/tools/install)
+
+## Input Parameters
+
+The transform can be initialized with the following parameters.
+
+| Parameter                          | Default    | Description                                       |
+|------------------------------------|------------|---------------------------------------------------|
+| `rep_removal_contents_column_name` | `contents` | Name of the column holding the document contents  |
+| `rep_removal_dedup_level_name`     | `parquet`  | Name of the type of file to process               |
+| `rep_remova_length_thresh`         | `50`       | Length threshold for processing                   |
+| `rep_removal_frequency_threshold`  | `1`        | Frequency threshold for processing                |
+| `rep_removal_retain_first_copy`    | `True`     | Boolean value for whether to retain first copy    |
+| `rep_removal_tokenize`             | `True`     | Boolean value for whether to tokenize             |
+| `rep_removal_num_threads`          | `4`        | Value for number of threads to use for processing |
 
 
 ## Output format
@@ -66,18 +84,7 @@ dedup output:
 
 ```
 
-
-## Parameters
-
-The transform can be initialized with the following parameters.
-
-| Parameter  | Default   | Description  |
-|------------|-----------|--------------|
-| `contents_column_name`             | `text`    | Name of the column holding the document text |
-| `dedup_level_name`         | `parquet` | Name of the type of file to process |
-| `length_thresh`         | `50`      | Length threshold for processing |
-| `frequency_threshold`         | `1`       | Frequency threshold for processing |
-| `retain_first_copy`                     | `True`    | Boolean value for whether to retain first copy |
-| `tokenize`           | `True`    | Boolean value for whether to tokenize |
-| `num_threads`           | `4`       | Value for number of threads to use for processing |
+## Contributors
+- Shalisha Witherspoon (shalisha.witherspoon@ibm.com)
+- Hajar Emami Gohari (Hajar.Emami@ibm.com)
 
