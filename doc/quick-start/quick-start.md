@@ -35,7 +35,7 @@ The command above should say: 3.11
 **install data prep toolkit**
 
 ```shell
-pip3 'install data-prep-toolkit-transforms[ray,all]'
+pip3 install 'data-prep-toolkit-transforms[ray,all]'
 ```
 the command above install the complete library with all the tansforms. In certain situations, it may be desirable to install a specific transform with or without the ray runtime. In that case, the command can specify the name of the transform in the \[extra\] value such as:
 
