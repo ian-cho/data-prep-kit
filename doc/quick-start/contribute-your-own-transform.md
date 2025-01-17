@@ -202,12 +202,9 @@ from .transform import *
 
 ## Step 3: Implement TransformConfiguration <a name="digestconfiguration"></a>
 
-**dpk_digest/runtime.py** 
+**dpk_digest/runtime.py**  This file implements 3 classes, the first being TransformConfiguration. It defines two user defined methods that must be implemented by the developer for each transform:
 
-This file implements a series of user defined validation steps that must be executed prior to invoking the transform. 
-Key Methods implemented by the developer are:
-* add_input_params() is called by the framework to validate the presence of all required configuration parameter for this transform 
-and specifies guidance to the user if any is missing
+* add_input_params() is called by the framework to validate the presence of all required configuration parameters for this transform and specifies guidance to the user if any is missing
 * apply_input_params() is called by the framework to validate the values associated with the configuration parameter.
 
 ```python
@@ -260,9 +257,9 @@ class DigestConfiguration(TransformConfiguration):
 
 ## Step 4: Implement PythonTransformRuntimeConfiguration <a name="digestruntime"></a>
 
-**dpk_digest/runtime.py (continued)** 
+**dpk_digest/runtime.py (continued)**  the other two classes in this file include:
 
-- The next section of the file wires the transform into the the python orchestrator and allows the framework to instantiate, configure and invoke the transfrom.
+- DigestRuntime: Implements PythonTransformRuntimeConfiguration and wires the transform into the python orchestrator and allows the framework to instantiate, configure and invoke the transfrom.
 
 ```Python
 class DigestRuntime(PythonTransformRuntimeConfiguration):
@@ -277,7 +274,7 @@ if __name__ == "__main__":
 
 
 
-- The last section of the file defines a wrapper that simplifies how the transform is invoked and hides some of the complexity that is inherited by the runtime orchestrator.
+- Digest: implements a wrapper that simplifies how the transform is invoked and hides some of the complexity that is inherited by the runtime orchestrator.
 
 ```Python
 class Digest:
@@ -303,9 +300,7 @@ class Digest:
 
 ## Step 5: Implement RayTransformRuntimeConfiguration <a name="rayruntime"></a>
 
-**dpk_digest/ray/runtime.py** 
-
-- This file implements the necessary API for integrating the digest transform with the ray orchestrator.
+**dpk_digest/ray/runtime.py** This file implements the necessary API for integrating the digest transform with the ray orchestrator.
 
 ```Python
 # (C) Copyright IBM Corp. 2024.
