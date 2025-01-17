@@ -42,7 +42,14 @@ class NOOPTransform(AbstractTableTransform):
         # Make sure that the param name corresponds to the name used in apply_input_params method
         # of NOOPTransformConfiguration class
         super().__init__(config)
-        self.sleep = config.get("sleep_sec", 1)
+        self.sleep = config.get(sleep_cli_param, 1)
+        if self.sleep == None:
+            # For backwards compatibility after we started encouraging the use of cli prefix in the configuration keys
+            self.sleep = config.get(sleep_key, 1)
+        self.pwd= config.get(pwd_cli_param, 1)
+        if self.pwd == None:
+            # For backwards compatibility after we started encouraging the use of cli prefix in the configuration keys
+            self.pwd = config.get(pwd_key, 1)
 
     def transform(self, table: pa.Table, file_name: str = None) -> tuple[list[pa.Table], dict[str, Any]]:
         """

@@ -13,7 +13,7 @@
 import os
 
 from data_processing.data_access import DataAccessLocal
-from noop_transform import NOOPTransform
+from dpk_noop.transform import NOOPTransform
 
 
 # create parameters

@@ -17,7 +17,7 @@ from data_processing.runtime.pure_python.runtime_configuration import (
     PythonTransformRuntimeConfiguration,
 )
 from data_processing.utils import get_logger
-from noop_transform import NOOPTransformConfiguration
+from dpk_noop.transform import NOOPTransformConfiguration
 
 
 logger = get_logger(__name__)

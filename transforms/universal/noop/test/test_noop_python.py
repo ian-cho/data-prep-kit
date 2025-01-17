@@ -12,15 +12,15 @@
 
 import os
 
+from data_processing.runtime.pure_python import PythonTransformLauncher
 from data_processing.test_support.launch.transform_test import (
     AbstractTransformLauncherTest,
 )
-from data_processing_ray.runtime.ray import RayTransformLauncher
-from noop_transform import sleep_cli_param
-from noop_transform_ray import NOOPRayTransformConfiguration
+from dpk_noop.transform import sleep_cli_param
+from dpk_noop.transform_python import NOOPPythonTransformConfiguration
 
 
-class TestRayNOOPTransform(AbstractTransformLauncherTest):
+class TestPythonNOOPTransform(AbstractTransformLauncherTest):
     """
     Extends the super-class to define the test data for the tests defined there.
     The name of this class MUST begin with the word Test so that pytest recognizes it as a test class.
@@ -30,18 +30,18 @@ class TestRayNOOPTransform(AbstractTransformLauncherTest):
         src_file_dir = os.path.abspath(os.path.dirname(__file__))
         fixtures = []
 
-        launcher = RayTransformLauncher(NOOPRayTransformConfiguration())
+        launcher = PythonTransformLauncher(NOOPPythonTransformConfiguration())
         input_dir = os.path.join(src_file_dir, "../test-data/input")
         expected_dir = os.path.join(src_file_dir, "../test-data/expected")
-        runtime_config = {"run_locally": True}
         transform_config = {sleep_cli_param: 0}
         fixtures.append(
             (
                 launcher,
-                transform_config | runtime_config,
+                transform_config,
                 input_dir,
                 expected_dir,
                 [],  # optional list of column names to ignore in comparing test-generated with expected.
             )
         )
+
         return fixtures

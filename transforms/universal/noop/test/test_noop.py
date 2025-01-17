@@ -16,7 +16,7 @@ from data_processing.test_support import get_tables_in_folder
 from data_processing.test_support.transform.table_transform_test import (
     AbstractTableTransformTest,
 )
-from noop_transform import NOOPTransform, sleep_key
+from dpk_noop.transform import NOOPTransform, sleep_key
 
 
 table = pa.Table.from_pydict({"name": pa.array(["Tom"]), "age": pa.array([23])})

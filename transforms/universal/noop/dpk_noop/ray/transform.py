@@ -15,7 +15,7 @@ from data_processing_ray.runtime.ray import RayTransformLauncher
 from data_processing_ray.runtime.ray.runtime_configuration import (
     RayTransformRuntimeConfiguration,
 )
-from noop_transform import NOOPTransformConfiguration
+from dpk_noop.transform import NOOPTransformConfiguration
 
 
 logger = get_logger(__name__)

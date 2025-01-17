@@ -13,9 +13,9 @@
 import os
 import sys
 
+from data_processing.runtime.pure_python import PythonTransformLauncher
 from data_processing.utils import ParamsUtils
-from data_processing_spark.runtime.spark import SparkTransformLauncher
-from noop_transform_spark import NOOPSparkTransformConfiguration
+from dpk_noop.transform_python import NOOPPythonTransformConfiguration
 
 
 # create parameters
@@ -30,7 +30,6 @@ params = {
     # Data access. Only required parameters are specified
     "data_local_config": ParamsUtils.convert_to_ast(local_conf),
     # execution info
-    "runtime_parallelization": 2,
     "runtime_pipeline_id": "pipeline_id",
     "runtime_job_id": "job_id",
     "runtime_code_location": ParamsUtils.convert_to_ast(code_location),
@@ -41,6 +40,6 @@ if __name__ == "__main__":
     # Set the simulated command line args
     sys.argv = ParamsUtils.dict_to_req(d=params)
     # create launcher
-    launcher = SparkTransformLauncher(runtime_config=NOOPSparkTransformConfiguration())
+    launcher = PythonTransformLauncher(runtime_config=NOOPPythonTransformConfiguration())
     # Launch the ray actor(s) to process the input
     launcher.launch()
