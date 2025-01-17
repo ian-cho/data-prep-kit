@@ -16,8 +16,8 @@ from data_processing.test_support.launch.transform_test import (
     AbstractTransformLauncherTest,
 )
 from data_processing_ray.runtime.ray import RayTransformLauncher
-from pii_redactor_transform import doc_transformed_contents_cli_param
-from pii_redactor_transform_ray import PIIRedactorRayTransformConfiguration
+from dpk_pii_redactor.transform import doc_transformed_contents_cli_param
+from dpk_pii_redactor.ray.transform import PIIRedactorRayTransformConfiguration
 
 
 class TestRayPIIRedactorTransform(AbstractTransformLauncherTest):
@@ -27,7 +27,7 @@ class TestRayPIIRedactorTransform(AbstractTransformLauncherTest):
     """
 
     def get_test_transform_fixtures(self) -> list[tuple]:
-        basedir = "../test-data"
+        basedir = "../ray/test-data"
         basedir = os.path.abspath(os.path.join(os.path.dirname(__file__), basedir))
         fixtures = []
         launcher = RayTransformLauncher(PIIRedactorRayTransformConfiguration())

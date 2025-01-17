@@ -46,7 +46,7 @@ image: Dockerfile requirements.txt
 
 .PHONE: set-versions
 set-versions:
-	@# Help: Update yaml files to build images tagged as version $(KFP_DOCKER_VERSION).
+	@# Help: Update yaml files to build images tagged as version $(DOCKER_IMAGE_VERSION).
 	@$(MAKE) .reconcile-requirements FILE=createRayClusterComponent.yaml
 	@$(MAKE) .reconcile-requirements FILE=deleteRayClusterComponent.yaml
 	@$(MAKE) .reconcile-requirements FILE=executeRayJobComponent.yaml
@@ -71,9 +71,9 @@ docker-save-image:
 .PHONY: publish
 publish:
 	echo "Publishing kfp-data-processing"
-	$(MAKE) KFPv2=0 DOCKER_IMAGE_NAME="kfp-data-processing" DOCKER_IMAGE_VERSION=${KFP_DOCKER_VERSION} .defaults.publish-image
+	$(MAKE) KFPv2=0 DOCKER_IMAGE_NAME="kfp-data-processing" .defaults.publish-image
 	echo "Publishing kfp-data-processing_v2"
-	$(MAKE) KFPv2=1 DOCKER_IMAGE_NAME="kfp-data-processing_v2" DOCKER_IMAGE_VERSION=${KFP_DOCKER_VERSION_v2} .defaults.publish-image
+	$(MAKE) KFPv2=1 DOCKER_IMAGE_NAME="kfp-data-processing_v2" .defaults.publish-image
 
 test::
 

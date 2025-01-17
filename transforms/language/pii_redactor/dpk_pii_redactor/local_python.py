@@ -15,8 +15,8 @@ import sys
 
 from data_processing.runtime.pure_python import PythonTransformLauncher
 from data_processing.utils import ParamsUtils
-from pii_redactor_transform import doc_transformed_contents_cli_param
-from pii_redactor_transform_python import PIIRedactorPythonTransformConfiguration
+from dpk_pii_redactor.transform import doc_transformed_contents_cli_param
+from dpk_pii_redactor.transform_python import PIIRedactorPythonTransformConfiguration
 
 
 # create parameters

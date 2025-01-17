@@ -12,7 +12,7 @@
 import os
 
 from data_processing.data_access import DataAccessLocal
-from pii_redactor_transform import (
+from dpk_pii_redactor.transform import (
     PIIRedactorTransform,
     doc_transformed_contents_key,
     supported_entities_key,

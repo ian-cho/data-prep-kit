@@ -21,8 +21,8 @@ from typing import Any, Optional
 import pyarrow as pa
 from data_processing.transform import AbstractTableTransform, TransformConfiguration
 from data_processing.utils import CLIArgumentProvider, TransformUtils, get_logger
-from pii_analyzer import PIIAnalyzerEngine
-from pii_anonymizer import PIIAnonymizer
+from dpk_pii_redactor.pii_analyzer import PIIAnalyzerEngine
+from dpk_pii_redactor.pii_anonymizer import PIIAnonymizer
 
 
 short_name = "pii_redactor"
