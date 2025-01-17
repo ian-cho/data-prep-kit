@@ -39,15 +39,9 @@ supporting data transformations in 3 runtimes
 * transform
     * universal
         * noop 
-          * python 
-          * ray
-          * spark 
-          * kfp_ray
         * ...
     * code
         * code_quality
-            * ray
-            * kfp_ray
         * ...
     * language
         * ...
