@@ -27,17 +27,15 @@ found in [NOOPTransform](dpk_noop/transform.py)
 | Parameter        | Default | Description                                                                                                                                                 |
 |------------------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `noop_sleep_sec` | 1       | Number of seconds to sleep while inside the transform() method.  This may be useful to simulate transform timeings and as a way to limit I/O bandwidth use. | 
-| `noop_pwd`       | None    | specifies a dummy password not included in metadata. Provided
-as an example of metadata that we want to not include in logging. | 
+| `noop_pwd`       | None    | specifies a dummy password not included in metadata. Provided as an example of metadata that we want to not include in logging. | 
 
-The set of dictionary keys holding [NOOPTransform](dpk_noop/transform.py) 
-configuration for values are as follows:
+The set of dictionary keys can be found in [NOOPTransform](dpk_noop/transform.py).
 
 ## Usage
 
 ### Launched Command Line Options 
-When invoking the CLI, the parameters must be set as  using the parameter names
-from the above table.  For example, 
+When invoking the CLI, the parameters are set using the parameter names from the above table.  
+For example, 
 ```shell
 python -m dpk_noop/transform_python --noop_sleep_sec 10 ...
 ```
