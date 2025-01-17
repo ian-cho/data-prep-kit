@@ -257,7 +257,7 @@ class DigestConfiguration(TransformConfiguration):
 
 ## Step 4: Implement PythonTransformRuntimeConfiguration <a name="digestruntime"></a>
 
-**dpk_digest/runtime.py (continued)**  the other two classes in this file include:
+**dpk_digest/runtime.py (continued)**  The other two classes in this file include:
 
 - DigestRuntime: Implements PythonTransformRuntimeConfiguration and wires the transform into the python orchestrator and allows the framework to instantiate, configure and invoke the transfrom.
 
@@ -274,7 +274,7 @@ if __name__ == "__main__":
 
 
 
-- Digest: implements a wrapper that simplifies how the transform is invoked and hides some of the complexity that is inherited by the runtime orchestrator.
+- Digest: Implements a wrapper that simplifies how the transform is invoked and hides some of the complexity that is inherited by the runtime orchestrator.
 
 ```Python
 class Digest:
