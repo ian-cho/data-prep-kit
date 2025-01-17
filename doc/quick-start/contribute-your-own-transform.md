@@ -29,7 +29,7 @@ The new transform we will build  as part of this tutorial is meant to annotate e
 ## List of Steps to follow in this part of the tutorial
 
 1. [Create folder structure](#setup) - clone git repo and create file structure for new transform
-1. [Implement AbstractTableTransform](#DigestTransform) - core functionality for annotating documents
+1. [Implement AbstractTableTransform](#digesttransform) - core functionality for annotating documents
 1. [Implement TransformConfiguration](#DigestConfiguration) - configure and validate transform parameters
 1. [Implement PythonTransformRuntimeConfiguration](#DigestRuntime) - wire the transform to the runtime so it is correctly invoked
 1. [Implement RayTransformRuntimeConfiguration](#RayRuntime) - extend the transform to scale up using ray
@@ -110,7 +110,7 @@ cd data-prep-kit/transforms/universal/digest
 touch requirements.txt
 ```
 
-## Step 2: Implement AbstractTableTransform <a name="DigestTransform"></a>
+## Step 2: Implement AbstractTableTransform <a name="digesttransform"></a>
 
 **dpk_digest/transform.py** 
 
