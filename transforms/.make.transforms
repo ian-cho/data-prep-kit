@@ -204,14 +204,21 @@ test-locals:: .transforms.test-locals
 
 .PHONY: .transforms-check-exists
 .transforms-check-exists:
-	@exists=$$(find $(CHECK_DIR) -name $(CHECK_FILE_NAME));	\
+	@if  [ ! -d "$(CHECK_DIR)" ]; then				\
+	    echo $$REQ create $(CHECK_FILE_NAME) in directory $(CHECK_DIR); 	\
+	    exit 0;							\
+	fi;								\
+	exists=$$(find $(CHECK_DIR) -name $(CHECK_FILE_NAME));	\
 	if  [ -z "$$exists" ]; then				\
 	    echo $$REQ create $(CHECK_FILE_NAME) in directory $(CHECK_DIR); 	\
 	fi
 
 .PHONY: .transforms-check-not-exists
 .transforms-check-not-exists:
-	@exists=$$(find $(CHECK_DIR) -name $(CHECK_FILE_NAME));	\
+	@if  [ ! -d "$(CHECK_DIR)" ]; then				\
+	    exit 0;							\
+	fi;								\
+	exists=$$(find $(CHECK_DIR) -name $(CHECK_FILE_NAME));	\
 	if  [ ! -z "$$exists" ]; then				\
 	    echo $REQ remove file $(CHECK_FILE_NAME) from directory $(CHECK_DIR); 	\
 	fi
