@@ -30,10 +30,10 @@ The new transform we will build  as part of this tutorial is meant to annotate e
 
 1. [Create folder structure](#setup) - clone git repo and create file structure for new transform
 1. [Implement AbstractTableTransform](#digesttransform) - core functionality for annotating documents
-1. [Implement TransformConfiguration](#DigestConfiguration) - configure and validate transform parameters
-1. [Implement PythonTransformRuntimeConfiguration](#DigestRuntime) - wire the transform to the runtime so it is correctly invoked
-1. [Implement RayTransformRuntimeConfiguration](#RayRuntime) - extend the transform to scale up using ray
-1. [Develop Unit Test](#UnitTest) - get test data and write Unit Test
+1. [Implement TransformConfiguration](#digestconfiguration) - configure and validate transform parameters
+1. [Implement PythonTransformRuntimeConfiguration](#digestruntime) - wire the transform to the runtime so it is correctly invoked
+1. [Implement RayTransformRuntimeConfiguration](#rayruntime) - extend the transform to scale up using ray
+1. [Develop Unit Test](#unittest) - get test data and write Unit Test
 1. [Integrate with CI/CD](#cicd) - automate testing, integration and packaging
 1. [Create notebook](#notebook) - jupyter notebook showing how the transform can be invoked
 1. [Create Readme file](#readme) - Readme file explaining how the transform is used
@@ -200,7 +200,7 @@ receives a pyarrow table, calculates the digest for each row in the table and ap
 from .transform import *
 ```
 
-## Step 3: Implement TransformConfiguration <a name="DigestConfiguration"></a>
+## Step 3: Implement TransformConfiguration <a name="digestconfiguration"></a>
 
 **dpk_digest/runtime.py** 
 
@@ -258,7 +258,7 @@ class DigestConfiguration(TransformConfiguration):
 
 
 
-## Step 4: Implement PythonTransformRuntimeConfiguration <a name="DigestRuntime"></a>
+## Step 4: Implement PythonTransformRuntimeConfiguration <a name="digestruntime"></a>
 
 **dpk_digest/runtime.py (continued)** 
 
@@ -301,7 +301,7 @@ class Digest:
         return return_code
 ```
 
-## Step 5: Implement RayTransformRuntimeConfiguration <a name="RayRuntime"></a>
+## Step 5: Implement RayTransformRuntimeConfiguration <a name="rayruntime"></a>
 
 **dpk_digest/ray/runtime.py** 
 
@@ -368,7 +368,7 @@ class Digest:
 
 
 
-## Step 6: Develop Unit Test <a name="UnitTest"></a>
+## Step 6: Develop Unit Test <a name="unittest"></a>
 
 - For our testing, we will need some initial data as input to our transform. We will copy it from another transform test folder.
 
