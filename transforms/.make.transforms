@@ -218,8 +218,8 @@ test-locals:: .transforms.test-locals
 
 .PHONY: .transforms-check-target
 .transforms-check-target:
-	@exists=$$(grep "^$(CHECK_TARGET):" Makefile);		\
-	if  [ -z "$$exists" ]; then				\
+	@$(MAKE) -n $(CHECK_TARGET) >> /dev/null 2>&1;	\
+	if  [ $$? != 0 ]; then				\
 	    echo Missing makefile target $(CHECK_TARGET); 	\
 	fi
 
@@ -239,15 +239,16 @@ test-locals:: .transforms.test-locals
 conventions: .transforms.check_required_macros
 	@# Help: Check transform project conventions and make recommendations, if needed.
 	@echo "Begin checking transform conventions for $(TRANSFORM_RUNTIME) runtime project.  Recommendations/issues, if any, follow..."
-	@if [ "$(TRANSFORM_RUNTIME)" = "python" ]; then	\
-		$(MAKE) CHECK_DIR=src CHECK_FILE_NAME=$(TRANSFORM_NAME)_transform.py REQ=Must .transforms-check-exists;		\
-		$(MAKE) CHECK_DIR=test CHECK_FILE_NAME=test_$(TRANSFORM_NAME).py REQ=Must .transforms-check-exists;	\
-		$(MAKE) CHECK_DIR=src CHECK_FILE_NAME=$(TRANSFORM_NAME)_local.py REQ=Should .transforms-check-exists;	\
-	else	\
-		$(MAKE) CHECK_DIR=src CHECK_FILE_NAME=$(TRANSFORM_NAME).py REQ=Must .transforms-check-not-exists;		\
-	fi
-	@$(MAKE) CHECK_DIR=test CHECK_FILE_NAME=test_$(TRANSFORM_NAME)_$(TRANSFORM_RUNTIME).py REQ=Must .transforms-check-exists
-	@$(MAKE) CHECK_DIR=src CHECK_FILE_NAME=$(TRANSFORM_NAME)_local_$(TRANSFORM_RUNTIME).py REQ=Should .transforms-check-exists
+	@$(MAKE) CHECK_DIR=dpk_$(TRANSFORM_NAME) CHECK_FILE_NAME=transform.py REQ=Must .transforms-check-exists;
+	@$(MAKE) CHECK_DIR=dpk_$(TRANSFORM_NAME) CHECK_FILE_NAME=transform_python.py REQ=Must .transforms-check-exists
+	@$(MAKE) CHECK_DIR=dpk_$(TRANSFORM_NAME) CHECK_FILE_NAME=local.py REQ=Should .transforms-check-exists
+	@$(MAKE) CHECK_DIR=dpk_$(TRANSFORM_NAME) CHECK_FILE_NAME=local_python.py REQ=Should .transforms-check-exists
+	@$(MAKE) CHECK_DIR=dpk_$(TRANSFORM_NAME)/ray CHECK_FILE_NAME=transform.py REQ=Should .transforms-check-exists
+	@$(MAKE) CHECK_DIR=dpk_$(TRANSFORM_NAME)/spark CHECK_FILE_NAME=transform.py REQ=Should .transforms-check-exists
+	@$(MAKE) CHECK_DIR=dpk_$(TRANSFORM_NAME)/spark CHECK_FILE_NAME=transform.py REQ=Should .transforms-check-exists
+	@$(MAKE) CHECK_DIR=test CHECK_FILE_NAME=test_$(TRANSFORM_NAME).py REQ=Must .transforms-check-exists
+	@$(MAKE) CHECK_DIR=test CHECK_FILE_NAME=test_$(TRANSFORM_NAME)_ray.py REQ=Should .transforms-check-exists
+	@$(MAKE) CHECK_DIR=test CHECK_FILE_NAME=test_$(TRANSFORM_NAME)_spark.py REQ=Should .transforms-check-exists
 	@$(MAKE) CHECK_DIR=test-data CHECK_FILE_NAME=output  REQ=Must .transforms-check-not-exists
 	@$(MAKE) CHECK_DIR=. CHECK_FILE_NAME=.dockerignore  REQ=Should .transforms-check-exists
 	@$(MAKE) CHECK_DIR=test-data .transforms-check-dir-size
@@ -262,8 +263,12 @@ conventions: .transforms.check_required_macros
 	@$(MAKE) CHECK_TARGET=set-versions .transforms-check-target
 	@$(MAKE) CHECK_TARGET=venv .transforms-check-target
 	@z=$$(echo $(TRANSFORM_NAME) | grep annotator);				\
-	if [ ! -z "$$z" ]; then	 					\
+	if [ ! -z "$$z" ]; then	 						\
 		echo "Recommend not using 'annotator' in your transform name";	\
+	fi
+	@z=$$(echo $(TRANSFORM_NAME) | grep filter);				\
+	if [ ! -z "$$z" ]; then	 						\
+		echo "Recommend not using 'filter' in your transform name";	\
 	fi
 	@echo Done checking transform project conventions.
 
