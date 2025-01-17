@@ -32,6 +32,10 @@ Another modification has been made to retain the first copy of each duplicate cl
 This repetition removal task can be fine-tuned by adjusting the length_threshold(repeated text sequence length) and frequency_threshold. 
 Based on the analysis length_threshold=50 is used in the repetition removal task that also was used in the original work from google and in the RefinedWeb.
 
+## Contributors
+- Shalisha Witherspoon (shalisha.witherspoon@ibm.com)
+- Hajar Emami Gohari (Hajar.Emami@ibm.com)
+- 
 ## Requirements
 To run the repetition removal transform, **Rust** is required to be installed on the machine. 
 You can install rust following instructions [here](https://www.rust-lang.org/tools/install)
@@ -84,7 +88,22 @@ dedup output:
 
 ```
 
-## Contributors
-- Shalisha Witherspoon (shalisha.witherspoon@ibm.com)
-- Hajar Emami Gohari (Hajar.Emami@ibm.com)
 
+## Basic Usage 
+### Run via Command Line
+You can invoke the transform via command line, as shown in sample make command `make run-cli-sample`:
+```commandline
+python -m dpk_rep_removal.runtime \
+                --data_local_config "{ 'input_folder' : 'test-data/input', 'output_folder' : 'output'}" \
+                --rep_removal_contents_column_name 'text' \
+                --rep_removal_num_threads '1'
+
+```
+
+### Run in code/notebook
+A sample notebook found [here](rep_removal.ipynb) shows how to run the code with python.
+
+### Run in container
+There are docker files available for building a container to run the code with pure [python](Dockerfile.python), or with [ray](Dockerfile.ray).
+
+For details on building and running the image, please refer to the [running images quickstart](../../../doc/quick-start/run-transform-image.md), substituting the name of this transform image and runtime as appropriate.
