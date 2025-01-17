@@ -97,16 +97,16 @@ class NOOPTransformConfiguration(TransformConfiguration):
             f"--{sleep_cli_param}",
             type=int,
             default=1,
-            help="Sleep actor for a number of seconds while processing the data frame, before writing the file to COS",
+            help="Causes the transform to sleep for a number of seconds while processing the table",
         )
         # An example of a command line option that we don't want included
-        # in the metadata collected by the Ray orchestrator
-        # See below for remove_from_metadata addition so that it is not reported.
+        # in the metadata collected by the runtime.
+        # See above for remove_from_metadata addition so that it is not reported.
         parser.add_argument(
             f"--{pwd_cli_param}",
             type=str,
             default="nothing",
-            help="A dummy password which should be filtered out of the metadata",
+            help="A dummy password included to show how to filter it out of the metadata",
         )
 
     def apply_input_params(self, args: Namespace) -> bool:
