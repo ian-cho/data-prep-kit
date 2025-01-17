@@ -7,34 +7,34 @@
 <?  [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylelobo/The-Documentation-Compendium.svg)](https://github.com/IBM/data-prep-kit/pulls) ?>
 </div> 
 
-In this tutorial we take the developer through the steps for contributing a new transform to the DPK. We will cover:
+In this tutorial, we take the developer through the steps for contributing a new transform to the DPK. We will cover:
 1. How to clone the repo and setup the file structure for the transform
 1. Write the code by implementing the transform specific functionality 
 1. Use the framework capabilities to accelerate development, testing and deployment
 
-For this tutorial, we will follow a suggested flow. Developers are welcome to explore on their own to achieve the same results. Except for the transform name and module name, developers have a lot of freedom on how they choose their class name, file names and file structure. that said, following the convention proposed in this document would make it easier for the community to chime-in to help with debugging and maintaining the code base.
+For this tutorial, we will follow a suggested flow. Developers are welcome to explore on their own to achieve the same results. Except for the transform name and module name, developers have a lot of freedom on how they choose their class name, file names and file structure. That said, following the convention proposed in this document would make it easier for the community to chime-in to help with debugging and maintaining the code base.
 
 The new transform we will build  as part of this tutorial is meant to annotate each document in the data set with a digest value that is calculated using a SHA256, SHA512 or MD5 hash function. The objective is to show how we can use a user defined function to build a transform and how developers can specify the configuration parameters for the transform and how we integrate the transform with the python and/or ray orchestrators.
 
-- For the purpose of this tutorial, our transform will be called **digest** and the python named module is **dpk_digest**. Developers have some freedom in how they name their modules to the extent that the choosen name does not conflict with an existing transform name.
+- For the purpose of this tutorial, our transform will be called **digest** and the python named module is **dpk_digest**. Developers have some freedom in how they name their modules to the extent that the chosen name does not conflict with an existing transform name.
 
 - The user defined function for this tutorial is a simple annotator that uses the python hashlib package: 
  ```  
       hash = hashlib.new(self.algorithm)
       digest=hash.update(elt.encode('utf-8'))
 ```
-- The transform defines a single configuration parameter **digest_algortihm** that specifies the name of the digest algorithm to use and selected from a predefined list that includes **\['SHA256', 'SHA512' or 'MD5'\]**
+- The transform defines a single configuration parameter **digest_algortihm** that specifies the name of the digest algorithm to use and selected from a predefined list that includes **\['SHA256', 'SHA512', or 'MD5'\]**
 
 
 ## List of Steps to follow in this part of the tutorial
 
 1. [Create folder structure](#setup) - clone git repo and create file structure for new transform
-1. [Implement AbstractTableTransform](#DigestTransform)- core functionality for annotating documents
-1. [Implement TransformConfiguration](#DigestConfiguration) - Configure and validate transform parameters
-1. [Implement PythonTransformRuntimeConfiguration](#DigestRuntime) - wires the transform to the runtime so it is correctly invoked
+1. [Implement AbstractTableTransform](#DigestTransform) - core functionality for annotating documents
+1. [Implement TransformConfiguration](#DigestConfiguration) - configure and validate transform parameters
+1. [Implement PythonTransformRuntimeConfiguration](#DigestRuntime) - wire the transform to the runtime so it is correctly invoked
 1. [Implement RayTransformRuntimeConfiguration](#RayRuntime) - extend the transform to scale up using ray
-1. [Integrate with CI/CD](#cicd) - automate testing, integration and packaging
 1. [Develop Unit Test](#UnitTest) - get test data and write Unit Test
+1. [Integrate with CI/CD](#cicd) - automate testing, integration and packaging
 1. [Create notebook](#notebook) - jupyter notebook showing how the transform can be invoked
 1. [Create Readme file](#readme) - Readme file explaining how the transform is used
 
@@ -59,7 +59,7 @@ ASSUMPTION: We assume that the developer had already installed git cli and setup
 **Create placeholder for new transform**
 
 The DPK transforms are currently organized in three categories for Code (Transforms that are used specifically for programming languages), 
-Language(Transforms that are used specifically for natural languages) and Universal (Transforms that are used for both language and code). it is safe to assume that our transform can be used for calculating the hash for natural languages text and programming languages alike and we will add it to the universal subfolder. We will also create the python module and a skeleton of the code including a notebook and readme.md file. A typical implementation would have the following file structure.
+Language(Transforms that are used specifically for natural languages) and Universal (Transforms that are used for both language and code). It is safe to assume that our transform can be used for calculating the hash for natural languages text and programming languages alike and we will add it to the universal subfolder. We will also create the python module and a skeleton of the code including a notebook and readme.md file. A typical implementation would have the following file structure.
 
 ```
 data-prep-kit
@@ -114,9 +114,9 @@ touch requirements.txt
 
 **dpk_digest/transform.py** 
 
-This file implements the key logic for the transform. It receives a pyarrow table with a list of documents in the data set and append a new column with a digest value. We will describe the contents of the file in 2 sections:
+This file implements the key logic for the transform. It receives a pyarrow table with a list of documents in the data set and appends a new column with a digest value. We will describe the contents of the file in 2 sections:
 
-- The first portion of the file includes the language for the license used to distribute and use the code and a set of import statements for the library modules that will be needed for invoking this transfroms
+- The first portion of the file includes the language for the license used to distribute and use the code and a set of import statements for the library modules that will be needed for invoking this transfrom.
 
 
 ```python
@@ -137,7 +137,7 @@ from typing import Any
 import pyarrow as pa
 import hashlib
 from data_processing.transform import AbstractTableTransform
-from data_processing.utils import  TransformUtils
+from data_processing.utils import TransformUtils
 ```
 
 **AbstractTableTransform** defines a template for the APIs that will be invoked by the runtime to trigger the transform.
@@ -177,13 +177,13 @@ class DigestTransform(AbstractTableTransform):
         return [table], metadata
 ```
 
-**\__init__()** receives a dictionary that represents the different configuration parameters specified by the user. In our case, the only parameter that we use is the string value representing the name of digest. if the user does not specify a digest, we will use default value fo "sha256"
+**\__init__()** receives a dictionary that represents the different configuration parameters specified by the user. In our case, the only parameter used is the string value representing the name of digest. If the user does not specify a digest, we will use default value fo "sha256".
 
-**transform()** The transform method implements the callback that the runtime uses when it identifies new data to be processed by this transform. it
-Receives a pyarrow table, calculate the digest for each row in the table and append the digest as a new column to the same table
+**transform()** The transform method implements the callback that the runtime uses when it identifies new data to be processed by this transform. It
+receives a pyarrow table, calculates the digest for each row in the table and appends the digest as a new column to the same table.
 
 
-**dpk_digest/__init__.py**
+**dpk_digest/\__init__.py**
 
 ```python
 # (C) Copyright IBM Corp. 2024.
@@ -204,11 +204,11 @@ from .transform import *
 
 **dpk_digest/runtime.py** 
 
-This file implements a serie of user defined validation steps that must be executed prior to invoking the transform. 
-Key Methods implemented by the developer:
-* **add_input_params() is called by the framework to validate the presence of all required configuration parameter for this transform 
+This file implements a series of user defined validation steps that must be executed prior to invoking the transform. 
+Key Methods implemented by the developer are:
+* add_input_params() is called by the framework to validate the presence of all required configuration parameter for this transform 
 and specifies guidance to the user if any is missing
-* **apply_input_params() is called by the framework to validate the values associated with the configuration parameter.
+* apply_input_params() is called by the framework to validate the values associated with the configuration parameter.
 
 ```python
 # (C) Copyright IBM Corp. 2024.
@@ -260,9 +260,9 @@ class DigestConfiguration(TransformConfiguration):
 
 ## Step 4: Implement PythonTransformRuntimeConfiguration <a name="DigestRuntime"></a>
 
-**dpk_digest/runtime.py** 
+**dpk_digest/runtime.py (continued)** 
 
-- The next section of the file wires the transform into the the python orchestrator and allows the framework to instantiate, configure and invoke the transfrom
+- The next section of the file wires the transform into the the python orchestrator and allows the framework to instantiate, configure and invoke the transfrom.
 
 ```Python
 class DigestRuntime(PythonTransformRuntimeConfiguration):
@@ -277,7 +277,7 @@ if __name__ == "__main__":
 
 
 
-- The last section of the file defines a wrapper that simplifies how the transform is invoked and hides some of the complexity that is inherit to the runtime orchestrator
+- The last section of the file defines a wrapper that simplifies how the transform is invoked and hides some of the complexity that is inherited by the runtime orchestrator.
 
 ```Python
 class Digest:
@@ -301,11 +301,11 @@ class Digest:
         return return_code
 ```
 
-## Step 5: Implement RayTransformRuntimeConfiguration <a name="rayDigestRuntime"></a>
+## Step 5: Implement RayTransformRuntimeConfiguration <a name="RayRuntime"></a>
 
 **dpk_digest/ray/runtime.py** 
 
-- This file implements the necessary API for integrating the digest transform with the ray orchestrator
+- This file implements the necessary API for integrating the digest transform with the ray orchestrator.
 
 ```Python
 # (C) Copyright IBM Corp. 2024.
@@ -338,7 +338,7 @@ if __name__ == "__main__":
     launcher.launch()
 ```
 
-- Similarly, we will implement the Digest api for the ray submodule to define a simplified method for the API
+- Similarly, we will implement the Digest api for the ray submodule to define a simplified method for the API.
 
 ```Python
 class Digest:
@@ -379,7 +379,7 @@ cp ../../language/doc_chunk/test-data/expected/*.parquet test-data/input
 ```
 
 
-- Create a virtual environment and run the transform against the input data to produce the expected output data. This will be used by the CI/CD to verify that the logic of the transform always produces the same output for a give input.
+- Create a virtual environment and run the transform against the input data to produce the expected output data. This will be used by the CI/CD to verify that the logic of the transform always produces the same output for a given input.
 
 ```shell
 cd data-prep-kit/transforms/universal/digest
@@ -388,11 +388,13 @@ pip intall data-prep-toolkit
 pip install -r requirements.txt
 python -m dpk_digest.runtime --digest_algorithm sha256 --data_local_config "{ 'input_folder' : 'test-data/input', 'output_folder' : 'expected’}” 
 ```
-If the test code runs properly, we should see 2 new files creted in the test-data/expected folder:
+If the test code runs properly, we should see 2 new files created in the test-data/expected folder:
+```shell
 test-data/expected/test1.parquet
 test-data/expected/metadata.json
+```
 
-- Developers have some freedom in designing their unit tests. in this section we show how developers can use the test fixture defined in the framework to rapidly create unit tests
+- Developers have some freedom in designing their unit tests. In this section we show how developers can use the test fixture defined in the framework to rapidly create unit tests.
 
 **test/test_digest.py**
 
@@ -437,9 +439,9 @@ class TestDigestTransform(AbstractTransformLauncherTest):
 
 ## Step 7: Integrate with CI/CD <a name="cicd"></a>
 
-- The repo implements a rich set of functionality for setting up the environment, running unit tests, publishing the transforms to pypi, building the transforms as part of a docker image and running it with Kubeflow. For the purpose of this section, we will explore only a portion of the capabilities that support this initial phase of the implementation
+- The repo implements a rich set of functionality for setting up the environment, running unit tests, publishing the transforms to pypi, building the transforms as part of a docker image and running it with Kubeflow. For the purpose of this section, we will explore only a portion of the capabilities that support this initial phase of the implementation.
 
-we will first copy the Makefile template from the parent folder
+We will first copy the Makefile template from the parent folder:
 
 ```shell
 cd data-prep-kit/transforms/universal/digest
@@ -447,7 +449,7 @@ cp ../../Makefile.transform.template Makefile
 cp ../../Dockerfile.python.template Dockerfile.python
 ```
 
-- The Makefile has a number of predefined targets that will be useful for testing and publish the transform. To get a list of available targets, run the following command from the digest folder:
+- The Makefile has a number of predefined targets that will be useful for testing and publishing the transform. To get a list of available targets, run the following command from the digest folder:
 
 ```shell
 make
@@ -464,18 +466,18 @@ test-image           Build and test the docker image for the transform
 publish              Publish the docker image to quay.io container registry
 ```
 
-- create virtual environment with all preloaded dependencies
+- Create virtual environment with all preloaded dependencies:
 ```shell
 make clean && make venv
 ```
 
-- run unit tests and verify the proper operations of the code
+- Run unit tests and verify the proper operations of the code:
 
 ```shell
 make test-src
 ```
 
-- edit transforms/pyproject.toml and add the requirements.txt for the module and the name of the module and its package location.
+- Edit transforms/pyproject.toml and add the requirements.txt for the module and the name of the module and its package location:
 
 ```shell
 digest = { file = ["universal/digest/requirements.txt"]}
@@ -489,7 +491,7 @@ dpk_digest = "universal/digest/dpk_digest"
 
 ## Step 8: Create Notebook <a name="notebook"></a>
 
-The notebook should show how to run the notebook from the current folder. Guidance on how to setup jupyter lab can be found [here](quick-start.md). 
+The notebook should show how to run the notebook from the current folder. Guidance on how to setup jupyter lab can be found [here](quick-start.md). Below is a notebook for our digest transform. 
 
 ![alt text](contribute-your-own-transform-notebook.png)
 
