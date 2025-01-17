@@ -64,9 +64,23 @@ python -m ipykernel install --user --name=data-prep-kit --display-name "dataprep
 
 ## Running transforms 
 
-* Notebooks (to do- help from Shahrokh)
-    * Links to the simple transform notebook in the example folder
-    * Guide the users to the individual transforms notebook (explain how to get those using git clone)
+* Notebooks
+    * There is a [simple notebook](../../examples/notebooks/Run_your_first_transform_colab.ipynb) for running a single transform that can be run from either Google Colab or the local environment by downloading the file.  
+    * In most indidividual transform folders, we have included one (Python), two (Python and Ray), or three (Python, Ray and Spark) notebooks for running that transform. In order to run all these notebooks in the local environment, we clone the repo as: 
+    ```bash
+    git clone git@github.com:IBM/data-prep-kit.git 
+    ```
+    Then we go to an indvidual transformer folder, where we find the corresponding notebooks. As an example:
+
+    ```bash
+    cd data-prep-kit/transforms/universal/fdedup
+    make venv
+    source venv/bin/activate 
+    pip install jupyterlab
+    jupyter lab
+    ```
+    You can now run the [Python version](../../transforms/universal/fdedup/fdedup_python.ipynb), [Ray version](../../transforms/universal/fdedup/fdedup_ray.ipynb) or [Spark version](../../transforms/universal/fdedup/fdedup_spark.ipynb) of the three notebooks for this transform. 
+
 
 * Command line  
     * [Using a docker image](run-transform-image.md) - runs a transform in a docker transform image 
