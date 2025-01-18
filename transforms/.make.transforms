@@ -252,7 +252,6 @@ conventions: .transforms.check_required_macros
 	@$(MAKE) CHECK_DIR=dpk_$(TRANSFORM_NAME) CHECK_FILE_NAME=local_python.py REQ=Should .transforms-check-exists
 	@$(MAKE) CHECK_DIR=dpk_$(TRANSFORM_NAME)/ray CHECK_FILE_NAME=transform.py REQ=Should .transforms-check-exists
 	@$(MAKE) CHECK_DIR=dpk_$(TRANSFORM_NAME)/spark CHECK_FILE_NAME=transform.py REQ=Should .transforms-check-exists
-	@$(MAKE) CHECK_DIR=dpk_$(TRANSFORM_NAME)/spark CHECK_FILE_NAME=transform.py REQ=Should .transforms-check-exists
 	@$(MAKE) CHECK_DIR=test CHECK_FILE_NAME=test_$(TRANSFORM_NAME).py REQ=Must .transforms-check-exists
 	@$(MAKE) CHECK_DIR=test CHECK_FILE_NAME=test_$(TRANSFORM_NAME)_ray.py REQ=Should .transforms-check-exists
 	@$(MAKE) CHECK_DIR=test CHECK_FILE_NAME=test_$(TRANSFORM_NAME)_spark.py REQ=Should .transforms-check-exists
