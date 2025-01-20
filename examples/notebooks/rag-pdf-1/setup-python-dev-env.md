@@ -47,7 +47,7 @@ conda install -y gxx_linux-64
 ### A-2: Install dependencies
 
 ```bash
-cd examples/notebooks/rag
+cd examples/notebooks/rag-pdf-1
 ```
 
 ```bash
