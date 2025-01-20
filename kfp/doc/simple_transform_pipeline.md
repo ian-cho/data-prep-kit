@@ -57,11 +57,16 @@ Ray cluster. For each step we have to define a component that will execute them:
 ```python
     # components
     base_kfp_image = "quay.io/dataprep1/data-prep-kit/kfp-data-processing:0.0.2"
-    # compute execution parameters. Here different transforms might need different implementations. As
-    # a result, instead of creating a component we are creating it in place here.
-    compute_exec_params_op = comp.func_to_container_op(
-      func=ComponentUtils.default_compute_execution_params, base_image=base_kfp_image
-    )
+    # KFPv1 and KFP2 uses different methods to create a component from a function. KFPv1 uses the
+    # `create_component_from_func` function, but it is deprecated by KFPv2 and so has a different import path.
+    # KFPv2 recommends using the `@dsl.component` decorator, which doesn't exist in KFPv1. Therefore, here we use
+    # this if/else statement and explicitly call the decorator.
+    if os.getenv("KFPv2", "0") == "1":
+      compute_exec_params_op = dsl.component_decorator.component(
+                func=compute_exec_params_func, base_image=base_kfp_image
+                )
+    else:
+      compute_exec_params_op = comp.create_component_from_func(func=compute_exec_params_func, base_image=base_kfp_image)
     # create Ray cluster
     create_ray_op = comp.load_component_from_file("../../../kfp_ray_components/createRayComponent.yaml")
     # execute job
@@ -148,6 +153,16 @@ Now, when all components and input parameters are defined, we can implement pipe
 component execution and parameters submitted to every component. 
 
 ```python
+    # In KFPv2 dsl.RUN_ID_PLACEHOLDER is deprecated and cannot be used since SDK 2.5.0. On another hand we cannot create
+    # a unique string in a component (at runtime) and pass it to the `clean_up_task` of `ExitHandler`, due to
+    # https://github.com/kubeflow/pipelines/issues/10187. Therefore, meantime the user is requested to insert
+    # a unique string created at compilation time.
+    if os.getenv("KFPv2", "0") == "1":
+        print("WARNING: the ray cluster name can be non-unique at runtime, please do not execute simultaneous Runs of the "
+              "same version of the same pipeline !!!")
+        run_id = ray_id_KFPv2
+    else:
+        run_id = dsl.RUN_ID_PLACEHOLDER
     # create clean_up task
     clean_up_task = cleanup_ray_op(ray_name=ray_name, run_id=dsl.RUN_ID_PLACEHOLDER, server_url=server_url, additional_params=additional_params)
     ComponentUtils.add_settings_to_component(clean_up_task, ONE_HOUR_SEC * 2)
