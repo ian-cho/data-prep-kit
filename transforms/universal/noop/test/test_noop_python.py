@@ -17,7 +17,7 @@ from data_processing.test_support.launch.transform_test import (
     AbstractTransformLauncherTest,
 )
 from dpk_noop.transform import sleep_cli_param
-from dpk_noop.transform_python import NOOPPythonTransformConfiguration
+from dpk_noop.runtime import NOOPPythonTransformConfiguration
 
 
 class TestPythonNOOPTransform(AbstractTransformLauncherTest):

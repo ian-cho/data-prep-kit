@@ -17,7 +17,7 @@ from data_processing.test_support.launch.transform_test import (
 )
 from data_processing_ray.runtime.ray import RayTransformLauncher
 from dpk_noop.transform import sleep_cli_param
-from dpk_noop.ray.transform import NOOPRayTransformConfiguration
+from dpk_noop.ray.runtime import NOOPRayTransformConfiguration
 
 
 class TestRayNOOPTransform(AbstractTransformLauncherTest):

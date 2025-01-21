@@ -37,23 +37,18 @@ The set of dictionary keys can be found in [NOOPTransform](dpk_noop/transform.py
 When invoking the CLI, the parameters are set using the parameter names from the above table.  
 For example, 
 ```shell
-python -m dpk_noop/transform_python --noop_sleep_sec 10 ...
+make venv
+source venv/bin/activate
+python -m dpk_noop.runtime--noop_sleep_sec 10 \
+    --data_local '{ "input_folder": "test-data/input", "output_folder": "output" }'
+deactivate
 ```
-
-### Running the samples
-To run the samples, use the following `make` targets
-
-* `run-cli-sample` - runs dpk_noop/transform_python.py using command line args
-
-These targets will activate the virtual environment and set up any configuration needed.
-Use the `-n` option of `make` to see the detail of what is done to run the sample.
-
-For example, 
+or to run in a local Ray cluster using the Ray runtime.
 ```shell
-make run-cli-sample
+...
+python -m dpk_noop.ray.runtime --run_locally True ...
 ...
 ```
-Then 
 
 ```shell
 ls output
