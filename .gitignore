@@ -150,3 +150,5 @@ artifacts/
 *.lock
 
 *.db
+
+**credentials.json
