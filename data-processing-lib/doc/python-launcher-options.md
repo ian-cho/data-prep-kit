@@ -6,7 +6,7 @@ The following is a current --help output (a work in progress) for
 the `NOOPTransform` (note the --noop_sleep_sec option):
 
 ```
-usage: noop_python_runtime.py [-h] [--noop_sleep_sec NOOP_SLEEP_SEC] [--noop_pwd NOOP_PWD] [--data_s3_cred DATA_S3_CRED] [--data_s3_config DATA_S3_CONFIG] [--data_local_config DATA_LOCAL_CONFIG] [--data_max_files DATA_MAX_FILES]
+usage: dpk_noop/runtime.py [-h] [--noop_sleep_sec NOOP_SLEEP_SEC] [--noop_pwd NOOP_PWD] [--data_s3_cred DATA_S3_CRED] [--data_s3_config DATA_S3_CONFIG] [--data_local_config DATA_LOCAL_CONFIG] [--data_max_files DATA_MAX_FILES]
                               [--data_checkpointing DATA_CHECKPOINTING] [--data_data_sets DATA_DATA_SETS] [--data_files_to_use DATA_FILES_TO_USE] [--data_num_samples DATA_NUM_SAMPLES] [--runtime_pipeline_id RUNTIME_PIPELINE_ID]
                               [--runtime_job_id RUNTIME_JOB_ID] [--runtime_code_location RUNTIME_CODE_LOCATION]
 

@@ -29,8 +29,6 @@ found in [NOOPTransform](dpk_noop/transform.py)
 | `noop_sleep_sec` | 1       | Number of seconds to sleep while inside the transform() method.  This may be useful to simulate transform timeings and as a way to limit I/O bandwidth use. | 
 | `noop_pwd`       | None    | specifies a dummy password not included in metadata. Provided as an example of metadata that we want to not include in logging. | 
 
-The set of dictionary keys can be found in [NOOPTransform](dpk_noop/transform.py).
-
 ## Usage
 
 ### Launched Command Line Options 

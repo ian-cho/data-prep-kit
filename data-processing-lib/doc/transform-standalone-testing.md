@@ -62,10 +62,10 @@ to use different models and perhaps as a result have different results.
 
 Once the test class is defined you may run the test from your IDE or from the command line... 
 ```shell
-% cd .../data-prep-kit/transforms/universal/noop/src
+% cd .../data-prep-kit/transforms/universal/noop
 % make venv
 % source venv/bin/activate
-(venv)% export PYTHONPATH=.../data-prep-kit/transforms/universal/noop/src
+(venv)% export PYTHONPATH=.
 (venv)% pytest test/test_noop.py 
 ================================================================================ test session starts ================================================================================
 platform darwin -- Python 3.10.11, pytest-8.0.2, pluggy-1.4.0
@@ -82,7 +82,7 @@ Finally, the tests should be runnable with the `Makefile`  as follows:
 ```shell
 $ make test
 source venv/bin/activate;			\
-	export PYTHONPATH=../src:.:$PYTHONPATH;	\
+	export PYTHONPATH=..:.:$PYTHONPATH;	\
 	cd test; pytest . 
 ========================================================================================== test session starts ==========================================================================================
 platform darwin -- Python 3.10.11, pytest-8.0.2, pluggy-1.4.0

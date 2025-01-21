@@ -42,7 +42,7 @@ docker run  --rm
     -v /home/me/input:/input \
     -v /home/me/output:/output \
     noop-python:latest 	\
-	python -m dpk_noop.transform \
+	python -m dpk_noop.runtime \
 	--data_local_config "{ \
 	    'input_folder'  : '/input', \
 	    'output_folder' : '/output' \
@@ -57,7 +57,7 @@ docker run  --rm
     -v /home/me/input:/input \
     -v /home/me/output:/output \
     quay.io/dataprep1/data-prep-kit/noop-python:latest 	\
-	python -m dpk_noop.transform \
+	python -m dpk_noop.runtime \
 	--data_local_config "{ \
 	    'input_folder'  : '/input', \
 	    'output_folder' : '/output' \
@@ -75,7 +75,7 @@ docker run  --rm
     -v /home/me/input:/input \
     -v /home/me/output:/output \
     quay.io/dataprep1/data-prep-kit/noop-ray:latest 	\
-	python -m dpk_noop.ray.transform \
+	python -m dpk_noop.ray.runtime \
 	--data_local_config "{ \
 	    'input_folder'  : '/input', \
 	    'output_folder' : '/output' \
@@ -94,7 +94,7 @@ and specify different `--data_s3_*` configuration as follows:
 ```shell
 docker run  --rm 
     noop-python:latest 	\
-	python -m dpk_noop.transform_python \
+	python -m dpk_noop.runtime \
 	--data_s3_cred "{ \
 	    'access_key'  : '...', \
 	    'secret_key' : '...', \

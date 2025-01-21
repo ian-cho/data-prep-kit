@@ -2,9 +2,9 @@
 
 Current transform invocation, requires defining transform parameters, passing them to `sys.argv` and 
 then invoking launcher (runtime specific) with transform/runtime specific configuration (see for example
-[NOOP Python invocation](../../transforms/universal/noop/python/src/noop_local_python.py),
-[NOOP Ray invocation](../../transforms/universal/noop/ray/src/noop_local_ray.py) and
-[NOOP Spark invocation](../../transforms/universal/noop/spark/src/noop_local_spark.py)). 
+[NOOP Python invocation](../../transforms/universal/noop/dpk_noop/local_python.py),
+[NOOP Ray invocation](../../transforms/universal/noop/dpk_noop/ray/local_ray.py) and
+[NOOP Spark invocation](../../transforms/universal/noop/dpk_noop/spark/local_spark.py)). 
 
 Simplified APIs, described here make invocations a little simpler by eliminating the need for the boilerplate code.
 Currently we provide 2 APIs for simplified transform invocation:
