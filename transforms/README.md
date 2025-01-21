@@ -132,7 +132,7 @@ data-prep-kit
 │            | Dockerfile.spark **
 │            | xyz.ipynb
 ```
-`*` Required to make use of and pass CI/CD
+`*` Required to make use of and pass CI/CD.  
 `**` Required only if building corresponding Python, Ray and/or Spark runtime images. 
 
 The contents are defined as follows:
