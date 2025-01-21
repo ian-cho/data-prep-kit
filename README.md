@@ -55,7 +55,7 @@ Data modalities supported _today_: Code and Natural Language.
 
 ### Fastest way to experience Data Prep Kit
 
-With no setup necessary, let's use a Google Colab friendly notebook to try Data Prep Kit. This is a simple transform to extract content from PDF files: [examples/notebooks/Run_your_first_transform_colab.ipynb](examples/notebooks/Run_your_first_transform_colab.ipynb)  | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IBM/data-prep-kit/blob/dev/examples/notebooks/Run_your_first_transform_colab.ipynb). ([Here](doc/google-colab.md) are some tips for running Data Prep Kit transforms on Google Colab. For this simple example, these tips are either already taken care of, or are not needed.)  The same notebook can be downloaded and run on the local machine, without cloning the repo or any other setup. For additional guidance on setting up Jupyter lab, see the Appendix section below. 
+With no setup necessary, let's use a Google Colab friendly notebook to try Data Prep Kit. This is a simple transform to extract content from PDF files: [examples/notebooks/Run_your_first_transform_colab.ipynb](examples/notebooks/Run_your_first_transform_colab.ipynb)  | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IBM/data-prep-kit/blob/dev/examples/notebooks/Run_your_first_transform_colab.ipynb). ([Here](doc/google-colab.md) are some tips for running Data Prep Kit transforms on Google Colab. For this simple example, these tips are either already taken care of, or are not needed.)  The same notebook can be downloaded and run on the local machine, without cloning the repo or any other setup. For additional guidance on setting up Jupyter lab, click [here](doc/quick-start/quick-start.md#jupyter). 
 
 ### Install data prep kit from PyPi
 
@@ -71,7 +71,7 @@ When installing select transforms, users can specify the name of the transform i
 ```bash
 pip install 'data-prep-toolkit-transforms[pdf2parquet]'
 ```
-For guidance on creating the virtual environment for installing the data prep kit, refer to the Appendix section below.
+For additional guidance on creating the virtual environment for installing the data prep kit, click [here](doc/quick-start/quick-start.md#conda).
 
 ### Run your first data prep pipeline
 
@@ -172,33 +172,6 @@ When you finish working with the cluster, and want to clean up or destroy it. Se
 ### Run your first transform using command line options
 
 You can run transforms via docker image or using virtual environments. This [document](doc/quick-start/run-transform-venv.md) shows how to run a transform using virtual environment. You can follow this [document](doc/quick-start/run-transform-image.md) to run using docker image. 
-
-## Appendix
-### Create a Virtual Environment
-
-To run on a local machine, follow these steps to quickly set up and deploy the Data Prep Kit in your virtual Python environment.
-
-```bash
-conda create -n data-prep-kit -y python=3.11
-conda activate data-prep-kit
-python --version
-```
-
-Check if the python version is 3.11. 
-
-If you are using a linux system, install gcc using the below commands, as it will be required to compile and install [fasttext](https://fasttext.cc/) currently used by some of the transforms.
-
-```bash
-conda install gcc_linux-64
-conda install gxx_linux-64
-```
-
-## Setting up Jupyter lab for local experimentation with transform notebooks 
-
-```bash
-pip install jupyterlab ipykernel ipywidgets
-python -m ipykernel install --user --name=data-prep-kit --display-name "dataprepkit"
-```
 
 ## Citations <a name = "citations"></a>
 
