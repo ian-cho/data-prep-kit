@@ -67,7 +67,7 @@ docker run  --rm
 ### Local Data - Ray Runtime
 To use the ray runtime, we must 
 1. Switch to using the ray-based image `noop-ray:latest`
-2. Use the ray runtime python main() defined in `noop_transform_ray.py`
+2. Use the ray runtime python main() defined in `dpk_noop/ray/runtime.py`
 
 For example, using the quay.io image
 ```shell
