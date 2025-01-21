@@ -1,6 +1,6 @@
-# Data Prep Kit Introduction
+# PDF Processing with Data Prep Kit
 
-This is an example featuring some of the features of data prep kit.
+Show cases Data Prep Kit capabilities of processing PDFs
 
 ## Running the code
 
@@ -14,9 +14,7 @@ conda create -n data-prep-kit -y python=3.11
 conda activate data-prep-kit
 
 # install the following in 'data-prep-kit' environment
-pip3 install data-prep-toolkit==0.2.1
-pip3 install data-prep-toolkit-transforms==0.2.1
-pip3 install data-prep-toolkit-transforms-ray==0.2.1
+pip3 install  'data-prep-toolkit-transforms[ray,all]==1.0.0a4'
 pip3 install jupyterlab   ipykernel  ipywidgets
 
 ## install custom kernel
@@ -31,6 +29,19 @@ jupyter lab
 
 This notebook will demonstrate processing PDFs
 
-`PDFs ---> text ---> chunks --->   exact dedupe ---> fuzzy dedupe ---> embeddings`
+`PDFs ---> text ---> compute hash ---> dedupe ---> document quality`
 
 [python version](dpk_intro_1_python.ipynb)  &nbsp;   |   &nbsp;  [ray version](dpk_intro_1_ray.ipynb)
+
+
+## Creating Input PDFs (Optional)
+
+```bash
+cd input/solar-system
+
+pandoc earth.md  -o earth.pdf
+pandoc earth2.md  -o earth2.pdf
+pandoc mars.md  -o mars.pdf
+pandoc spam.md  -o spam.pdf
+pandoc lorem.md  -o lorem.pdf
+```
