@@ -37,7 +37,7 @@ For example,
 ```shell
 make venv
 source venv/bin/activate
-python -m dpk_noop.runtime--noop_sleep_sec 10 \
+python -m dpk_noop.runtime --noop_sleep_sec 10 \
     --data_local '{ "input_folder": "test-data/input", "output_folder": "output" }'
 deactivate
 ```
