@@ -35,7 +35,7 @@ Based on the analysis length_threshold=50 is used in the repetition removal task
 ## Contributors
 - Shalisha Witherspoon (shalisha.witherspoon@ibm.com)
 - Hajar Emami Gohari (Hajar.Emami@ibm.com)
-- 
+
 ## Requirements
 To run the repetition removal transform, **Rust** is required to be installed on the machine. 
 You can install rust following instructions [here](https://www.rust-lang.org/tools/install)
@@ -104,6 +104,6 @@ python -m dpk_rep_removal.runtime \
 A sample notebook found [here](rep_removal.ipynb) shows how to run the code with python.
 
 ### Run in container
-There are docker files available for building a container to run the code with pure [python](Dockerfile.python), or with [ray](Dockerfile.ray).
+There are docker files available for building an image to run the code with pure [python](Dockerfile.python), or with [ray](Dockerfile.ray).
 
 For details on building and running the image, please refer to the [running images quickstart](../../../doc/quick-start/run-transform-image.md), substituting the name of this transform image and runtime as appropriate.
