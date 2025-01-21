@@ -79,11 +79,15 @@ that is the root of the repository.
 that will be used in creating pypi artifacts and docker images.
 This is set by default, for the examples above, `xyz` based on the directory name.
 
-### File/Directory Organization
+A transform's Makefile is most often based on the 
+[Makefile.transform.template](Makefile.transform.template)
+found in this directory.
 
-Each transform project directory (e.g., `universal/xyz` implementing the xyz transform)
-contains implementation of the python transform, 
-and optionally the python, ray, and/or spark runtimes for the transform.
+### Mimimum Transform Project Structure  
+
+Each transform project directory (e.g., `universal/xyz` implementing the xyz 
+transform) contains implementation of the python transform, 
+
 ```
 data-prep-kit
 │
@@ -96,22 +100,10 @@ data-prep-kit
 │            └───dpk_xyz * 
 │            |      │
 │            |      │ __init__.py
-│            |      │ transform.py *
-│            |      | runtime.py
-│            |      └───ray  **
-│            |           │ __init__.py
-│            |           | runtime.py
-│            |           │ 
-│            |      └───spark  **
-│            |           │ __init__.py
-│            |           | runtime.py 
-│            |           │ 
-│            └───test * 
+│            |      │ transform.py 
+│            └───test  * 
 │            │    |
-│            │    |test_xyz.py 
-│            │    |test_xyz_python.py 
-│            │    |test_xyz_ray.py 
-│            │    |test_xyz_spark.py 
+│            │    | test_xyz.py 
 │            │
 │            └───test-data
 │            │     |
@@ -124,80 +116,96 @@ data-prep-kit
 │            |          │ testfile.parquet
 │            |          │ metadata.json
 │            | 
-│            | README.md *
-│            | Makefile *
-│            | requirements.txt *
-│            | Dockerfile.python **
-│            | Dockerfile.ray **
-│            | Dockerfile.spark **
+│            | Makefile  *
+│            | requirements.txt  *
+│            | README.md  
 ```
 `*` Required to make use of and pass CI/CD.  
-`**` Required only if building corresponding Python, Ray and/or Spark runtime images. 
+
+Contents are described as follows:
+* `dpk_xyz/` - directory contains all python implementation code where `xyz` is the name
+  of the parent directory (e.g., `transforms/universal/xyz`). 
+    * `transform.py` generally contains the core transform implementation:
+        * `XYZTransform` class implementing the transformation
+        * `XYXTransformConfiguration` class that defines CLI configuration for the transform
+    * Additional files can be added as necessary in support of the transform.
+* `test/` - directory contains test code 
+    * `test_xyz.py` - a standalone (non-runtime launched) transform test.  This is best for initial debugging.
+Inherits from an abstract test class so that to test one needs only to provide test data.
+    * NOTE: Tests are expected to be run from anywhere and so need to use
+      `__file__` location to create absolute directory paths to the data in the `../test-data` directory.
+      From the command line, `make test` sets up the virtual environment and PYTHONPATH to include `dpk_xyz`
+      Do **not** add `sys.path.append(...)` in the test python code.
+      All test data should be referenced as `../test-data` relative
+      to `os.path.abspath(os.path.dirname(__file__))`.
+* `test-data/` - optional directory containing data used in the tests
+* `Makefile` - provides most targets expected by CI/CD and is usually
+  based on a copy of [Makefile.transform.template](Makefile.transform.template) in this directory. `make help` to see a list of targets.
+* `requirements.txt` - defines requirements specific to the python transform (Ray and Spark requirements are handled by automation).
+* `README.md` -  documents use and implementation.
+ 
+The command `make conventions` run from within a transform
+directory will examine the runtime project structure and make recommendations.
+
+#### Adding Runtime Support
+If adding support for Ray and/or Spark runtimes the following additions are generally
+required.
+```
+data-prep-kit
+│
+└───transforms
+│   |
+│   └───universal
+│       │
+│       └───xyz
+│            |
+│            └───dpk_xyz 
+│            |      | runtime.py *, **
+│            |      └───ray  
+│            |           │ __init__.py
+│            |           | runtime.py *, **
+│            |           │ 
+│            |      └───spark  
+│            |           │ __init__.py
+│            |           | runtime.py  *, **
+│            |           │ 
+│            └───test  
+│            │    |
+│            │    |test_xyz_python.py  **
+│            │    |test_xyz_ray.py  **
+│            │    |test_xyz_spark.py  **
+│            │
+│            | Dockerfile.python ** 
+│            | Dockerfile.ray ** 
+│            | Dockerfile.spark ** 
+```
+`*` Recommended naming.  Other naming requires changes to Makefile.  
+`**` Required for corresponding Python, Ray and/or Spark runtime images. 
 
 The contents are defined as follows:
-
-* `dpk_xyz/` - directory contains all python implementation code (see below), where `xyz` is the name
-  of the parent directory (e.g., `transforms/universal/xyz`). See below for additional details.
-* `kfp_ray/` - optional directory enabling the creation of a KFP pipeline that runs the transform.
-* `test/` - directory contains test code (see below for additional details)
-* `test-data/` - optional directory containing data used in the tests
-* `README.md` -  documents use and implementation.
-* `Makefile` - provides most targets expected by CI/CD and is usually
-   based on a copy of [Makefile.transform.template](Makefile.transform.template) in this directory. `make help` to see a list of targets.
-* `requirements.txt` - defines requirements specific to the python transform (Ray and Spark requirements are handled by automation).
+* `dpk_xyz`
+    * `runtime.py` - runs the transform on input using the python runtime
+        * `XYZPythonTransformConfiguration` class
+        * main() to start the `PythonTransformLauncher` with the above.
+    * `ray/` - directory contains code to enable the python transform in a Ray runtime.
+        * `runtime.py` - ray runtime artifacts to enable the transform in the DPK Ray runtime.
+            * `XYZRayTransformConfiguration` class
+            * main() to start the `RayTransformLauncher` with the above.
+    * `spark/` - directory contains code to enable the python transform in a Spark runtime.
+        * `runtime.py` - spark runtime artifacts to enable the transform in the DPK Spark runtime.
+            * `XYZSparkTransformConfiguration` class
+            * main() to start the `SparkTransformLauncher` with the above. 
+* `test/`
+    * `test_xyz_python.py` - defines the transform tests running in the Python launcher.
+        * Again, inherits from an abstract test class so that to test one needs only to provide test data.
+    * `test_xyz_ray.py` - defines the transform tests running in the Ray launcher.
+    * `test_xyz_spark.py` - defines the transform tests running in the Spark launcher. 
 * `Dockerfile.python` - to build the transform and python runtime into a docker image,
   generally, based on the template [Dockerfile.python.template](Dockerfile.python.template) in this directory.
 * `Dockerfile.ray` - to build the transform and ray runtime into a docker image,
   generally, based on the template [Dockerfile.ray.template](Dockerfile.ray.template) in this directory.
 * `Dockerfile.spark` -  to build the transform and spark runtime into a docker image,
   generally, based on the template [Dockerfile.spark.template](Dockerfile.spark.template) in this directory.
-* `xyz.ipynb` - a notebook showing use of the transform.
-* `output/` - temporary directory capturing any test/local run output.  Ignored by .gitignore.
-
-The command `make conventions` run from within a transform 
-directory will examine the runtime project structure and make recommendations.
-
-#### dpk_\<xyz> Directory Organization
-The `dpk_xyz` directory, for a transform named `xyz` contained in directory `xyz`, 
-contains the core python transform implementation and
-the code for the supported runtimes
-in sub-modules named according to the runtime.
-The following organization and  naming conventions are strongly recommended
-and in some cases required for the Makefile to do its work.
-
-* `transform.py` generally contains the core transform implementation: 
-    * `XYZTransform` class implementing the transformation
-    * `XYXTransformConfiguration` class that defines CLI configuration for the transform
-* `runtime.py` - runs the transform on input using the python runtime
-    * `XYZPythonTransformConfiguration` class
-  * main() to start the `PythonTransformLauncher` with the above.
-* `ray/` - directory contains code to enable the python transform in a Ray runtime.
-   * `runtime.py` - ray runtime artifacts to enable the transform in the DPK Ray runtime.
-       * `XYZRayTransformConfiguration` class
-       * main() to start the `RayTransformLauncher` with the above.
-* `spark/` - directory contains code to enable the python transform in a Spark runtime.
-   * `runtime.py` - spark runtime artifacts to enable the transform in the DPK Spark runtime.
-       * `XYZSparkTransformConfiguration` class
-       * main() to start the `SparkTransformLauncher` with the above. 
-* Additional files can be added as necessary in support of the transform.
-
-#### test Directory Organization
-
-The `test/` directory contains pytest test sources and is organized as follows:
-
-* `test_xyz.py` - a standalone (non-runtime launched) transform test.  This is best for initial debugging.
-    * Inherits from an abstract test class so that to test one needs only to provide test data.
-* `test_xyz_python.py` - defines the transform tests running in the Python launcher. 
-    * Again, inherits from an abstract test class so that to test one needs only to provide test data.
-* `test_xyz_ray.py` - defines the transform tests running in the Ray launcher. 
-* `test_xyz_spark.py` - defines the transform tests running in the Spark launcher. 
-         
-Tests are expected to be run from anywhere and so need to use
-`__file__` location to create absolute directory paths to the data in the `../test-data` directory.
-From the command line, `make test` sets up the virtual environment and PYTHONPATH to include `dpk_xyz`
-Do **not** add `sys.path.append(...)` in the test python code.
-All test data should be referenced as `../test-data` relative
-to `os.path.abspath(os.path.dirname(__file__))`.
 
 ### Configuration and command line options
 A transform generally accepts a dictionary of configuration to
