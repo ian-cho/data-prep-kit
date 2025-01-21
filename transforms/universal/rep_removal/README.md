@@ -40,6 +40,19 @@ Based on the analysis length_threshold=50 is used in the repetition removal task
 To run the repetition removal transform, **Rust** is required to be installed on the machine. 
 You can install rust following instructions [here](https://www.rust-lang.org/tools/install)
 
+**gcc** is also required to be present on the machine. Run `gcc -v` to see if already installed. Otherwise, 
+you can find information for installing [here](https://gcc.gnu.org/install/)
+
+## Running on M1 Mac
+To run the Transform on an M1 mac, there are a few prerequisites you must run to get started. 
+- Install a compatible psutils library in the environment (uninstall if already present):
+  - `pip uninstall psutil`
+  - `pip install --no-binary :all: psutil`
+
+
+- Compile the dedup_dataset binary from the **dpk_rep_removal** package dir
+  - `cd dpk_rep_removal/`
+  - `cargo install`
 ## Input Parameters
 
 The transform can be initialized with the following parameters.
