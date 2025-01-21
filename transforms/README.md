@@ -13,6 +13,12 @@ For details on some of the key classes, listed here,
 please refer to 
 [DPK core library documentation](../data-processing-lib/doc/overview.md).
 
+If starting to develop a new transform, you will likely want to start with one of the following:
+
+* [quick start tutorial](../doc/quick-start/contribute-your-own-transform.md) - provides
+a gentle introduction to developing your first transform.
+* [NOOP transform](universal/noop/) - this can be used as a template to start your new transform. 
+
 ## Importing Transforms 
 These are generally binary transforms that take in one format and convert
 to another usually, a parquet formatted PyArrow table.
@@ -86,7 +92,9 @@ found in this directory.
 ### Mimimum Transform Project Structure  
 
 Each transform project directory (e.g., `universal/xyz` implementing the xyz 
-transform) contains implementation of the python transform, 
+transform) contains implementation of the python transform.
+The directory structure is as follows (and recall that 
+[NOOP transform](universal/noop/) can serve as a good template if developing a new transform). 
 
 ```
 data-prep-kit
