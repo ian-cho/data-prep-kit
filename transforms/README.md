@@ -122,7 +122,7 @@ data-prep-kit
 │            |     └───expected
 │            |          │
 │            |          │ testfile.parquet
-│            |          │ markdown.json
+│            |          │ metadata.json
 │            | 
 │            | README.md *
 │            | Makefile *
