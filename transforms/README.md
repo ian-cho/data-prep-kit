@@ -142,7 +142,7 @@ Inherits from an abstract test class so that to test one needs only to provide t
 * `Makefile` - provides most targets expected by CI/CD and is usually
   based on a copy of [Makefile.transform.template](Makefile.transform.template) in this directory. `make help` to see a list of targets.
 * `requirements.txt` - defines requirements specific to the python transform (Ray and Spark requirements are handled by automation).
-* `README.md` -  documents use and implementation.
+* `README.md` -  documents use and implementation.  Consider using [README.md.template](README.md.template) in this directory as a starting point.
  
 The command `make conventions` run from within a transform
 directory will examine the runtime project structure and make recommendations.
