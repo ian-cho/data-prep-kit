@@ -31,9 +31,24 @@ found in [NOOPTransform](dpk_noop/transform.py)
 
 ## Usage
 
-### Launched Command Line Options 
-When invoking the CLI, the parameters are set using the parameter names from the above table.  
-For example, 
+### Command Line-Launched 
+
+#### Creating the Virtual Environment
+First we need a python environment containing the Noop transform.
+We create the virtual environment in the project:
+```shell
+make venv
+source venv/bin/activate
+```
+or by installing the DPK transform wheel
+```shell
+python -m venv venv
+source venv/bin/activate
+pip install data-prep-transforms
+```
+Now that we have a virtual environment containing the transform,
+we invoke the transform from the CLI using the runtime parameters and those from the transform itself (i.e. the table above).
+For example, to run the transform in the python runtime, 
 ```shell
 make venv
 source venv/bin/activate
@@ -41,10 +56,18 @@ python -m dpk_noop.runtime --noop_sleep_sec 10 \
     --data_local '{ "input_folder": "test-data/input", "output_folder": "output" }'
 deactivate
 ```
-or to run in a local Ray cluster using the Ray runtime.
+or in the Ray runtime using a local Ray cluster, 
 ```shell
 ...
-python -m dpk_noop.ray.runtime --run_locally True ...
+python -m dpk_noop.ray.runtime --run_locally True --noop_sleep_sec 10 \
+    --data_local '{ "input_folder": "test-data/input", "output_folder": "output" }'
+...
+```
+or in the spark runtime, 
+```shell
+...
+python -m dpk_noop.spark.runtime --noop_sleep_sec 10 \
+    --data_local '{ "input_folder": "test-data/input", "output_folder": "output" }'
 ...
 ```
 
@@ -53,7 +76,7 @@ ls output
 ```
 To see results of the transform.
 
-### Transforming data using the transform image
+### Image-Launched 
 
 To use the transform image to transform your data, please refer to the 
 [running images quickstart](../../../doc/quick-start/run-transform-image.md),
