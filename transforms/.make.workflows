@@ -47,9 +47,6 @@ ifeq ($(USE_DEV_IMAGES), 1)
 	cd ${TRANSFORM_SRC} && $(MAKE) image && $(MAKE) kind-load-image
 	cd ${REPOROOT}/kfp/kfp_ray_components && $(MAKE) image && $(MAKE) kind-load-image
 endif
-ifeq ($(KFPv2), 1)
-	yq -i '.root.inputDefinitions.parameters.ray_id_KFPv2.defaultValue = "123"' ${CURDIR}/${PIPELINE_FILE}
-endif
 	. ${WORKFLOW_VENV_ACTIVATE}  && ${PYTHON} -m workflow_support.pipeline_utils.pipelines_tests_utils -c "sanity-test" -p ${CURDIR}/${PIPELINE_FILE} -e ${KFP_ENDPOINT}
 
 
