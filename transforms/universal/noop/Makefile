@@ -20,6 +20,6 @@ run-cli-sample:
 	@# Help: Run the NOOP transform in a python runtime to read data in test-data/input and write to output directory.
 	$(MAKE) venv
 	source venv/bin/activate && \
-	$(PYTHON) -m dpk_$(TRANSFORM_NAME).transform_python \
+	$(PYTHON) -m dpk_$(TRANSFORM_NAME).runtime \
              --data_local_config "{ 'input_folder' : 'test-data/input', 'output_folder' : 'output'}"  
 
