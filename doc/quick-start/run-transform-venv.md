@@ -40,7 +40,7 @@ to read parquet files from `/home/me/input`:
 ```shell
 cd transforms/univeral/noop
 source venv/bin/activate
-python -m dpk_noop.transform_python.py \
+python -m dpk_noop.transform_python \
     --data_local_config "{ \
 	    'input_folder'  : '/home/me/input', \
 	    'output_folder' : '/home/me/output' \
@@ -55,7 +55,7 @@ approach and specify different `--data_s3_*` configuration as follows:
 ```shell
 cd transforms/univerals/noop
 source venv/bin/activate
-python -m dpk_noop.transform_python.py \
+python -m dpk_noop.transform_python \
 	--data_s3_cred "{ \
 	    'access_key'  : '...', \
 	    'secret_key' : '...', \
