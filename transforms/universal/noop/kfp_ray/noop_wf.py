@@ -26,7 +26,7 @@ from workflow_support.compile_utils import (
 task_image = "quay.io/dataprep1/data-prep-kit/noop-ray:latest"
 
 # the name of the job script
-EXEC_SCRIPT_NAME: str = "-m dpk_noop.ray.transform"
+EXEC_SCRIPT_NAME: str = "-m dpk_noop.ray.runtime"
 
 # components
 base_kfp_image = "quay.io/dataprep1/data-prep-kit/kfp-data-processing:latest"
