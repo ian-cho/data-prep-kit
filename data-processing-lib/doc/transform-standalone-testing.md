@@ -53,18 +53,19 @@ class TestNOOPTransform(AbstractTransformTest):
     ]
     return fixtures
 ```
-In the above we use the `NOOPTransform` to process the single input `table`, to produce
-the expected table `expected_table` and list of metadata in `expected_metadata_list`, 
-The NOOPTransform has no configuration that effects the transformation of input to
+In the above, we use the `NOOPTransform` to process the single input `table`, to produce
+the expected table `expected_table` and list of metadata in `expected_metadata_list`. 
+The `NOOPTransform` has no configuration that effects the transformation of input to
 output. However, in general this will not be the case and a transform may have different
 configurations and associated test data.  For example, a transform might be configurable
 to use different models and perhaps as a result have different results. 
 
-Once the test class is defined you may run the test from your IDE or from the command line... 
+Once the test class is defined you may run the test from your IDE or from the command line: 
 ```shell
 % cd .../data-prep-kit/transforms/universal/noop
 % make venv
 % source venv/bin/activate
+(venv)% export PYTHONPATH=.
 (venv)% pytest test/test_noop.py 
 ================================================================================ test session starts ================================================================================
 platform darwin -- Python 3.10.11, pytest-8.0.2, pluggy-1.4.0

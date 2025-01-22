@@ -20,7 +20,7 @@ the virtual environment in a directory named `venv`.
 To create the virtual environment for the `noop` transform:
 
 ```shell
-cd transforms/univeral/noop
+cd transforms/universal/noop
 make venv 
 ```
 Note, if needed, you can override the default `python` command used 
@@ -38,7 +38,7 @@ So for example, using the `noop` transform
 to read parquet files from `/home/me/input`:
 
 ```shell
-cd transforms/univeral/noop
+cd transforms/universal/noop
 source venv/bin/activate
 python -m dpk_noop.runtime \
     --data_local_config "{ \
@@ -53,7 +53,7 @@ When processing data located in S3 buckets, one can use the same
 approach and specify different `--data_s3_*` configuration as follows: 
 
 ```shell
-cd transforms/univerals/noop
+cd transforms/universal/noop
 source venv/bin/activate
 python -m dpk_noop.runtime \
 	--data_s3_cred "{ \
