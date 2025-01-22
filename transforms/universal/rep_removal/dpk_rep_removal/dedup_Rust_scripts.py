@@ -13,7 +13,7 @@
 import subprocess
 import os
 pwd = os.path.dirname(__file__)
-toml_path = f"{pwd}/Cargo.toml"
+toml_path = f"{pwd}/rust/Cargo.toml"
 
 def find_repeated_substrings(input, length_thresh, cache_dir, num_threads, frequency_threshold, retain_first_copy):
     ### Finding all repeated substrings within a document
