@@ -43,5 +43,5 @@ pandoc earth.md  -o earth.pdf
 pandoc earth2.md  -o earth2.pdf
 pandoc mars.md  -o mars.pdf
 pandoc spam.md  -o spam.pdf
-pandoc lorem.md  -o lorem.pdf
+pandoc lorem-ipsum.md  -o lorem-ipsum.pdf
 ```
