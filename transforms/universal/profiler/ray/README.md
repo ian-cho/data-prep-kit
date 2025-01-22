@@ -28,7 +28,7 @@ Ray version adds the following parameters:
 ### Launched Command Line Options
 When running the transform with the Ray launcher (i.e. TransformLauncher),
 the following command line arguments are available in addition to
-[the options provided by the launcher](../../../../data-processing-lib/doc/ray-launcher-options.md).
+[the options provided by the launcher](../../../../data-processing-lib/doc/launcher-options.md).
 
 ```shell
   --profiler_aggregator_cpu PROFILER_AGGREGATOR_CPU

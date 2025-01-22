@@ -36,6 +36,11 @@ found in [XYZTransform](dpk_xyz/transform.py)
 |------------------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | xyz_        | ... | ... |
 
+When running the transform with a launcher (i.e. TransformLauncher),
+the above are available as command line options in addition to
+[the options provided by the launcher](../../../../data-processing-lib/doc/launcher-options.md).
+
+
 ## Usage
 
 ### Command Line-Launched

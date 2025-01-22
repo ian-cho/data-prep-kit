@@ -217,7 +217,7 @@ To run
 python noop_main.py --noop_sleep_sec 2 \
   --data_local_config "{'input_folder': '"$NOOP_INPUT"', 'output_folder': '/tmp/noop-output'}"
 ```
-See the [python launcher options](python-launcher-options.md) for a complete list of
+See the [launcher options](launcher-options.md) for a complete list of
 transform-independent command line options.
 
 ### Ray Runtime
@@ -241,5 +241,5 @@ python noop_main.py --noop_sleep_sec 2 \
   --data_local_config "{'input_folder': '"$NOOP_INPUT"', 'output_folder': '/tmp/noop-output'}" --run_locally True
 ```
 which will start local ray instance ( ray should be pre [installed](https://docs.ray.io/en/latest/ray-overview/installation.html)).
-See the [ray launcher options](ray-launcher-options.md) for a complete list of
+See the [launcher options](launcher-options.md) for a complete list of
 transform-independent command line options.

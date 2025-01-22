@@ -84,7 +84,7 @@ docker run  --rm
 ```
 This is functionally equivalent to the python-runtime, but additional
 configuration can be provided (see the 
-[ray launcher args](../../data-processing-lib/doc/ray-launcher-options.md))
+[launcher args](../../data-processing-lib/doc/launcher-options.md))
 for details.
 
 ### S3-located Data - Python Runtime

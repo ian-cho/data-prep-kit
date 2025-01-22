@@ -302,5 +302,5 @@ as follows:
 ```shell
 make run-cli-sample
 ```
-See the [launcher options](ray-launcher-options.md) for a complete list of
+See the [launcher options](launcher-options.md) for a complete list of
 transform-independent command line options.

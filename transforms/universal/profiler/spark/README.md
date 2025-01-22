@@ -25,7 +25,7 @@ Spark version uses the same configuration parameters as the [Python one](../pyth
 
 ### Launched Command Line Options
 When running the transform with the Spark launcher (i.e. TransformLauncher),
-in addition to command line arguments provided by the [launcher](../../../../data-processing-lib/doc/spark-launcher-options.md).
+in addition to command line arguments provided by the [launcher](../../../../data-processing-lib/doc/launcher-options.md).
 the same arguments are available as for the [python one](../python/README.md)
 
 ### Running the samples
