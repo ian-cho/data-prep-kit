@@ -87,8 +87,6 @@ or others that might be defined locally
 Key targets are as follows:
 
 * venv -  creates the virtual environment from either a pyproject.toml or requirements.txt file.
-* publish - publish libraries or docker images as appropriate.  
-This is generally only used during release generation.
  
 If working with an IDE, one generally makes the venv, then configures the IDE to 
 reference the venv, src and test directories.

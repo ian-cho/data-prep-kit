@@ -15,12 +15,12 @@ import sys
 
 from data_processing.utils import ParamsUtils
 from data_processing_ray.runtime.ray import RayTransformLauncher
-from dpk_noop.ray.transform import NOOPRayTransformConfiguration
+from dpk_noop.ray.runtime import NOOPRayTransformConfiguration
 
 
 # create parameters
-input_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "test-data", "input"))
-output_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "output"))
+input_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "../..", "test-data", "input"))
+output_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "../..", "output"))
 local_conf = {
     "input_folder": input_folder,
     "output_folder": output_folder,

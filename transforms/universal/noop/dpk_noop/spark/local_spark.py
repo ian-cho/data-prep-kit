@@ -15,12 +15,12 @@ import sys
 
 from data_processing.utils import ParamsUtils
 from data_processing_spark.runtime.spark import SparkTransformLauncher
-from dpk_noop.spark.transform import NOOPSparkTransformConfiguration
+from dpk_noop.spark.runtime import NOOPSparkTransformConfiguration
 
 
 # create parameters
-input_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "test-data", "input"))
-output_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "output"))
+input_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "../..", "test-data", "input"))
+output_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "../..", "output"))
 local_conf = {
     "input_folder": input_folder,
     "output_folder": output_folder,
