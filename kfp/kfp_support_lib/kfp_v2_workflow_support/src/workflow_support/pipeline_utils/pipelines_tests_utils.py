@@ -67,7 +67,7 @@ def _set_run_id(pipeline_package_path: str):
         docs = list(yaml.load_all(stream, yaml.FullLoader))
         for doc in docs:
             if "root" in doc:
-                doc["root"]["inputDefinitions"]["parameters"]["ray_id_KFPv2"]["defaultValue"] = uuid.uuid4().hex
+                doc["root"]["inputDefinitions"]["parameters"]["ray_run_id_KFPv2"]["defaultValue"] = uuid.uuid4().hex
         with open(pipeline_package_path, "w") as outfile:
             yaml.dump_all(docs, outfile)
     except Exception as e:

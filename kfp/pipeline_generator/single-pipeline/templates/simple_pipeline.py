@@ -99,11 +99,11 @@ def {{ pipeline_name }}(
     ray_name: str = "{{ pipeline_name }}-kfp-ray",  # name of Ray cluster
     # Add image_pull_secret and image_pull_policy to ray workers if needed
     {%- if image_pull_secret != "" %}
-    ray_id_KFPv2: str = "",
+    ray_run_id_KFPv2: str = "",
     ray_head_options: dict = {"cpu": 1, "memory": 4, "image_pull_secret": "{{ image_pull_secret }}", "image": task_image},
     ray_worker_options: dict = {"replicas": 2, "max_replicas": 2, "min_replicas": 2, "cpu": 2, "memory": 4, "image_pull_secret": "{{ image_pull_secret }}", "image": task_image},
     {%- else %}
-    ray_id_KFPv2: str = "",
+    ray_run_id_KFPv2: str = "",
     ray_head_options: dict = {"cpu": 1, "memory": 4, "image": task_image},
     ray_worker_options: dict = {"replicas": 2, "max_replicas": 2, "min_replicas": 2, "cpu": 2, "memory": 4, "image": task_image},
     {%- endif %}
@@ -132,7 +132,7 @@ def {{ pipeline_name }}(
     """
     Pipeline to execute {{ pipeline_name }} transform
     :param ray_name: name of the Ray cluster
-    :param ray_id_KFPv2: string holding the id used for the Ray cluster used only in KFP v2
+    :param ray_run_id_KFPv2: string holding the id used for the Ray cluster used only in KFP v2
     :param ray_head_options: head node options, containing the following:
         cpu - number of cpus
         memory - memory
@@ -175,7 +175,7 @@ def {{ pipeline_name }}(
     if os.getenv("KFPv2", "0") == "1":
         print("WARNING: the ray cluster name can be non-unique at runtime, please do not execute simultaneous Runs of the "
               "same version of the same pipeline !!!")
-        run_id = ray_id_KFPv2
+        run_id = ray_run_id_KFPv2
     else:
         run_id = dsl.RUN_ID_PLACEHOLDER
     # create clean_up task

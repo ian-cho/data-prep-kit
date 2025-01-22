@@ -112,7 +112,7 @@ The input parameters section defines all the parameters required for the pipelin
 The parameters used here are as follows:
 
 * ray_name: name of the Ray cluster
-* ray_id_KFPv2: Ray cluster unique ID used only in KFP v2
+* ray_run_id_KFPv2: Ray cluster unique ID used only in KFP v2
 * ray_head_options: head node options, containing the following:
   * cpu - number of cpus
   * memory - memory
@@ -161,7 +161,7 @@ component execution and parameters submitted to every component.
     if os.getenv("KFPv2", "0") == "1":
         print("WARNING: the ray cluster name can be non-unique at runtime, please do not execute simultaneous Runs of the "
               "same version of the same pipeline !!!")
-        run_id = ray_id_KFPv2
+        run_id = ray_run_id_KFPv2
     else:
         run_id = dsl.RUN_ID_PLACEHOLDER
     # create clean_up task

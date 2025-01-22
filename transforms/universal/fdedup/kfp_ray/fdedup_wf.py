@@ -110,7 +110,7 @@ def fuzzydedup(
     # folders used
     # Ray cluster
     ray_name: str = "fuzzydedup-kfp-ray",  # name of Ray cluster
-    ray_id_KFPv2: str = "",   # Ray cluster unique ID used only in KFP v2
+    ray_run_id_KFPv2: str = "",   # Ray cluster unique ID used only in KFP v2
     # Add image_pull_secret and image_pull_policy to ray workers if needed
     ray_head_options: dict = {
         "cpu": 8,
@@ -161,7 +161,7 @@ def fuzzydedup(
     """
     Pipeline to execute FDEDUP transform
     :param ray_name: name of the Ray cluster
-    :param ray_id_KFPv2: string holding the id used for the Ray cluster used only in KFP v2
+    :param ray_run_id_KFPv2: string holding the id used for the Ray cluster used only in KFP v2
     :param ray_head_options: head node options, containing the following:
         cpu - number of cpus
         memory - memory
@@ -213,7 +213,7 @@ def fuzzydedup(
     if os.getenv("KFPv2", "0") == "1":
         print("WARNING: the ray cluster name can be non-unique at runtime, please do not execute simultaneous Runs of the "
               "same version of the same pipeline !!!")
-        run_id = ray_id_KFPv2
+        run_id = ray_run_id_KFPv2
     else:
         run_id = dsl.RUN_ID_PLACEHOLDER
     # create clean_up task
