@@ -15,7 +15,7 @@ import sys
 
 from data_processing.utils import ParamsUtils
 from data_processing_ray.runtime.ray import RayTransformLauncher
-from dpk_noop.ray.transform import NOOPRayTransformConfiguration
+from dpk_noop.ray.runtime import NOOPRayTransformConfiguration
 
 
 print(os.environ)
