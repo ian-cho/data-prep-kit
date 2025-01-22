@@ -71,7 +71,7 @@ Once the test class is defined you may run the test from your IDE or from the co
 platform darwin -- Python 3.10.11, pytest-8.0.2, pluggy-1.4.0
 rootdir: /Users/dawood/git/data-prep-kit/transforms/universal/noop
 plugins: cov-4.1.0
-collected 2 items                                                                                                                                                                   
+collected 2 items                                                                                                                                                                
 
 test/test_noop.py ..                                                                                                                                                          [100%]
 
@@ -81,20 +81,8 @@ test/test_noop.py ..                                                            
 Finally, the tests should be runnable with the `Makefile`  as follows:
 ```shell
 $ make test
-source venv/bin/activate;			\
-	export PYTHONPATH=..:.:$PYTHONPATH;	\
-	cd test; pytest . 
-========================================================================================== test session starts ==========================================================================================
-platform darwin -- Python 3.10.11, pytest-8.0.2, pluggy-1.4.0
-rootdir: /Users/dawood/git/data-prep-kit/transforms/universal/noop/test
-collected 3 items                                                                                                                                                                                       
-
-test_noop.py ..                                                                                                                                                                                   [ 66%]
-test_noop_launch.py .                                                                                                                                                                             [100%]
-
-========================================================================================== 3 passed in 17.15s ===========================================================================================
-$
+...
 ```
-Note that the venv was activated for you as part of running the test.
+Note that the venv was created and activated for you as part of running the test.
 
 
