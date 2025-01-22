@@ -112,6 +112,7 @@ The input parameters section defines all the parameters required for the pipelin
 The parameters used here are as follows:
 
 * ray_name: name of the Ray cluster
+* ray_id_KFPv2: Ray cluster unique ID used only in KFP v2
 * ray_head_options: head node options, containing the following:
   * cpu - number of cpus
   * memory - memory
@@ -156,7 +157,7 @@ component execution and parameters submitted to every component.
     # In KFPv2 dsl.RUN_ID_PLACEHOLDER is deprecated and cannot be used since SDK 2.5.0. On another hand we cannot create
     # a unique string in a component (at runtime) and pass it to the `clean_up_task` of `ExitHandler`, due to
     # https://github.com/kubeflow/pipelines/issues/10187. Therefore, meantime the user is requested to insert
-    # a unique string created at compilation time.
+    # a unique string created at run creation time.
     if os.getenv("KFPv2", "0") == "1":
         print("WARNING: the ray cluster name can be non-unique at runtime, please do not execute simultaneous Runs of the "
               "same version of the same pipeline !!!")
@@ -164,7 +165,7 @@ component execution and parameters submitted to every component.
     else:
         run_id = dsl.RUN_ID_PLACEHOLDER
     # create clean_up task
-    clean_up_task = cleanup_ray_op(ray_name=ray_name, run_id=dsl.RUN_ID_PLACEHOLDER, server_url=server_url, additional_params=additional_params)
+    clean_up_task = cleanup_ray_op(ray_name=ray_name, run_id=run_id, server_url=server_url, additional_params=additional_params)
     ComponentUtils.add_settings_to_component(clean_up_task, ONE_HOUR_SEC * 2)
     # pipeline definition
     with dsl.ExitHandler(clean_up_task):
@@ -177,7 +178,7 @@ component execution and parameters submitted to every component.
       # start Ray cluster
       ray_cluster = create_ray_op(
         ray_name=ray_name,
-        run_id=dsl.RUN_ID_PLACEHOLDER,
+        run_id=run_id,
         ray_head_options=ray_head_options,
         ray_worker_options=ray_worker_options,
         server_url=server_url,
@@ -188,7 +189,7 @@ component execution and parameters submitted to every component.
       # Execute job
       execute_job = execute_ray_jobs_op(
         ray_name=ray_name,
-        run_id=dsl.RUN_ID_PLACEHOLDER,
+        run_id=run_id,
         additional_params=additional_params,
         # note that the parameters below are specific for NOOP transform
         exec_params={
@@ -198,7 +199,7 @@ component execution and parameters submitted to every component.
           "num_workers": compute_exec_params.output,
           "worker_options": actor_options,
           "pipeline_id": pipeline_id,
-          "job_id": dsl.RUN_ID_PLACEHOLDER,
+          "job_id": run_id,
           "code_location": code_location,
           "noop_sleep_sec": noop_sleep_sec,
         },
