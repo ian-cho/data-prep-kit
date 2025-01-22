@@ -4,15 +4,15 @@ This tranforms performs text repetition removal to remove sequences that frequen
 
 The work is adopted from https://github.com/google-research/deduplicate-text-datasets to identify and remove all substrings of a given length that are repeated more than some threshold number of times.
 
-Several enhancements has been made to run at scale at single-parquet file level:
+Several enhancements have been made to run at scale at single-parquet file level:
 
-    - run in the same python space
+    - Run in the same python space
 
-    - avoid resource conflict having two processes handling two different parquet files (in making suffix_array and other steps)
+    - Avoid resource conflict having two processes handling two different parquet files (in making suffix_array and other steps)
 
-    - cleanup (to prevent data fill up in container environment)
+    - Cleanup (to prevent data fill up in container environment)
 
-    - avoid I/O processes (file read/write operations)
+    - Avoid I/O processes (file read/write operations)
 
     - Eliminate encoding and decoding procedures when working with related files
 
@@ -24,13 +24,13 @@ Several enhancements has been made to run at scale at single-parquet file level:
     
     - Copy the empty parquet file to target folder without processing
     
-these enhancements speed up the task, minimize the disk storage utilization, and improve parallelism on each node.
+These enhancements speed up the task, minimize the disk storage utilization, and improve parallelism on each node.
 
 The original code from https://github.com/google-research/deduplicate-text-datasets removes all copies of the duplicates. 
 Another modification has been made to retain the first copy of each duplicate cluster. 
 
 This repetition removal task can be fine-tuned by adjusting the length_threshold(repeated text sequence length) and frequency_threshold. 
-Based on the analysis length_threshold=50 is used in the repetition removal task that also was used in the original work from google and in the RefinedWeb.
+Based on an analysis, length_threshold=50 is used in the repetition removal task that was also used in the original work from google and in the RefinedWeb.
 
 ## Contributors
 - Shalisha Witherspoon (shalisha.witherspoon@ibm.com)
@@ -38,24 +38,29 @@ Based on the analysis length_threshold=50 is used in the repetition removal task
 
 ## Requirements
 To run the repetition removal transform, **Rust** is required to be installed on the machine. 
-You can install rust following instructions [here](https://www.rust-lang.org/tools/install)
+You can install rust following instructions [here](https://www.rust-lang.org/tools/install).
 
 **gcc** is also required to be present on the machine. Run `gcc -v` to see if already installed. Otherwise, 
-you can find information for installing [here](https://gcc.gnu.org/install/)
+you can find information for installing [here](https://gcc.gnu.org/install/).
 
 ## Running on M1 Mac
 To run the Transform on an M1 mac, there are a few prerequisites you must run to get started. 
-- Install a compatible psutils library in the environment (uninstall if already present):
-  - `pip uninstall psutil`
-  - `pip install --no-binary :all: psutil`
 
+A) Install a compatible **psutils** library in the environment (uninstall if already present):
+```shell
+pip uninstall psutil
+pip install --no-binary :all: psutil
 
-- Compile the dedup_dataset binary from the **dpk_rep_removal** package dir
-  - `cd dpk_rep_removal/`
-  - `cargo install`
+```
+
+B) Compile the dedup_dataset binary from the **dpk_rep_removal** package dir:
+```shell
+cd dpk_rep_removal
+cargo install
+```
 ## Input Parameters
 
-The transform can be initialized with the following parameters.
+The transform can be initialized with the following parameters:
 
 | Parameter                          | Default    | Description                                       |
 |------------------------------------|------------|---------------------------------------------------|
@@ -68,10 +73,10 @@ The transform can be initialized with the following parameters.
 | `rep_removal_num_threads`          | `4`        | Value for number of threads to use for processing |
 
 
-## Output format
+## Output Format
 
-The output format will be a new parquet file with the repeated sequence(s) removed
-ex:
+The output format will be a new parquet file with the repeated sequence(s) removed,
+for example:
 ```
 orig parquet:
 0 A staffer sells cars via livestream at a deale... ...           0.012263
@@ -93,14 +98,13 @@ dedup output:
 2 Yes! Cinnamon Oil is a great way to deter mice... ...           0.021643
 3 Rosemary Oil can be used to deter cockroaches.... ...           0.005885
 4 A cat might have discovered an insect crawling... ...           0.881134
-5                           ...           0.012263
-6                           ...           0.000067
-7                           ...           0.021643
-8                           ...           0.005885
-9                           ...           0.881134
+5                                                   ...           0.012263
+6                                                   ...           0.000067
+7                                                   ...           0.021643
+8                                                   ...           0.005885
+9                                                   ...           0.881134
 
 ```
-
 
 ## Basic Usage 
 ### Run via Command Line
@@ -113,10 +117,10 @@ python -m dpk_rep_removal.runtime \
 
 ```
 
-### Run in code/notebook
-A sample notebook found [here](rep_removal.ipynb) shows how to run the code with python.
+### Run in a notebook
+A sample notebook [here](rep_removal.ipynb) shows how to run the code with python.
 
-### Run in container
+### Run in a container
 There are docker files available for building an image to run the code with pure [python](Dockerfile.python), or with [ray](Dockerfile.ray).
 
 For details on building and running the image, please refer to the [running images quickstart](../../../doc/quick-start/run-transform-image.md), substituting the name of this transform image and runtime as appropriate.
