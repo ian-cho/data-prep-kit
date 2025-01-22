@@ -33,14 +33,14 @@ COPY --chmod=775 --chown=ray:root pyproject.toml pyproject.toml
 RUN pip install --no-cache-dir -e .
 
 # copy the main() entry point to the image 
-COPY ./src/code_quality_transform_ray.py .
+COPY --chmod=775 --chown=ray:root ./src/code_quality_transform_ray.py .
 
 # copy some of the samples in
-COPY ./src/code_quality_local_ray.py local/
+COPY --chmod=775 --chown=ray:root ./src/code_quality_local_ray.py local/
 
 # copy test
-COPY test/ test/
-COPY test-data/ test-data/
+COPY --chmod=775 --chown=ray:root test/ test/
+COPY --chmod=775 --chown=ray:root test-data/ test-data/
 
 # Set environment
 ENV PYTHONPATH /home/ray

@@ -31,7 +31,7 @@ User ray
     
 # copy source data
 COPY ./src/header_cleanser_transform_ray.py .
-COPY src/header_cleanser_local_ray.py local/
+COPY --chmod=775 --chown=ray:root src/header_cleanser_local_ray.py local/
 
 # copy test
 COPY test/ test/

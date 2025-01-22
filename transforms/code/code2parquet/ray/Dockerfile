@@ -28,10 +28,10 @@ COPY --chmod=775 --chown=ray:root pyproject.toml pyproject.toml
 RUN pip install --no-cache-dir -e .
 
 # copy the main() entry point to the image 
-COPY src/code2parquet_transform_ray.py .
+COPY --chmod=775 --chown=ray:root src/code2parquet_transform_ray.py .
 
 # copy some of the samples in
-COPY src/code2parquet_local_ray.py local/
+COPY --chmod=775 --chown=ray:root src/code2parquet_local_ray.py local/
 
 # copy test
 COPY test/ test/

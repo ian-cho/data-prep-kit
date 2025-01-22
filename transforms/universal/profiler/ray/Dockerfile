@@ -30,10 +30,10 @@ COPY --chmod=775 --chown=ray:root README.md README.md
 RUN pip install --no-cache-dir -e .
 
 # copy the main() entry point to the image 
-COPY src/profiler_transform_ray.py .
+COPY --chmod=775 --chown=ray:root src/profiler_transform_ray.py .
 
 # copy some of the samples in
-COPY src/profiler_local_ray.py local/
+COPY --chmod=775 --chown=ray:root src/profiler_local_ray.py local/
 
 # copy test
 COPY test/ test/

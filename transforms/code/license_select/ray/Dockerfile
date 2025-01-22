@@ -27,8 +27,8 @@ COPY --chmod=775 --chown=ray:root README.md README.md
 RUN pip install --no-cache-dir -e .
 
 # copy source data
-COPY src/license_select_transform_ray.py .
-COPY src/license_select_local_ray.py local/
+COPY --chmod=775 --chown=ray:root src/license_select_transform_ray.py .
+COPY --chmod=775 --chown=ray:root src/license_select_local_ray.py local/
 
 # copy test
 COPY test/ test/

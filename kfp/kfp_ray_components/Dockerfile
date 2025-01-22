@@ -30,7 +30,7 @@ RUN pip install --no-cache-dir pydantic==2.6.3
 # remove credentials-containing file
 RUN rm requirements.txt
 # components
-COPY ./src /pipelines/component/src
+COPY --chmod=775 --chown=ray:root ./src /pipelines/component/src
 
 # Set environment
 ENV KFP_v2=$KFP_v2
