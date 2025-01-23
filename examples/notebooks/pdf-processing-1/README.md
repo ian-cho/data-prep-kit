@@ -1,8 +1,18 @@
 # PDF Processing with Data Prep Kit
 
-Show cases Data Prep Kit capabilities of processing PDFs
+Show cases Data Prep Kit capabilities of processing PDFs.
 
-## Running the code
+We will demonstrate the following:
+
+- Extracting text from PDF files
+- removing duplicates (exact and fuzzy matches)
+- accessing document quality and removing documents containing spam words, placeholder content like 'lorem ipsum' ..etc.
+
+**Workflow**
+
+![](images/data-prep-kit-3-workflow.png)
+
+## Setting up Python Environment
 
 The code can be run on either 
 
@@ -14,7 +24,7 @@ conda create -n data-prep-kit -y python=3.11
 conda activate data-prep-kit
 
 # install the following in 'data-prep-kit' environment
-pip3 install  'data-prep-toolkit-transforms[ray,all]==1.0.0a4'
+pip3 install  'data-prep-toolkit-transforms[ray,all]==1.0.0'
 pip3 install jupyterlab   ipykernel  ipywidgets
 
 ## install custom kernel
@@ -25,19 +35,20 @@ python -m ipykernel install --user --name=data-prep-kit --display-name "dataprep
 jupyter lab
 ```
 
-## Intro
+## Running the code
 
-This notebook will demonstrate processing PDFs
 
-`PDFs ---> text ---> compute hash ---> dedupe ---> document quality`
+[python version](pdf_processing_1_python.ipynb)  &nbsp;    [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sujee/data-prep-kit/blob/process-pdf-1/examples/notebooks/pdf-processing-1/pdf_processing_1_python.ipynb)
 
-[python version](dpk_intro_1_python.ipynb)  &nbsp;   |   &nbsp;  [ray version](dpk_intro_1_ray.ipynb)
+[ray version](pdf_processing_1_ray.ipynb)  &nbsp;   [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sujee/data-prep-kit/blob/process-pdf-1/examples/notebooks/pdf-processing-1/pdf_processing_1_ray.ipynb)
 
 
 ## Creating Input PDFs (Optional)
 
+Sample PDFs we use for this example are created from markdown documents using pandoc utility, as follows.
+
 ```bash
-cd input/solar-system
+cd input
 
 pandoc earth.md  -o earth.pdf
 pandoc earth2.md  -o earth2.pdf
