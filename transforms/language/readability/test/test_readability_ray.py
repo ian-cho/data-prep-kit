@@ -1,4 +1,4 @@
-# (C) Copyright IBM Corp. 2024.
+# (C) Copyright IBM Corp. 2025.
 # Licensed under the Apache License, Version 2.0 (the “License”);
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,15 +11,15 @@
 ################################################################################
 import os
 
-from data_processing.runtime.pure_python import PythonTransformLauncher
 from data_processing.test_support.launch.transform_test import (
     AbstractTransformLauncherTest,
 )
-from dpk_readability.common import contents_column_name_cli_param
-from dpk_readability.runtime import ReadabilityPythonTransformConfiguration
+from data_processing_ray.runtime.ray import RayTransformLauncher
+from dpk_readability.common import contents_column_name_cli_param, curriculum_cli_param
+from dpk_readability.ray.runtime import ReadabilityRayTransformConfiguration
 
 
-class TestPythonReadabilityTransform(AbstractTransformLauncherTest):
+class TestRayReadabilityTransform(AbstractTransformLauncherTest):
     """
     Extends the super-class to define the test data for the tests defined there.
     The name of this class MUST begin with the word Test so that pytest recognizes it as a test class.
@@ -32,10 +32,11 @@ class TestPythonReadabilityTransform(AbstractTransformLauncherTest):
 
         cli_params = {
             contents_column_name_cli_param: "contents",
+            "run_locally": True,
             #            curriculum_cli_param: False
         }
 
         fixtures = []
-        launcher = PythonTransformLauncher(ReadabilityPythonTransformConfiguration())
+        launcher = RayTransformLauncher(ReadabilityRayTransformConfiguration())
         fixtures.append((launcher, cli_params, os.path.join(basedir, "input"), os.path.join(basedir, "expected2")))
         return fixtures
