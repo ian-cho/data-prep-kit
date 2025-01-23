@@ -42,7 +42,7 @@ configuration for values are as follows:
 ### Launched Command Line Options
 When running the transform with the Python launcher (i.e. TransformLauncher),
 the following command line arguments are available in addition to
-[the options provided by the launcher](../../../../data-processing-lib/doc/python-launcher-options.md).
+[the options provided by the launcher](../../../../data-processing-lib/doc/launcher-options.md).
 
 ```shell
   --profiler_doc_column PROFILER_DOC_COLUMN

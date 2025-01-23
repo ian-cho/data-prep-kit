@@ -93,7 +93,7 @@ data-prep-kit
 │            |     └───expected
 │            |          │
 │            |          │ testfile.parquet
-│            |          │ markdown.json
+│            |          │ metadata.json
 │            | 
 │            | requirements.txt
 │            | Dockerfile.python
