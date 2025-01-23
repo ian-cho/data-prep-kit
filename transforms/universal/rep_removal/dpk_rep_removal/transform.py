@@ -9,8 +9,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ################################################################################
-
-import subprocess
+import logging
 import os
 import tempfile
 import pyarrow as pa
@@ -21,6 +20,8 @@ from typing import Any
 from psutil import cpu_count
 from dpk_rep_removal.make_suffix_array import make_suffix_array
 from data_processing.transform import AbstractTableTransform
+
+logging.basicConfig(level=logging.DEBUG)
 
 
 class RepRemovalTransform(AbstractTableTransform):
@@ -76,10 +77,6 @@ class RepRemovalTransform(AbstractTableTransform):
 
                 return [res_table], metadata
 
-        except subprocess.TimeoutExpired:
-            print("subprocess timed out. skipping file")
-            return [], {}
-
-        except subprocess.CalledProcessError:
-            print("error during subprocess call. skipping file")
+        except Exception as e:
+            logging.error(e)
             return [], {}
