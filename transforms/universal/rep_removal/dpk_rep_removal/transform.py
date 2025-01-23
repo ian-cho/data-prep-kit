@@ -32,11 +32,16 @@ class RepRemovalTransform(AbstractTableTransform):
         self.dedup_level = config.get("rep_removal_dedup_level_name", "parquet")
         self.length_thresh = config.get("rep_removal_length_thresh", str(50))
         self.frequency_threshold = config.get("rep_removal_frequency_threshold", str(1))
-        self.retain_first_copy = config.get("rep_removal_retain_first_copy", True)
-        self.tokenize = config.get("rep_removal_tokenize", True)
+        self.retain_first_copy = str(config.get("rep_removal_retain_first_copy", True))
+        self.tokenize = str(config.get("rep_removal_tokenize", True))
         self.num_threads = config.get("rep_removal_num_threads", str(4))
         self.num_cpus = config.get("rep_removal_num_cpus", cpu_count(logical=False))
 
+        if self.retain_first_copy.lower() == 'false':
+            self.retain_first_copy = False
+
+        else:
+            self.retain_first_copy = True
     def transform(self, table: pa.Table, file_name: str = None) -> tuple[list[pa.Table], dict[str, Any]]:
         """ """
         pq_df = table.to_pandas()
