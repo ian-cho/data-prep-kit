@@ -1,0 +1,4 @@
+data-prep-toolkit>=0.2.1
+textstat
+pandas
+
