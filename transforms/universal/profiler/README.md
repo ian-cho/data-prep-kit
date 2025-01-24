@@ -22,9 +22,9 @@ and pass it as a parameter to transforms.
 
 ## Transform runtime
 
-[Transform runtime](dpk_profiler/runtime.py) is responsible for creation cache actors and sending their 
-handles to the transforms themselves
-Additionally it writes created word counts to the data storage (as .csv files) and enhances statistics information with the information about cache size and utilization
+[Transform runtime](dpk_profiler/runtime.py) is responsible for creating cache actors and sending their 
+handles to the transforms themselves.
+Additionally, it writes created word counts to the data storage (as .csv files) and enhances statistics information with the information about cache size and utilization
 
 ## Configuration and command line Options
 
@@ -61,9 +61,8 @@ python -m dpk_profiler.local
 
 ## Transform ray runtime
 
-[Transform runtime](dpk_profiler/ray/runtime.py) is responsible for creation cache actors and sending their 
+[Transform ray runtime](dpk_profiler/ray/runtime.py) is responsible for creating cache actors and sending their 
 handles to the transforms themselves.
-Additionally it writes created word counts to the data storage (as .csv files) and enhances statistics information with the information about cache size and utilization.
 
 ## Configuration and command line Options
 
