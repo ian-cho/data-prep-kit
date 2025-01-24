@@ -65,6 +65,28 @@ the following command line arguments are additionally available
                         'disk' makes an estimate of the resulting parquet file size.
 ```
 
+### Command Line-Launched example
+
+
+#### Creating the Virtual Environment
+First we need a python environment containing the transform.
+We create the virtual environment in the transform folder (transforms/universal/resize):
+```shell
+make venv
+source venv/bin/activate
+```
+Run the transform from the command line using
+```shell
+python -m dpk_noop.runtime --resize_max_rows_per_table= 125 \
+    --data_local '{ "input_folder": "test-data/input", "output_folder": "output" }'
+```
+Exit the virtual environment and list parquet files produced by the transform
+```shell
+deactivate
+ls output
+```
+
+
 ### Transforming data using the transform image
 
 To use the transform image to transform your data, please refer to the 
