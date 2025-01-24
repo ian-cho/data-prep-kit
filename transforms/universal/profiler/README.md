@@ -28,7 +28,7 @@ Additionally it writes created word counts to the data storage (as .csv files) a
 
 ## Configuration and command line Options
 
-The set of dictionary keys holding [ProfilerTransform](src/profiler_transform_python.py)
+The set of dictionary keys holding [ProfilerTransform](dpk_profiler/transform_base.py)
 configuration for values are as follows:
 
 * _doc_column_ - specifies name of the column containing documents
@@ -36,9 +36,9 @@ configuration for values are as follows:
 ## Running
 
 ### Launched Command Line Options
-When running the transform with the Python launcher (i.e. TransformLauncher),
+When running the transform with the Python launcher (i.e., TransformLauncher),
 the following command line arguments are available in addition to
-[the options provided by the launcher](../../../../data-processing-lib/doc/launcher-options.md).
+[the options provided by the launcher](../../../data-processing-lib/doc/launcher-options.md).
 
 ```shell
   --profiler_doc_column PROFILER_DOC_COLUMN
@@ -48,7 +48,6 @@ the following command line arguments are available in addition to
 These correspond to the configuration keys described above.
 
 ### Running the samples
-### Running the samples
 To run the samples, run the following command from the transform folder transform/universal/profiler
 
 For example, 
@@ -56,28 +55,28 @@ For example,
 make venv && source venv/bin/activate
 python -m dpk_profiler.local
 ```
+### Code example
 
+[notebook](profiler-python.ipynb)
 
 ## Transform ray runtime
 
 [Transform runtime](dpk_profiler/ray/runtime.py) is responsible for creation cache actors and sending their 
-handles to the transforms themselves
-Additionally it writes created word counts to the data storage (as .csv files) and enhances statistics information with the information about cache size and utilization
+handles to the transforms themselves.
+Additionally it writes created word counts to the data storage (as .csv files) and enhances statistics information with the information about cache size and utilization.
 
 ## Configuration and command line Options
 
-In addition to the configuration parameters, defined above, 
+In addition to the configuration parameters defined above, 
 Ray version adds the following parameters:
 
 * _aggregator_cpu_ - specifies an amount of CPUs per aggregator actor
 * _num_aggregators_ - specifies number of aggregator actors
 
-## Running
-
 ### Launched Command Line Options
-When running the transform with the Ray launcher (i.e. TransformLauncher),
+When running the transform with the Ray launcher (i.e., TransformLauncher),
 the following command line arguments are available in addition to
-[the options provided by the launcher](../../../../data-processing-lib/doc/launcher-options.md).
+[the options provided by the launcher](../../../data-processing-lib/doc/launcher-options.md):
 
 ```shell
   --profiler_aggregator_cpu PROFILER_AGGREGATOR_CPU
@@ -98,10 +97,13 @@ For example,
 make venv && source venv/bin/activate
 python -m dpk_profiler.ray.local
 ```
+### Code example (Ray runtime)
+
+[notebook](profiler-ray.ipynb)
 
 ### Transforming data using the transform image
 
 To use the transform image to transform your data, please refer to the
-[running images quickstart](../../../../doc/quick-start/run-transform-image.md),
+[running images quickstart](../../../doc/quick-start/run-transform-image.md),
 substituting the name of this transform image and runtime as appropriate.
 
