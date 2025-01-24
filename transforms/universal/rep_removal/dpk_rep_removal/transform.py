@@ -63,8 +63,12 @@ class RepRemovalTransform(AbstractTableTransform):
                                          self.frequency_threshold, self.retain_first_copy)
 
                 repeated_pairs = collect_duplicates_avoidIO(encoded_pq, self.length_thresh, cache_dir)
-                extract_dup_per_doc_avoidIO_further(repeated_pairs)
 
+                # no duplicates found
+                if repeated_pairs[0] == 'S 0':
+                    return [], {"duplicates_found": 0}
+
+                extract_dup_per_doc_avoidIO_further(repeated_pairs)
                 output_pq = os.path.join(td, 'output.parquet')
                 pre_content_col_size, deduped_content_col_size = save_deduped_pq_once(pq_df, output_pq,
                                                                                       self.contents_column_name,
@@ -73,7 +77,8 @@ class RepRemovalTransform(AbstractTableTransform):
 
                 metadata = {
                     "pre_content col size": pre_content_col_size,
-                    "rep_removed_content col size": deduped_content_col_size
+                    "rep_removed_content col size": deduped_content_col_size,
+                    "duplicates_found": len(repeated_pairs) - 4,
                 }
 
             # add deduped to res table
