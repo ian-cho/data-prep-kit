@@ -16,6 +16,7 @@ requires = ["setuptools>=68.0.0", "wheel", "setuptools_scm[toml]>=7.1.0"]
 build-backend = "setuptools.build_meta"
 
 
+
 [tool.setuptools.dynamic.dependencies]
 file = ["requirements.txt"]
 
@@ -28,7 +29,6 @@ all = { file = [
 "code/license_select/python/requirements.txt",
 "code/code_quality/python/requirements.txt",
 "code/code2parquet/python/requirements.txt",
-
 "code/code_profiler/requirements.txt",
 
 ##### pii_redactor seem to be failing UT
@@ -56,7 +56,7 @@ all = { file = [
 "universal/hap/requirements.txt",
 "universal/tokenization/requirements.txt",
 "universal/web2parquet/requirements.txt",
-    "universal/rep_removal/requirements.txt"
+"universal/rep_removal/requirements.txt"
 ]}
 
 language = { file = [
@@ -145,8 +145,9 @@ dpk_code_profiler = "code/code_profiler/dpk_code_profiler"
 dpk_rep_removal = "universal/rep_removal/dpk_rep_removal"
 
 
-#[tool.setuptools.package-data]
+[tool.setuptools.package-data]
 #"*" = ["*.txt"]
+dpk_rep_removal = ["universal/rep_removal/dpk_rep_removal/rust", "universal/rep_removal/dpk_rep_removaltarget/release/", "universal/rep_removal/dpk_rep_removal/gpt2"]
 
 [options]
 package_dir = ["src","test"]
