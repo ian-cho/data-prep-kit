@@ -52,7 +52,7 @@ Only one of the _max_rows_per_table_ and _max_mbytes_per_table_ may be used.
 ### Launched Command Line Options 
 When running the transform with the Ray launcher (i.e., TransformLauncher),
 the following command line arguments are additionally available 
-[the options provided by the launcher](../../../data-processing-lib/doc/ray-launcher-options.md) and map to the configuration keys above.
+[the options provided by the launcher](../../../data-processing-lib/doc/launcher-options.md) and map to the configuration keys above.
 
 ```
   --resize_max_rows_per_table RESIZE_MAX_ROWS_PER_TABLE
@@ -85,6 +85,11 @@ Exit the virtual environment and list parquet files produced by the transform
 deactivate
 ls output
 ```
+### Code examples
+
+[notebook (python runtime)](resize.ipynb)
+
+[notebook(ray runtime)](resize-ray.ipynb)
 
 
 ### Transforming data using the transform image
