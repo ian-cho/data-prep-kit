@@ -26,7 +26,7 @@ from workflow_support.compile_utils import (
 task_image = "quay.io/dataprep1/data-prep-kit/profiler-ray:latest"
 
 # the name of the job script
-EXEC_SCRIPT_NAME: str = "profiler_transform_ray.py"
+EXEC_SCRIPT_NAME: str = "-m dpk_profiler.ray.runtime.py"
 
 # components
 base_kfp_image = "quay.io/dataprep1/data-prep-kit/kfp-data-processing:latest"
