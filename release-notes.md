@@ -1,5 +1,19 @@
 # Data Prep Kit Release notes
 
+## Release 1.0.0 - 1/14/2025
+
+## General
+
+1. Refactor all language transforms and implement simplified APIs for refactored transforms
+1. Added notebooks examples for each of the transforms 
+1. Streamlined documentation and added tutorial
+1. Other minor enhancements and bug fixes
+
+### Transforms
+
+1. Added new similarity transform
+
+
 ## Release 0.2.3 - 12/15/2024
 
 ## General

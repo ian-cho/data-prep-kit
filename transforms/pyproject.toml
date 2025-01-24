@@ -1,6 +1,6 @@
 [project]
 name = "data_prep_toolkit_transforms"
-version = "1.0.0"
+version = "1.0.0a6"
 requires-python = ">=3.10,<3.13"
 keywords = ["transforms", "data preprocessing", "data preparation", "llm", "generative", "ai", "fine-tuning", "llmapps" ]
 description = "Data Preparation Toolkit Transforms using Ray"
@@ -33,8 +33,8 @@ all = { file = [
 
 "language/pii_redactor/requirements.txt",
 
-"universal/profiler/python/requirements.txt",
-"universal/resize/python/requirements.txt",
+"universal/profiler/requirements.txt",
+"universal/resize/requirements.txt",
 
 "language/lang_id/requirements.txt",
 "language/doc_quality/requirements.txt",
@@ -78,7 +78,9 @@ language = { file = [
 "universal/fdedup/requirements.txt",
 "universal/hap/requirements.txt",
 "universal/tokenization/requirements.txt",
-"universal/web2parquet/requirements.txt"
+"universal/web2parquet/requirements.txt",
+"universal/profiler/requirements.txt",
+"universal/resize/requirements.txt"
 ]}
 
 # pyproject.toml must be in a parent and cannot be in sibling
@@ -90,8 +92,8 @@ license_select = { file = ["code/license_select/python/requirements.txt"]}
 code_quality = { file = ["code/code_quality/python/requirements.txt"]} 
 code2parquet = {file =  ["code/code2parquet/python/requirements.txt"]}
 
-profiler = { file = ["universal/profiler/python/requirements.txt"]} 
-resize = { file = ["universal/resize/python/requirements.txt"]} 
+profiler = { file = ["universal/profiler/requirements.txt"]} 
+resize = { file = ["universal/resize/requirements.txt"]} 
 
 ######## Named transforms
 doc_chunk = { file = ["language/doc_chunk/requirements.txt"]}
@@ -138,6 +140,8 @@ dpk_tokenization = "universal/tokenization/dpk_tokenization"
 dpk_similarity = "language/similarity/dpk_similarity"
 dpk_filter = "universal/filter/dpk_filter"
 dpk_code_profiler = "code/code_profiler/dpk_code_profiler"
+dpk_profiler = "universal/profiler/dpk_profiler"
+dpk_resize = "universal/resize/dpk_resize"
 
 
 #[tool.setuptools.package-data]
