@@ -19,28 +19,28 @@ ARG DPK_WHEEL_FILE_NAME
 
 # Copy and install data processing libraries 
 # These are expected to be placed in the docker context before this is run (see the make image).
-COPY --chmod=g=u --chown=ray:root data-processing-dist data-processing-dist
+COPY --chmod=775 --chown=ray:root data-processing-dist data-processing-dist
 RUN  pip install data-processing-dist/${DPK_WHEEL_FILE_NAME}[ray]
 
-COPY --chmod=g=u --chown=ray:root python-transform/  python-transform/
+COPY --chmod=775 --chown=ray:root python-transform/  python-transform/
 RUN cd python-transform && pip install --no-cache-dir -e .
 
 #COPY requirements.txt requirements.txt
 #RUN pip install --no-cache-dir -r  requirements.txt
 
-COPY --chmod=g=u --chown=ray:root src/ src/
-COPY --chmod=g=u --chown=ray:root pyproject.toml pyproject.toml 
+COPY --chmod=775 --chown=ray:root src/ src/
+COPY --chmod=775 --chown=ray:root pyproject.toml pyproject.toml 
 RUN pip install --no-cache-dir -e .
 
 # copy the main() entry point to the image 
-COPY --chmod=g=u --chown=ray:root ./src/code_quality_transform_ray.py .
+COPY --chmod=775 --chown=ray:root ./src/code_quality_transform_ray.py .
 
 # copy some of the samples in
-COPY --chmod=g=u --chown=ray:root ./src/code_quality_local_ray.py local/
+COPY --chmod=775 --chown=ray:root ./src/code_quality_local_ray.py local/
 
 # copy test
-COPY --chmod=g=u --chown=ray:root test/ test/
-COPY --chmod=g=u --chown=ray:root test-data/ test-data/
+COPY --chmod=775 --chown=ray:root test/ test/
+COPY --chmod=775 --chown=ray:root test-data/ test-data/
 
 # Set environment
 ENV PYTHONPATH /home/ray

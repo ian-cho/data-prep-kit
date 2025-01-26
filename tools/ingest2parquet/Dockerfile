@@ -13,7 +13,7 @@ ARG DPK_WHEEL_FILE_NAME
 
 # Copy and install data processing libraries 
 # These are expected to be placed in the docker context before this is run (see the make image).
-COPY --chmod=g=u --chown=ray:root data-processing-dist data-processing-dist
+COPY --chmod=775 --chown=ray:root data-processing-dist data-processing-dist
 RUN  pip install data-processing-dist/${DPK_WHEEL_FILE_NAME}[ray]
 
 COPY requirements.txt requirements.txt
@@ -21,9 +21,9 @@ RUN pip install --no-cache-dir -r  requirements.txt
 
 RUN rm requirements.txt
 # copy source
-COPY --chmod=g=u --chown=ray:root ./src .
+COPY --chmod=775 --chown=ray:root ./src .
 # copy test
-COPY --chmod=g=u --chown=ray:root test/ test/
-COPY --chmod=g=u --chown=ray:root test-data/ test-data/
+COPY --chmod=775 --chown=ray:root test/ test/
+COPY --chmod=775 --chown=ray:root test-data/ test-data/
 # Set environment
 ENV PYTHONPATH /home/ray

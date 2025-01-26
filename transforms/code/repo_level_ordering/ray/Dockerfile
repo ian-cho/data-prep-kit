@@ -15,12 +15,12 @@ ARG DPK_WHEEL_FILE_NAME
 
 # Copy and install data processing libraries 
 # These are expected to be placed in the docker context before this is run (see the make image).
-COPY --chmod=g=u --chown=ray:root data-processing-dist data-processing-dist
+COPY --chmod=775 --chown=ray:root data-processing-dist data-processing-dist
 RUN  pip install data-processing-dist/${DPK_WHEEL_FILE_NAME}[ray]
 
-COPY --chmod=g=u --chown=ray:root src/ src/
-COPY --chmod=g=u --chown=ray:root pyproject.toml pyproject.toml 
-COPY --chmod=g=u --chown=ray:root README.md README.md 
+COPY --chmod=775 --chown=ray:root src/ src/
+COPY --chmod=775 --chown=ray:root pyproject.toml pyproject.toml 
+COPY --chmod=775 --chown=ray:root README.md README.md 
 RUN pip install --no-cache-dir -e .
 
 # copy source data
