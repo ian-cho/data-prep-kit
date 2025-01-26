@@ -2,7 +2,7 @@ FROM docker.io/rayproject/ray:2.24.0-py310
 
 # see https://docs.openshift.com/container-platform/4.17/openshift_images/create-images.html#use-uid_create-images
 USER root
-RUN chown ray:root /home/ray && chmod 775 /home/ray
+RUN chown ray:root /home/ray && chmod -R g=u /home/ray
 USER ray
 
 # install pytest
