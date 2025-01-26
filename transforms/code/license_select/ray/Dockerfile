@@ -31,8 +31,8 @@ COPY --chmod=775 --chown=ray:root src/license_select_transform_ray.py .
 COPY --chmod=775 --chown=ray:root src/license_select_local_ray.py local/
 
 # copy test
-COPY test/ test/
-COPY test-data/ test-data/
+COPY --chmod=775 --chown=ray:root test/ test/
+COPY --chmod=775 --chown=ray:root test-data/ test-data/
 
 # Put these at the end since they seem to upset the docker cache.
 ARG BUILD_DATE

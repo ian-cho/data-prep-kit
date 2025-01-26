@@ -30,12 +30,12 @@ RUN sudo apt-get update && sudo apt-get install -y \
 User ray
     
 # copy source data
-COPY ./src/header_cleanser_transform_ray.py .
+COPY --chmod=775 --chown=ray:root ./src/header_cleanser_transform_ray.py .
 COPY --chmod=775 --chown=ray:root src/header_cleanser_local_ray.py local/
 
 # copy test
-COPY test/ test/
-COPY test-data/ test-data/
+COPY --chmod=775 --chown=ray:root test/ test/
+COPY --chmod=775 --chown=ray:root test-data/ test-data/
 
 # Set environment
 ENV PYTHONPATH /home/ray

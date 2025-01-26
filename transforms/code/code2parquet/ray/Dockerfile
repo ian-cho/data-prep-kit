@@ -34,8 +34,8 @@ COPY --chmod=775 --chown=ray:root src/code2parquet_transform_ray.py .
 COPY --chmod=775 --chown=ray:root src/code2parquet_local_ray.py local/
 
 # copy test
-COPY test/ test/
-COPY test-data/ test-data/
+COPY --chmod=775 --chown=ray:root test/ test/
+COPY --chmod=775 --chown=ray:root test-data/ test-data/
 
 # Set environment
 ENV PYTHONPATH /home/ray
