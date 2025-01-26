@@ -4,7 +4,7 @@ FROM ${BASE_IMAGE}
 
 # see https://docs.openshift.com/container-platform/4.17/openshift_images/create-images.html#use-uid_create-images
 USER root
-RUN chown ray:root /home/ray && chmod -R g=u /home/ray
+RUN chown ray:root /home/ray && chmod g=u /home/ray
 USER ray
 
 RUN pip install --upgrade --no-cache-dir pip 
@@ -15,20 +15,20 @@ ARG DPK_WHEEL_FILE_NAME
 
 # Copy and install data processing libraries 
 # These are expected to be placed in the docker context before this is run (see the make image).
-COPY --chmod=775 --chown=ray:root data-processing-dist data-processing-dist
+COPY --chmod=g=u --chown=ray:root data-processing-dist data-processing-dist
 RUN  pip install data-processing-dist/${DPK_WHEEL_FILE_NAME}[ray]
 
-COPY --chmod=775 --chown=ray:root python-transform/  python-transform/
+COPY --chmod=g=u --chown=ray:root python-transform/  python-transform/
 RUN cd python-transform && pip install --no-cache-dir -e .
 
-COPY --chmod=775 --chown=ray:root src/ src/
-COPY --chmod=775 --chown=ray:root pyproject.toml pyproject.toml 
-COPY --chmod=775 --chown=ray:root README.md README.md 
+COPY --chmod=g=u --chown=ray:root src/ src/
+COPY --chmod=g=u --chown=ray:root pyproject.toml pyproject.toml 
+COPY --chmod=g=u --chown=ray:root README.md README.md 
 RUN pip install --no-cache-dir -e .
 
 # copy source data
-COPY --chmod=775 --chown=ray:root src/license_select_transform_ray.py .
-COPY --chmod=775 --chown=ray:root src/license_select_local_ray.py local/
+COPY --chmod=g=u --chown=ray:root src/license_select_transform_ray.py .
+COPY --chmod=g=u --chown=ray:root src/license_select_local_ray.py local/
 
 # copy test
 COPY test/ test/
