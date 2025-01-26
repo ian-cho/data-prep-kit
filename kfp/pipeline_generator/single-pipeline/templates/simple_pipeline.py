@@ -97,13 +97,12 @@ TASK_NAME: str = "{{ pipeline_name }}"
 def {{ pipeline_name }}(
     # Ray cluster
     ray_name: str = "{{ pipeline_name }}-kfp-ray",  # name of Ray cluster
+    ray_run_id_KFPv2: str = "",   # Ray cluster unique ID used only in KFP v2
     # Add image_pull_secret and image_pull_policy to ray workers if needed
     {%- if image_pull_secret != "" %}
-    ray_run_id_KFPv2: str = "",
     ray_head_options: dict = {"cpu": 1, "memory": 4, "image_pull_secret": "{{ image_pull_secret }}", "image": task_image},
     ray_worker_options: dict = {"replicas": 2, "max_replicas": 2, "min_replicas": 2, "cpu": 2, "memory": 4, "image_pull_secret": "{{ image_pull_secret }}", "image": task_image},
     {%- else %}
-    ray_run_id_KFPv2: str = "",
     ray_head_options: dict = {"cpu": 1, "memory": 4, "image": task_image},
     ray_worker_options: dict = {"replicas": 2, "max_replicas": 2, "min_replicas": 2, "cpu": 2, "memory": 4, "image": task_image},
     {%- endif %}
@@ -132,7 +131,7 @@ def {{ pipeline_name }}(
     """
     Pipeline to execute {{ pipeline_name }} transform
     :param ray_name: name of the Ray cluster
-    :param ray_run_id_KFPv2: string holding the id used for the Ray cluster used only in KFP v2
+    :param ray_run_id_KFPv2: a unique string id used for the Ray cluster, applicable only in KFP v2.
     :param ray_head_options: head node options, containing the following:
         cpu - number of cpus
         memory - memory

@@ -41,7 +41,9 @@ Note: the project and the explanation below are based on [KFPv1](https://www.kub
 import kfp.compiler as compiler
 import kfp.components as comp
 import kfp.dsl as dsl
+import os
 from kfp_support.workflow_support.runtime_utils import (
+  DEFAULT_KFP_COMPONENT_SPEC_PATH,
   ONE_HOUR_SEC,
   ONE_WEEK_SEC,
   ComponentUtils,
@@ -56,7 +58,8 @@ Ray cluster. For each step we have to define a component that will execute them:
 
 ```python
     # components
-    base_kfp_image = "quay.io/dataprep1/data-prep-kit/kfp-data-processing:0.0.2"
+    base_kfp_image = "quay.io/dataprep1/data-prep-kit/kfp-data-processing:latest"
+    component_spec_path = os.getenv("KFP_COMPONENT_SPEC_PATH", DEFAULT_KFP_COMPONENT_SPEC_PATH)
     # KFPv1 and KFP2 uses different methods to create a component from a function. KFPv1 uses the
     # `create_component_from_func` function, but it is deprecated by KFPv2 and so has a different import path.
     # KFPv2 recommends using the `@dsl.component` decorator, which doesn't exist in KFPv1. Therefore, here we use
@@ -68,11 +71,11 @@ Ray cluster. For each step we have to define a component that will execute them:
     else:
       compute_exec_params_op = comp.create_component_from_func(func=compute_exec_params_func, base_image=base_kfp_image)
     # create Ray cluster
-    create_ray_op = comp.load_component_from_file("../../../kfp_ray_components/createRayComponent.yaml")
+    create_ray_op = comp.load_component_from_file(component_spec_path + "createRayClusterComponent.yaml")
     # execute job
-    execute_ray_jobs_op = comp.load_component_from_file("../../../kfp_ray_components/executeRayJobComponent.yaml")
+    execute_ray_jobs_op = comp.load_component_from_file(component_spec_path + "executeRayJobComponent.yaml")
     # clean up Ray
-    cleanup_ray_op = comp.load_component_from_file("../../../kfp_ray_components/cleanupRayComponent.yaml")
+    cleanup_ray_op = comp.load_component_from_file(component_spec_path + "deleteRayClusterComponent.yaml")
     # Task name is part of the pipeline name, the ray cluster name and the job name in DMF.
     TASK_NAME: str = "noop"
 ```
@@ -89,6 +92,7 @@ The input parameters section defines all the parameters required for the pipelin
 ```python
     # Ray cluster
     ray_name: str = "noop-kfp-ray",  # name of Ray cluster
+    ray_run_id_KFPv2: str = "",
     ray_head_options: str = '{"cpu": 1, "memory": 4, \
                  "image": "' + task_image + '" }',
     ray_worker_options: str = '{"replicas": 2, "max_replicas": 2, "min_replicas": 2, "cpu": 2, "memory": 4, \
@@ -99,6 +103,7 @@ The input parameters section defines all the parameters required for the pipelin
     data_s3_access_secret: str = "s3-secret",
     data_max_files: int = -1,
     data_num_samples: int = -1,
+    data_checkpointing: bool = False,
     # orchestrator
     actor_options: str = "{'num_cpus': 0.8}",
     pipeline_id: str = "pipeline_id",
@@ -171,8 +176,16 @@ component execution and parameters submitted to every component.
     with dsl.ExitHandler(clean_up_task):
       # compute execution params
       compute_exec_params = compute_exec_params_op(
-        worker_options=ray_worker_options,
-        actor_options=actor_options,
+          worker_options=ray_worker_options,
+          actor_options=runtime_actor_options,
+          data_s3_config=data_s3_config,
+          data_max_files=data_max_files,
+          data_num_samples=data_num_samples,
+          data_checkpointing=data_checkpointing,
+          runtime_pipeline_id=runtime_pipeline_id,
+          runtime_job_id=run_id,
+          runtime_code_location=runtime_code_location,
+          noop_sleep_sec=noop_sleep_sec,
       )
       ComponentUtils.add_settings_to_component(compute_exec_params, ONE_HOUR_SEC * 2)
       # start Ray cluster

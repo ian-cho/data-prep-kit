@@ -128,7 +128,7 @@ def doc_chunk(
     """
     Pipeline to execute chunk documents transform
     :param ray_name: name of the Ray cluster
-    :param ray_run_id_KFPv2: string holding the id used for the Ray cluster used only in KFP v2
+    :param ray_run_id_KFPv2: a unique string id used for the Ray cluster, applicable only in KFP v2.
     :param ray_head_options: head node options, containing the following:
         cpu - number of cpus
         memory - memory
