@@ -25,7 +25,7 @@ from workflow_support.compile_utils import (
 task_image = "quay.io/dataprep1/data-prep-kit/resize-ray:latest"
 
 # the name of the job script
-EXEC_SCRIPT_NAME: str = "resize_transform_ray.py"
+EXEC_SCRIPT_NAME: str = "-m dpk_resize.ray.runtime"
 # components
 base_kfp_image = "quay.io/dataprep1/data-prep-kit/kfp-data-processing:latest"
 
