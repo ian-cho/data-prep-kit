@@ -36,7 +36,7 @@ params = {
 
 
 bloom_params = {
-    "model_name_or_path": "/Users/ian/Desktop/bloomf/bf.bloom",
+    "model_name_or_path": "../bf.bloom",
     "annotation_column": "is_in_GneissWeb",
     "doc_text_column": "contents",
     "inference_engine": "CPU",
