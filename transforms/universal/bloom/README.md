@@ -53,7 +53,6 @@ You will obtain the output file `test1.parquet` in the output directory.
 
 ### Code example
 TBD
-name of this transform image and runtime as appropriate.
 
 ## Testing
 
