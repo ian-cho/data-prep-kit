@@ -20,9 +20,9 @@ from dpk_readability.common import (
     automated_readability_index_textstat,
     avg_grade_level,
     coleman_liau_index_textstat,
-    contents_column_name,
+    contents_column_name_cli_param,
     contents_column_name_default,
-    curriculum,
+    curriculum_cli_param,
     curriculum_default,
     dale_chall_readability_score_textstat,
     difficult_words_textstat,
@@ -48,8 +48,8 @@ class ReadabilityTransform(AbstractTableTransform):
 
     def __init__(self, config: dict):
         super().__init__(config)
-        self.contents_column_name = config.get(contents_column_name, contents_column_name_default)
-        self.curriculum = config.get(curriculum, curriculum_default)
+        self.contents_column_name = config.get(contents_column_name_cli_param, contents_column_name_default)
+        self.curriculum = config.get(curriculum_cli_param, curriculum_default)
 
     def transform(self, table: pa.Table, file_name: str = None) -> tuple[list[pa.Table], dict[str, Any]]:
         """transform function for readability_scores"""

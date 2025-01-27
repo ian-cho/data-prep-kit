@@ -76,7 +76,7 @@ class ReadabilityTransformConfiguration(TransformConfiguration):
         :return: True, if validate pass or False otherwise
         """
         # Capture the args that are specific to this transform
-        captured = CLIArgumentProvider.capture_parameters(args, cli_prefix, False)
+        captured = CLIArgumentProvider.capture_parameters(args, cli_prefix, True)
         self.params = self.params | captured
 
         logger.info(f"Readability parameters are : {self.params}")
