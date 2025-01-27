@@ -62,6 +62,7 @@ def super_pipeline(
     p2_skip: bool = False,
     p2_noop_sleep_sec: int = 10,
     p2_ray_name: str = "noop-kfp-ray",
+    p2_ray_run_id_KFPv2: str = "",
     p2_ray_head_options: dict = {"cpu": 1, "memory": 4, "image_pull_secret": "", "image": noop_image},
     p2_ray_worker_options: dict = {
         "replicas": 2,
@@ -75,6 +76,7 @@ def super_pipeline(
     # Document ID step parameters
     p3_name: str = "doc_id",
     p3_ray_name: str = "docid-kfp-ray",
+    p3_ray_run_id_KFPv2: str = "",
     p3_ray_head_options: dict = {"cpu": 1, "memory": 4, "image_pull_secret": "", "image": doc_id_image},
     p3_ray_worker_options: dict = {
         "replicas": 2,
