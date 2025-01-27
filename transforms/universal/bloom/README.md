@@ -17,17 +17,17 @@ The input is in .parquet format and contains the following columns:
 
 | id  | contents | 
 |:------:|:------:|
-| <urn:uuid:39147604-bfbe-4ed5-b19c-54105f8ae8a7>  |    Viewing Single Post From: Spoilers for the We...   |
-| <urn:uuid:ba819eb7-e6e6-415a-87f4-0347b6a4f017>  |    *sigh* Fundamentalist community, let me pass o...  |
+| &lt;urn:uuid:39147604-bfbe-4ed5-b19c-54105f8ae8a7&gt;  |   Viewing Single Post From: Spoilers for the We...   |
+| &lt;urn:uuid:ba819eb7-e6e6-415a-87f4-0347b6a4f017&gt;  |    *sigh* Fundamentalist community, let me pass o...  |
 
 
 ### output format
 The output is in .parquet format and includes an additional column, in addition to those in the input:
 
 | id  | contents | is_in_GneissWeb  |
-|:------:|:------:|:-------------:|
-| <urn:uuid:39147604-bfbe-4ed5-b19c-54105f8ae8a7>  |    Viewing Single Post From: Spoilers for the We...   | 0     |
-| <urn:uuid:ba819eb7-e6e6-415a-87f4-0347b6a4f017>  |    *sigh* Fundamentalist community, let me pass o...  | 1     |
+|:------:|:------:|:------:|
+| &lt;urn:uuid:39147604-bfbe-4ed5-b19c-54105f8ae8a7&gt;  |    Viewing Single Post From: Spoilers for the We...   | 0     |
+| &lt;urn:uuid:ba819eb7-e6e6-415a-87f4-0347b6a4f017&gt;  |    *sigh* Fundamentalist community, let me pass o...  | 1     |
 
 ## Configuration 
 The set of dictionary keys holding [BLOOMTransformConfiguration](dpk_bloom/transform.py) 
