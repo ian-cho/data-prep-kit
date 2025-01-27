@@ -20,11 +20,11 @@ from data_processing.data_access import DataAccessFactory
 from data_processing.transform import AbstractTableTransform
 from data_processing.utils import TransformUtils, get_logger
 from dpk_extreme_tokenized.common import (
+    arrow_path_cli_param,
     arrow_path_default,
-    arrow_path_key,
     cli_prefix,
+    contents_column_name_cli_param,
     contents_column_name_default,
-    contents_column_name_key,
     extreme_tokenized_data_access_key,
     extreme_tokenized_data_factory_key,
     logger,
@@ -52,8 +52,8 @@ class ExtremeTokenizedTransform(AbstractTableTransform):
         """
         super().__init__(config)
 
-        self.contents_column_name = config.get(contents_column_name_key, contents_column_name_default)
-        self.arrow_location = config.get(arrow_path_key, arrow_path_default)
+        self.contents_column_name = config.get(contents_column_name_cli_param, contents_column_name_default)
+        self.arrow_location = config.get(arrow_path_cli_param, arrow_path_default)
         if "://" in self.arrow_location:
             _, self.arrow_location = self.arrow_location.split("://")
         self.daf = config.get(extreme_tokenized_data_factory_key, DataAccessFactory(cli_prefix, False))

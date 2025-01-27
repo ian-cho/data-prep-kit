@@ -82,7 +82,7 @@ class ExtremeTokenizedTransformConfiguration(TransformConfiguration):
         :return: True, if validate pass or False otherwise
         """
         # Capture the args that are specific to this transform
-        captured = CLIArgumentProvider.capture_parameters(args, cli_prefix, False)
+        captured = CLIArgumentProvider.capture_parameters(args, cli_prefix, True)
         self.params = self.params | captured
         # Add the DataAccessFactory to the transform's configuration parameters.
         self.params[extreme_tokenized_data_factory_key] = self.daf

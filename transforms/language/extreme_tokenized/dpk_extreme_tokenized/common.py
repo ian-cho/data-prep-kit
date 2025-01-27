@@ -13,12 +13,12 @@
 from data_processing.utils import get_logger
 
 
-short_name = "extreme_tokenized"
+short_name = "et"
 cli_prefix = short_name + "_"
 
-logger = get_logger(__name__, level="INFO")
+logger = get_logger(__name__)
 
-# configuration keys
+# TODO: these go away configuration keys
 contents_column_name_key = "contents_column_name"
 """ Key holds the name of the column holding the document text."""
 arrow_path_key = "arrow_path"

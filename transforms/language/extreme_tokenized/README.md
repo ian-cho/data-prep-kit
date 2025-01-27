@@ -19,8 +19,8 @@ The annotator does not remove any data, it only stores for each document four va
 
 The set of dictionary keys holding [ExtremeTokenizedTransform](dpk_extreme_tokenized/runtime.py) configuration for values are as follows:
 
-* _contents_column_name_ - specifies the name of the column holding the document text. The default is `text`.
-* _arrow_folder_location_ - location of the folder containing the arrow (tokenization) files.
+* _et_contents_column_name_ - specifies the name of the column holding the document text. The default is `text`.
+* _et_arrow_path_ - location of the folder containing the arrow (tokenization) files.
 
 Additionally, a set of data access-specific arguments are provided that enable
 the specification of the location of domain list files, so that these
@@ -28,9 +28,9 @@ files could be stored in the local file system or in S3 storage, for example.
 The arguments are as follows (and generally match the TransformLauncher's 
 data access arguments but with the `extreme_tokenized_' prefix).
 
-* _extreme_tokenized_local_config_ - specifies the input and output folders.
-* _extreme_tokenized_s3_config_ - specifies the input and output paths in s3.
-* _extreme_tokenized_s3_credentials_ - provides credentials to access the s3 storage. 
+* _et_local_config_ - specifies the input and output folders.
+* _et_s3_config_ - specifies the input and output paths in s3.
+* _et_s3_credentials_ - provides credentials to access the s3 storage. 
 
 See the Command Line options below for specifics on these.
 
@@ -42,24 +42,21 @@ annotated `test1.parquet` file and the `metadata.json` file.
 <pre>
 (venv) cma:extreme_tokenized$ make venv PYTHON=python3.11
 (venv) cma:extreme_tokenized$ source venv/bin/activate
-(venv) cma:ray$ cd src
-(venv) cma:extreme_tokenized$ python -m dpk_extreme_tokenized.runtime --extreme_tokenized_arrow_path test-data/input/arrow --data_local_config "{ 'input_folder': 'test-data/input', 'output_folder': 'output'}"
-07:35:27 INFO - Launching Extreme Tokenized Annotator transform
-07:35:27 INFO - data factory extreme_tokenized_ is using local configuration without input/output path
-07:35:27 INFO - data factory extreme_tokenized_ max_files -1, n_sample -1
-07:35:27 INFO - data factory extreme_tokenized_ Not using data sets, checkpointing False, max files -1, random samples -1, files to use ['.parquet'], files to checkpoint ['.parquet']
-07:35:27 INFO - pipeline id pipeline_id
-07:35:27 INFO - code location None
-07:35:27 INFO - data factory data_ is using local data access: input_folder - test-data/input output_folder - output
-07:35:27 INFO - data factory data_ max_files -1, n_sample -1
-07:35:27 INFO - data factory data_ Not using data sets, checkpointing False, max files -1, random samples -1, files to use ['.parquet'], files to checkpoint ['.parquet']
-07:35:27 INFO - orchestrator extreme_tokenized started at 2025-01-23 07:35:27
-07:35:27 INFO - Number of files is 1, source profile {'max_file_size': 0.029085159301757812, 'min_file_size': 0.029085159301757812, 'total_file_size': 0.029085159301757812}
-07:35:27 INFO - Transforming table with 10 rows from file /home/cma/de/data-prep-kit/transforms/language/extreme_tokenized/test-data/input/test1.parquet
-07:35:27 INFO - Completed 1 files (100.0%) in 0.001 min
-07:35:27 INFO - Done processing 1 files, waiting for flush() completion.
-07:35:27 INFO - done flushing in 0.0 sec
-07:35:27 INFO - Completed execution in 0.001 min, execution result 0
+(venv) cma:extreme_tokenized$ python -m dpk_extreme_tokenized.runtime --et_arrow_path test-data/input/arrow --data_local_config "{ 'input_folder': 'test-data/input', 'output_folder': 'output' }"
+09:41:22 INFO - Launching Extreme Tokenized Annotator transform
+09:41:22 INFO - data factory et_ is using local configuration without input/output path
+09:41:22 INFO - data factory et_ max_files -1, n_sample -1
+09:41:22 INFO - data factory et_ Not using data sets, checkpointing False, max files -1, random samples -1, files to use ['.parquet'], files to checkpoint ['.parquet']
+09:41:22 INFO - pipeline id pipeline_id
+09:41:22 INFO - code location None
+09:41:22 INFO - data factory data_ is using local data access: input_folder - test-data/input output_folder - output
+09:41:22 INFO - data factory data_ max_files -1, n_sample -1
+09:41:22 INFO - data factory data_ Not using data sets, checkpointing False, max files -1, random samples -1, files to use ['.parquet'], files to checkpoint ['.parquet']
+09:41:22 INFO - orchestrator et started at 2025-01-27 09:41:22
+09:41:22 INFO - Number of files is 1, source profile {'max_file_size': 0.029085159301757812, 'min_file_size': 0.029085159301757812, 'total_file_size': 0.029085159301757812}
+09:41:22 INFO - Transforming table with 10 rows from file /home/cma/de/data-prep-kit/transforms/language/extreme_tokenized/test-data/input/test1.parquet
+09:41:22 INFO - Completed 1 files (100.0%) in 0.001 min
+09:41:22 INFO - Done processing 1 files, waiting for flush() completion.
 (venv) cma:extreme_tokenized$ deactivate
 </pre>
 
@@ -84,11 +81,11 @@ the following command line arguments are available in addition to
 ```
 options:
   -h, --help            show this help message and exit
-  --extreme_tokenized_contents_column_name EXTREME_TOKENIZED_CONTENTS_COLUMN_NAME
+  --et_contents_column_name ET_CONTENTS_COLUMN_NAME
                         Name of the column holding the document text
-  --extreme_tokenized_arrow_path EXTREME_TOKENIZED_ARROW_PATH
+  --et_arrow_path ET_ARROW_PATH
                          Arrow folder location.
-  --extreme_tokenized_s3_cred EXTREME_TOKENIZED_S3_CRED
+  --et_s3_cred ET_S3_CRED
                         AST string of options for s3 credentials. Only required for S3 data access.
                         access_key: access key help text
                         secret_key: secret key help text
