@@ -1,5 +1,5 @@
 # Gneissweb Classification Transform
-The Gneissweb Classification transforms serves as a simple exemplar to demonstrate the development
+The Gneissweb Classification transform serves as a simple exemplar to demonstrate the development
 of a simple 1:1 transform.  
 Please see the set of [transform project conventions](../../README.md#transform-project-conventions) for details on general project conventions, transform configuration, testing and IDE set up.
 
@@ -15,7 +15,7 @@ configuration for values are as follows:
 |------------|----------|--------------|
 | _model_credential_ | _unset_ | specifies the credential you use to get model. This will be huggingface token. [Guide to get huggingface token](https://huggingface.co/docs/hub/security-tokens) |
 | _model_filename_ | _unset_ | specifies what filename of model you use to get model, like `model.bin` |
-| _model_url_ | _unset_ |  specifies url that model locates. For fasttext, this will be repo nme of the model, like `facebook/fasttext-language-identification` |
+| _model_url_ | _unset_ |  specifies url that model locates. For fasttext, this will be repo name of the model, like `facebook/fasttext-language-identification` |
 | _content_column_name_ | `contents` | specifies name of the column containing documents |
 | _output_lablel_column_name_ | `label` | specifies name of the output column to hold predicted classes|
 | _output_score_column_name_ | `score` | specifies name of the output column to hold score of prediction |
@@ -67,6 +67,9 @@ Gneissweb Classification configuration and command line options are the same as 
 In addition to those available to the transform as defined here,
 the set of 
 [launcher options](../../../data-processing-lib/doc/launcher-options.md) are available.
+
+### Code example (Ray version)
+Here is a sample [notebook](gneissweb_classification-ray.ipynb)
 
 ### Transforming data using the transform image
 
