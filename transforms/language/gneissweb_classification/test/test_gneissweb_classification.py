@@ -26,7 +26,7 @@ class TestLangIdentificationTransform(AbstractTableTransformTest):
     def get_test_transform_fixtures(self) -> list[tuple]:
         config = {
             "model_credential": "PUT YOUR OWN HUGGINGFACE CREDENTIAL",
-            "model_filename": "model.bin",
+            "model_file_name": "model.bin",
             "model_url": "facebook/fasttext-language-identification",
             "content_column_name": "contents",
             "output_label_column_name": "l",
