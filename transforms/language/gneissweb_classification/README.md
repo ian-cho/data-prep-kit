@@ -26,6 +26,7 @@ configuration for values are as follows:
 The following command line arguments are available in addition to 
 the options provided by 
 the [launcher](../../../data-processing-lib/doc/launcher-options.md).
+The prefix gcls is short name for Gneissweb CLaSsification.
 ```
   --gcls_model_credential GCLS_MODEL_CREDENTIAL   the credential you use to get model. This will be huggingface token.
   --gcls_model_file_name GCLS_MODEL_KIND   filename of model you use to get model. Currently,like `model.bin`
