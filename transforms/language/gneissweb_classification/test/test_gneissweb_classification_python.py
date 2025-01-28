@@ -28,7 +28,7 @@ class TestPythonClassificationTransform(AbstractTransformLauncherTest):
     def get_test_transform_fixtures(self) -> list[tuple]:
         cli_params = {
             "gcls_model_credential": "PUT YOUR OWN HUGGINGFACE CREDENTIAL",
-            "gcls_model_filename": "model.bin",
+            "gcls_model_file_name": "model.bin",
             "gcls_model_url":"facebook/fasttext-language-identification",
             "gcls_content_column_name": "text",
             "gcls_output_label_column_name": "ft_lang",
