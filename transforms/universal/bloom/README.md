@@ -52,7 +52,8 @@ python local_python.py
 You will obtain the output file `test1.parquet` in the output directory.
 
 ### Code example
-TBD
+[notebook](bloom_python.ipynb)
+
 
 ## Testing
 
