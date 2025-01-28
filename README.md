@@ -84,7 +84,7 @@ You can also explore how to build a RAG pipeline [here](examples/notebooks/rag).
 
 ### Limited support for Windows
 
-Data Prep Kit is fully supported on macOS and Linux operating systems, but there is limited support for Windows OS with instrcutions [here](doc/quick-start/quick-start.md#running-transforms-on-windows)
+Data Prep Kit is fully supported on macOS and Linux operating systems, but there is limited support for Windows OS with instrcutions [here](doc/quick-start/quick-start.md#running-transforms-on-windows).
 
 ### Current list of transforms 
 The matrix below shows the the combination of modules and supported runtimes. All the modules can be accessed [here](transforms) and can be combined to form data processing pipelines, as shown in the [examples](examples/notebooks) folder. 
