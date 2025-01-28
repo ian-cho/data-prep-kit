@@ -12,6 +12,7 @@
 
 import abc
 import datetime
+import platform
 if platform.system() != 'Windows':
    import fcntl
 import os
