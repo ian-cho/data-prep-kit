@@ -30,7 +30,6 @@ The original code from https://github.com/google-research/deduplicate-text-datas
 Another modification has been made to retain the first copy of each duplicate cluster. 
 
 This repetition removal task can be fine-tuned by adjusting the length_threshold(repeated text sequence length) and frequency_threshold. 
-Based on an analysis, length_threshold=50 is used in the repetition removal task that was also used in the original work from google and in the RefinedWeb.
 
 ## Contributors
 - Shalisha Witherspoon (shalisha.witherspoon@ibm.com)
