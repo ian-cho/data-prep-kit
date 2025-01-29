@@ -13,12 +13,12 @@ configuration for values are as follows:
 
 | Key name  | Default  | Description |
 |------------|----------|--------------|
-| _model_credential_ | _unset_ | specifies the credential you use to get model. This will be huggingface token. [Guide to get huggingface token](https://huggingface.co/docs/hub/security-tokens) |
-| _model_filename_ | _unset_ | specifies what filename of model you use to get model, like `model.bin` |
-| _model_url_ | _unset_ |  specifies url that model locates. For fasttext, this will be repo name of the model, like `facebook/fasttext-language-identification` |
-| _content_column_name_ | `contents` | specifies name of the column containing documents |
-| _output_lablel_column_name_ | `label` | specifies name of the output column to hold predicted classes|
-| _output_score_column_name_ | `score` | specifies name of the output column to hold score of prediction |
+| gcls_model_credential_ | _unset_ | specifies the credential you use to get model. This will be huggingface token. [Guide to get huggingface token](https://huggingface.co/docs/hub/security-tokens) |
+| gcls_model_file_name_ | _unset_ | specifies what filename of model you use to get model, like `model.bin` |
+| gcls_model_url_ | _unset_ |  specifies url that model locates. For fasttext, this will be repo name of the model, like `facebook/fasttext-language-identification` |
+| gcls_content_column_name_ | `contents` | specifies name of the column containing documents |
+| gcls_output_lablel_column_name_ | `label` | specifies name of the output column to hold predicted classes|
+| gcls_output_score_column_name_ | `score` | specifies name of the output column to hold score of prediction |
 
 ## Running
 
