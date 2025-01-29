@@ -3,9 +3,14 @@ Please see the set of
 [transform project conventions](../../README.md)
 for details on general project conventions, transform configuration, testing and IDE set up.
 
+## Contributors
+- Hajar Emami Gohari (Hajar.Emami@ibm.com)
+- Constantin Adam (cmadam@us.ibm.com)
+
 ## Summary
-This transform annotates documents of a parquet file with various Readability Scores that can later 
-be used in Quality Filtering. The transform annotates the following readability scores:
+This transform annotates documents of a parquet file with various Readability Scores (originally defined
+in the [textstat github page](https://textstat.org)]) that can later be used in Quality Filtering.
+The transform annotates the following readability scores:
  
 - `flesch_ease_textstat` - while the maximum score is 121.22, there is no limit on how low the score can be. A negative score is valid.
 the values for this score are explained in the table below:
