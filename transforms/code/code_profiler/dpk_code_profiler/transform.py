@@ -37,7 +37,7 @@ from dpk_code_profiler.UAST_parser import UASTParser, uast_read
 
 short_name = "CodeProfiler"
 cli_prefix = f"{short_name}_"
-language = "language"
+language = "programming_language"
 contents = "contents"
 
 
@@ -54,7 +54,7 @@ class CodeProfilerTransform(AbstractTableTransform):
         super().__init__(config)
 
         self.contents = self.config.get("contents", "contents")
-        self.language = self.config.get("language", "language")
+        self.language = self.config.get("programming_language", "programming_language")
 
         if not isinstance(self.contents, str):
             raise ValueError(f"'contents' should be a string, got {type(self.contents).__name__}")
@@ -286,7 +286,7 @@ class CodeProfilerTransform(AbstractTableTransform):
 
         # Extract concept from IKB
         libraries = table_with_uast.column("uast_package_list").to_pylist()
-        language = table_with_uast.column("language").to_pylist()
+        language = table_with_uast.column("programming_language").to_pylist()
         concepts = [concept_extractor(lib, lang, ikb) for lib, lang in zip(libraries, language)]
 
         # Append concepts column to table and record unknown libraries
@@ -355,7 +355,7 @@ class CodeProfilerTransformConfiguration(TransformConfiguration):
         parser.add_argument(
             f"--{language}",
             type=str,
-            default="language",
+            default="programming_language",
             help="Column name that denotes the programming language",
         )
         parser.add_argument(

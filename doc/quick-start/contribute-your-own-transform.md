@@ -37,6 +37,7 @@ The new transform we will build  as part of this tutorial is meant to annotate e
 1. [Integrate with CI/CD](#cicd) - automate testing, integration and packaging
 1. [Create notebook](#notebook) - jupyter notebook showing how the transform can be invoked
 1. [Create Readme file](#readme) - Readme file explaining how the transform is used
+1. (Optional)[Setup for KFP Pipeline](#kfp) - Create artifacts for integrating with KFP Workflow
 
 
 ## Step 1: Create folder structure <a name=setup></a>
@@ -492,6 +493,113 @@ The notebook should show how to run the notebook from the current folder. Guidan
 
 The README file for the transform should have, at a minimum, the following sections: Summary, Contributors, Configuration and command line options, an Example of how to run from command line and link to a notebook. If applicable, it should have more sections on Troubleshooting, Transforming data using the transform image and sections on Ray and/or Spark versions of the transform. 
 [This](https://github.com/mt747/data-prep-kit/blob/block_digest/transforms/universal/digest/README.md) is a minimal README file for our digest transform. 
+
+## Step 10: Setup KFP Pipeline  <a name="kfp"></a>
+
+It might be desirable to build a KFP pipeline chaining multiple transforms together. In this section, we will cover the steps that the developer needs to do so the Operation team can create a pipeline that is tailored to their specific use case. We will only conver the artifact that the developer needs to produce to enable the integration of the digest transform in a KFP pipeline
+
+**kfP-ray/Makefile**
+
+- Create folder to host KFP related artifacts
+
+```shell
+cd data-prep-kit/transforms/universal/digest
+mkdir -p kfp_ray
+cp ../../Makefile.kfp.template kfp_ray/Makefile
+```
+
+**kfP-ray/digest_wf.py**
+
+- Create KFP definition file. This file will be used to produce the kfp workflow yaml definition file. The full content of this file in available [here](https://github.com/mt747/data-prep-kit/blob/13be7f4349e498041afe9834b1961d158728316a/transforms/universal/digest/kfp_ray/digest_wf.py). We only highlight some of the key elements.
+
+
+- this file define the reference to the docker image for the transform and entry point:
+
+    * task_image = "quay.io/dataprep1/data-prep-kit/digest-ray:latest"
+    * EXEC_SCRIPT_NAME: str = "-m dpk_digest.ray.runtime"
+
+
+```Python
+# (C) Copyright IBM Corp. 2024.
+# Licensed under the Apache License, Version 2.0 (the “License”);
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#  http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an “AS IS” BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+################################################################################
+import os
+
+import kfp.compiler as compiler
+import kfp.components as comp
+import kfp.dsl as dsl
+from workflow_support.compile_utils import ONE_HOUR_SEC, ONE_WEEK_SEC, ComponentUtils
+
+
+task_image = "quay.io/dataprep1/data-prep-kit/digest-ray:latest"
+
+# the name of the job script
+EXEC_SCRIPT_NAME: str = "-m dpk_digest.ray.runtime"
+# components
+base_kfp_image = "quay.io/dataprep1/data-prep-kit/kfp-data-processing:0.2.3"
+
+# path to kfp component specifications files
+component_spec_path = "../../../../kfp/kfp_ray_components/"
+
+```
+
+
+- It defines the list of configuration parameters that are required by the framework return as a dictionay structure:
+
+    * "digest_algorithm": digest_algorithm,
+
+```Python
+def compute_exec_params_func(
+    ...
+    ...
+    digest_algorithm: str,
+) -> dict:
+    return {
+        ...
+        ...
+        "digest_algorithm": digest_algorithm,
+    }
+```
+
+- It assigns a name to this workflow task:
+
+    * TASK_NAME: str = "digest"
+
+```Python
+# Task name is part of the pipeline name, the ray cluster name and the job name in DMF.
+TASK_NAME: str = "digest"
+```
+
+    * Pipeline definition method and default values:
+
+```Python    
+ @dsl.pipeline(
+    name=TASK_NAME + "-ray-pipeline",
+    description="Pipeline for digest",
+    )
+def digest(
+    ###
+    ...
+    ###
+):
+```
+
+- It defines the __main__ entry point for compiling the yaml file required for running kfp
+
+```Python
+if __name__ == "__main__":
+    # Compiling the pipeline
+    compiler.Compiler().compile(digest, __file__.replace(".py", ".yaml"))
+```
+
 
 ## Contributors
 
