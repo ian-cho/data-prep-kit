@@ -62,22 +62,22 @@ class ClassificationTransform(AbstractTableTransform):
         # of ClassificationTransformConfiguration class
         super().__init__(config)
         self.nlp_classfication = self._get_nlp_classfication(config)
-        self.content_column_name = config.get(content_column_name_key, default_content_column_name)
-        self.output_label_column_name = config.get(output_label_column_name_key, default_output_label_column_name)
-        self.output_score_column_name = config.get(output_score_column_name_key, default_output_score_column_name)
+        self.content_column_name = config.get(content_column_name_cli_param, default_content_column_name)
+        self.output_label_column_name = config.get(output_label_column_name_cli_param, default_output_label_column_name)
+        self.output_score_column_name = config.get(output_score_column_name_cli_param, default_output_score_column_name)
 
     @staticmethod
     def _get_nlp_classfication(config) -> ClassificationModel:
         nlp_classfication: ClassificationModel
 
-        model_credential = config.get(model_credential_key)
-        model_file_name = config.get(model_file_name_key)
-        model_url = config.get(model_url_key)
+        model_credential = config.get(model_credential_cli_param)
+        model_file_name = config.get(model_file_name_cli_param)
+        model_url = config.get(model_url_cli_param)
 
         if model_credential is None or len(model_credential) == 0:
-            raise ValueError("model_credential_key is not specified.")
+            raise ValueError("model_credential_cli_param is not specified.")
         elif model_file_name is None or len(model_credential) == 0:
-            raise ValueError("model_file_name_key is not specified.")
+            raise ValueError("model_file_name_cli_param is not specified.")
         else:
             nlp_classfication = ClassificationModelFactory.create_model(url=model_url, file_name = model_file_name, credential=model_credential)
 
