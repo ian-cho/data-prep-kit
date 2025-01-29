@@ -165,7 +165,7 @@ class ClassificationTransformConfiguration(TransformConfiguration):
         :param args: user defined arguments.
         :return: True, if validate pass or False otherwise
         """
-        captured = CLIArgumentProvider.capture_parameters(args, cli_prefix, False)
+        captured = CLIArgumentProvider.capture_parameters(args, cli_prefix, True)
         self.params = self.params | captured
         self.logger.info(f"parameters are : {self.params}")
         return True
