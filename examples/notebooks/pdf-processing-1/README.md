@@ -24,12 +24,8 @@ conda create -n data-prep-kit -y python=3.11
 conda activate data-prep-kit
 
 # install the following in 'data-prep-kit' environment
-pip3 install  'data-prep-toolkit-transforms[ray,all]==1.0.0'
-pip3 install jupyterlab   ipykernel  ipywidgets
-
-## install custom kernel
-## Important: Use this kernel when running example notebooks!
-python -m ipykernel install --user --name=data-prep-kit --display-name "dataprepkit"
+cd examples/notebooks/pdf-processing-1
+pip3 install  -r requirements.txt
 
 # start jupyter and run the notebooks with this jupyter
 jupyter lab
@@ -41,6 +37,15 @@ jupyter lab
 [python version](pdf_processing_1_python.ipynb)  &nbsp;    [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sujee/data-prep-kit/blob/process-pdf-1/examples/notebooks/pdf-processing-1/pdf_processing_1_python.ipynb)
 
 [ray version](pdf_processing_1_ray.ipynb)  &nbsp;   [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sujee/data-prep-kit/blob/process-pdf-1/examples/notebooks/pdf-processing-1/pdf_processing_1_ray.ipynb)
+
+## Troubleshooting
+
+If you encounter any errors loading libraries, try creating a custom kernel and using it to run the notebooks.
+
+```bash
+python -m ipykernel install --user --name=data-prep-kit --display-name "dataprepkit"
+# and select this kernel within jupyter notebook
+```
 
 
 ## Creating Input PDFs (Optional)
@@ -56,3 +61,4 @@ pandoc mars.md  -o mars.pdf
 pandoc spam.md  -o spam.pdf
 pandoc lorem-ipsum.md  -o lorem-ipsum.pdf
 ```
+
