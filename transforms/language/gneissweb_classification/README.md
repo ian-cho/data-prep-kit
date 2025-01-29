@@ -11,14 +11,14 @@ This transform will classify each text with confidence score with fasttext class
 The set of dictionary keys holding [ClassificationTransform](dpk_gneissweb_classification/transform.py) 
 configuration for values are as follows:
 
-| Key name  | Default  | Description |
+| Configuration Parameters  | Default  | Description |
 |------------|----------|--------------|
-| gcls_model_credential_ | _unset_ | specifies the credential you use to get model. This will be huggingface token. [Guide to get huggingface token](https://huggingface.co/docs/hub/security-tokens) |
-| gcls_model_file_name_ | _unset_ | specifies what filename of model you use to get model, like `model.bin` |
-| gcls_model_url_ | _unset_ |  specifies url that model locates. For fasttext, this will be repo name of the model, like `facebook/fasttext-language-identification` |
-| gcls_content_column_name_ | `contents` | specifies name of the column containing documents |
-| gcls_output_lablel_column_name_ | `label` | specifies name of the output column to hold predicted classes|
-| gcls_output_score_column_name_ | `score` | specifies name of the output column to hold score of prediction |
+| gcls_model_credential | _unset_ | specifies the credential you use to get model. This will be huggingface token. [Guide to get huggingface token](https://huggingface.co/docs/hub/security-tokens) |
+| gcls_model_file_name | _unset_ | specifies what filename of model you use to get model, like `model.bin` |
+| gcls_model_url | _unset_ |  specifies url that model locates. For fasttext, this will be repo name of the model, like `facebook/fasttext-language-identification` |
+| gcls_content_column_name | `contents` | specifies name of the column containing documents |
+| gcls_output_lablel_column_name | `label` | specifies name of the output column to hold predicted classes|
+| gcls_output_score_column_name | `score` | specifies name of the output column to hold score of prediction |
 
 ## Running
 
