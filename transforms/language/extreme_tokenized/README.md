@@ -1,19 +1,24 @@
 # Extreme Tokenized Documents Annotator 
 Please see the set of
 [transform project conventions](../../README.md)
-for details on general project conventions, transform configuration,
-testing and IDE set up.
+for details on general project conventions, transform configuration, testing and IDE set up.
+
+## Contributors
+- Hajar Emami Gohari (Hajar.Emami@ibm.com)
+- Constantin Adam (cmadam@us.ibm.com)
 
 ## Summary
 This annotator retrieves the tokens generated for a set of documents. Then, it calculates, for each document, the size and the total number of characters. The number of tokens is divided by the size and by the number of characters, and the resulting values are stored in two columns (
 `tokens_per_doc_size` and `tokens_per_doc_num_chars`).
 
-The annotator does not remove any data, it only stores for each document four values that can be subsequently used to filter out documents using specific threshold values. The transform annotates the input table with 5 columns:
+The annotator transform annotates the input table with 5 columns:
   - doc_num_tokens - number of tokens for each document
   - doc_size_kbs - document size in kb
   - doc_num_chars - number of characters in the document
   - tokens_per_doc_size - ratio between number of tokens and document size
   - tokens_per_doc_num_chars - ratio between number of tokens and number of characters in document
+
+Documents with extremely high or low number of tokens per character (or tokens per byte) are identified as extreme-tokenized documents and can be excluded in the filtering step.
 
 ## Configuration and command line Options
 
