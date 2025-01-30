@@ -88,27 +88,9 @@ python -m ipykernel install --user --name=data-prep-kit --display-name "dataprep
 
 ## Running transforms on Windows
 
-We have tested the latest release of Date Prep Kit  on Windows, which supports many of the transforms, but not all. To try DPK on Windows, clone the repo and use  the Anaconda Navigator to launch a Notebook Server on the local machine. Create a conda environment for testing and activate it. 
-The runtime platform we have tested was as follows:
+The following transforms have been shown to work on Windows with the patched release described below:
 
-* Python 3.12.7
-* Windows-11-10.0.22631-SP0
-* 3.12.7 | packaged by Anaconda, Inc. | (main, Oct 4 2024, 13:17:27) [MSC v.1929 64 bit (AMD64)]
-
-All transforms use `pip install` of their respective modules. For example,
-when testing the `doc_chunk` transform with the python runtime, the following command is used:
-```bash
-pip install --user data-prep-toolkit-transforms[doc_chunck]
-```
-When testing the `doc_chunk` transform with the ray runtime, the following command is used:
-```bash
-pip install --user data-prep-tookit-transforms[ray,doc_chunk]
-```
-
-All tests use the Notebooks provided by the transform developers in the  corresponding transform folder. For example, for `doc_chunk`, we use this [Notebook](../../transforms/language/doc_chunk/doc_chunk-python.ipynb).
-
-Notebooks for the following language/universal transforms have been tested and shown to work on Windows:
-
+    pdf2parquet
     doc_chunk
     doc_quality
     html2parqet
@@ -122,7 +104,35 @@ Notebooks for the following language/universal transforms have been tested and s
     resize
     tokenization
 
-If you want to try Notebooks that run many of the transforms in sequence, here is a sample [Notebook](../../transforms/transforms-1.0-lang-Windows.ipynb) for the python runtime and another sample [Notebook](../../transforms/transforms-1.0-lang-Windows.ipynb) for the ray runtime. 
+
+A working windows environment can be setup using Anaconda Navigator with:
+* Python 3.12.7
+* Windows-11-10.0.22631-SP0
+* 3.12.7 | packaged by Anaconda, Inc. | (main, Oct 4 2024, 13:17:27) [MSC v.1929 64 bit (AMD64)]
+
+To install the transforms on windows, use the following commands:
+
+```
+pip intall data-prep-toolkit==0.2.3.post1
+pip install data-prep-toolkit-transforms[all]==1.0.0
+pip install fasttext-wheel
+```
+
+To install the ray transforms on windows using the ray runtime, use the following commands:
+
+```
+pip intall data-prep-toolkit[ray]==0.2.3.post1
+pip install data-prep-toolkit-transforms[all]==1.0.0
+pip install fasttext-wheel
+```
+
+To install a single transform, for example pdf2parquet, use the following commands:
+```bash
+pip intall data-prep-toolkit==0.2.3.post1
+pip install --user data-prep-toolkit-transforms[pdf2parquet]
+```
+
+If you want to try Notebooks that run many of the transforms in sequence, use the Anaconda Navigator to install and launch an instance of Jupyter Notebook and use the following sample [Notebook](../../transforms/transforms-1.0-lang-Windows.ipynb) for the python runtime and another sample [Notebook](../../transforms/transforms-1.0-lang-Windows.ipynb) for the ray runtime. 
     
 ## Creating transforms
 
