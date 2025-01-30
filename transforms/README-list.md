@@ -43,6 +43,8 @@ Note: This list includes the transforms that were part of the release starting w
    
 ## Release notes:
 
+### 1.0.1.dev0
+	Added Gneissweb transforms
 ### 1.0.0.a6
 	Added Profiler
 	Added Resize

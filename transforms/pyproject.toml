@@ -44,6 +44,7 @@ all = { file = [
 "language/similarity/requirements.txt",
 "language/extreme_tokenized/requirements.txt",
 "language/readability/requirements.txt",
+"language/gneissweb_classification/requirements.txt",
 
 ##### Cannot have html2parquet until we solve
 ## docling-ibm-models 1.1.7 depends on lxml<5.0.0 and >=4.9.1
@@ -70,6 +71,7 @@ language = { file = [
 "language/similarity/requirements.txt",
 "language/extreme_tokenized/requirements.txt",
 "language/readability/requirements.txt",
+"language/gneissweb_classification/requirements.txt",
 
 ##### Cannot have html2parquet until we solve
 ## docling-ibm-models 1.1.7 depends on lxml<5.0.0 and >=4.9.1
@@ -123,6 +125,8 @@ readability = { file = ["language/readability/requirements.txt"]}
 
 code_profiler = { file = ["code/code_profiler/requirements.txt"]} 
 
+gneissweb_classification = { file = ["language/gneissweb_classification/requirements.txt"]}
+
 # Does not seem to work for our custom layout
 # copy all files to a single src and let automatic discovery find them
 
@@ -150,6 +154,7 @@ dpk_extreme_tokenized = "language/extreme_tokenized/dpk_extreme_tokenized"
 dpk_readability = "language/readability/dpk_readability"
 dpk_profiler = "universal/profiler/dpk_profiler"
 dpk_resize = "universal/resize/dpk_resize"
+dpk_gneissweb_classification = "language/gneissweb_classification/dpk_gneissweb_classification"
 
 
 #[tool.setuptools.package-data]
