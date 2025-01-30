@@ -157,7 +157,7 @@ dpk_rep_removal = "universal/rep_removal/dpk_rep_removal"
 
 [tool.setuptools.package-data]
 #"*" = ["*.txt"]
-dpk_rep_removal = ["universal/rep_removal/dpk_rep_removal/rust", "universal/rep_removal/dpk_rep_removaltarget/release/", "universal/rep_removal/dpk_rep_removal/gpt2"]
+dpk_rep_removal = ["universal/rep_removal/dpk_rep_removal/rust", "universal/rep_removal/dpk_rep_removal/gpt2"]
 
 [options]
 package_dir = ["src","test"]
