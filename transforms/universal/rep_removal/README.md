@@ -54,7 +54,7 @@ pip install --no-binary :all: psutil
 
 B) Compile the dedup_dataset binary from the **dpk_rep_removal** package dir:
 ```shell
-cd dpk_rep_removal
+cd dpk_rep_removal/rust
 cargo install
 ```
 ## Input Parameters
