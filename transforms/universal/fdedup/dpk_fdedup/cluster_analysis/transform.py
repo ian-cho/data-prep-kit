@@ -125,7 +125,10 @@ class ClusterAnalysisTransform(AbstractFolderTransform):
         )
         if retries > 0:
             metadata |= {"data_access_retries": retries}
-        match = re.match(r"^band=(\d+)/segment=(\d+)$", folder_name)
+        if os.sep == "\\":
+            match = re.match(r"^band=(\d+)\\segment=(\d+)$", folder_name)
+        else:
+            match = re.match(r"^band=(\d+)/segment=(\d+)$", folder_name)
         if match:
             band = int(match.group(1))
             segment = int(match.group(2))
