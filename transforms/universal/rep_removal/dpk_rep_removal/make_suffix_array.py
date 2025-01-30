@@ -67,7 +67,7 @@ def make_suffix_array(input, tmp_dir_sub, dedup_level, num_threads, num_cpus):
     logging.info(f"timeout is: {timeout}")
 
     pwd = os.path.dirname(__file__)
-    dedup_program = f"{pwd}/target/release/dedup_dataset"
+    dedup_program = f"{pwd}/rust/target/release/dedup_dataset"
 
     try:
         for jobstart in range(0, total_jobs, jobs_at_once):
