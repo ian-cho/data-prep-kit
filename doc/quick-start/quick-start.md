@@ -132,7 +132,7 @@ pip intall data-prep-toolkit==0.2.3.post1
 pip install --user data-prep-toolkit-transforms[pdf2parquet]
 ```
 
-If you want to try Notebooks that run many of the transforms in sequence, use the Anaconda Navigator to install and launch an instance of Jupyter Notebook and use the following sample [Notebook](../../transforms/transforms-1.0-lang-Windows.ipynb) for the python runtime and another sample [Notebook](../../transforms/transforms-1.0-lang-Windows.ipynb) for the ray runtime. 
+If you want to try Notebooks that run many of the transforms in sequence, use the Anaconda Navigator to install and launch an instance of Jupyter Notebook and use the following sample [Notebook](../../transforms/transforms-1.0-lang-Windows.ipynb) for the python runtime and another sample [Notebook for the ray](../../transforms/transforms-1.0-lang-Windows.ipynb) runtime. 
     
 ## Creating transforms
 
