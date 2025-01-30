@@ -114,7 +114,7 @@ To install the transforms on windows, use the following commands:
 
 ```
 pip intall data-prep-toolkit==0.2.3.post1
-pip install data-prep-toolkit-transforms[all]==1.0.0
+pip install data-prep-toolkit-transforms[all]
 pip install fasttext-wheel
 ```
 
@@ -122,7 +122,7 @@ To install the ray transforms on windows using the ray runtime, use the followin
 
 ```
 pip intall data-prep-toolkit[ray]==0.2.3.post1
-pip install data-prep-toolkit-transforms[all]==1.0.0
+pip install data-prep-toolkit-transforms[all]
 pip install fasttext-wheel
 ```
 
