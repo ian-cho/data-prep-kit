@@ -1,5 +1,5 @@
 ## Data prep kit
-data-prep-toolkit-transforms[ray,all]==1.0.0a4
+data-prep-toolkit-transforms[ray,all]==1.0.0
 
 # Milvus
 pymilvus
@@ -7,14 +7,6 @@ pymilvus[model]
 
 # datasets
 datasets
-
-## Torch and enbeddings
-torch
-sentence-transformers
-
-## --- Parquet
-pandas
-pyarrow
 
 ## --- Replicate
 replicate
