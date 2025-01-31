@@ -5,7 +5,7 @@ Welcome to cooking with Data Prep Kit. Here we share some of our most asked, sea
 
  - [**Data Files**](examples/data-files/)
  - [**Introductory Recipe Notebook to get started**](examples/notebooks/Run_your_first_transform_colab.ipynb)
- - [**Recipes for Processing Code and Language Data for Finetuning LLMs**](examples/notebooks/fine tuning)
+ - [**Recipes for Processing Code and Language Data for Finetuning LLMs**](<examples/notebooks/fine tuning>)
  - [**Recipe for building RAG system using pdf data**](examples/notebooks/rag)
  - [**Recipe for building RAG system using html data**](examples/notebooks/rag-html-1)
  - [**Recipe for curating customer service data for HAP**](examples/notebooks/hap)
