@@ -45,6 +45,7 @@ Note: This list includes the transforms that were part of the release starting w
 
 ### 1.0.1.dev1
 	Added Gneissweb transforms
+	fdedup fix for windows
 ### 1.0.1.dev0
 	PR #979 (code_profiler)
 ### 1.0.0.a6
