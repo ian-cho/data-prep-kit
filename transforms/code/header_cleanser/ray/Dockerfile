@@ -1,5 +1,10 @@
 FROM docker.io/rayproject/ray:2.24.0-py310
 
+# see https://docs.openshift.com/container-platform/4.17/openshift_images/create-images.html#use-uid_create-images
+USER root
+RUN chown ray:root /home/ray && chmod g=u /home/ray
+USER ray
+
 # install pytest
 RUN pip install --no-cache-dir pytest
 
@@ -7,14 +12,14 @@ ARG DPK_WHEEL_FILE_NAME
 
 # Copy and install data processing libraries 
 # These are expected to be placed in the docker context before this is run (see the make image).
-COPY --chown=ray:users data-processing-dist data-processing-dist
+COPY --chmod=775 --chown=ray:root data-processing-dist data-processing-dist
 RUN  pip install data-processing-dist/${DPK_WHEEL_FILE_NAME}[ray]
 
-COPY --chown=ray:users python-transform/ python-transform 
+COPY --chmod=775 --chown=ray:root python-transform/ python-transform 
 RUN cd python-transform && pip install --no-cache-dir -e .
 
-COPY --chown=ray:users src/ src/
-COPY --chown=ray:users pyproject.toml pyproject.toml 
+COPY --chmod=775 --chown=ray:root src/ src/
+COPY --chmod=775 --chown=ray:root pyproject.toml pyproject.toml 
 RUN pip install --no-cache-dir -e .
 
 # Install system dependencies, including libgomp1
@@ -25,15 +30,12 @@ RUN sudo apt-get update && sudo apt-get install -y \
 User ray
     
 # copy source data
-COPY ./src/header_cleanser_transform_ray.py .
-COPY src/header_cleanser_local_ray.py local/
+COPY --chmod=775 --chown=ray:root ./src/header_cleanser_transform_ray.py .
+COPY --chmod=775 --chown=ray:root src/header_cleanser_local_ray.py local/
 
 # copy test
-COPY test/ test/
-COPY test-data/ test-data/
-
-# Grant non-root users the necessary permissions to the ray directory
-RUN chmod 755 /home/ray
+COPY --chmod=775 --chown=ray:root test/ test/
+COPY --chmod=775 --chown=ray:root test-data/ test-data/
 
 # Set environment
 ENV PYTHONPATH /home/ray
