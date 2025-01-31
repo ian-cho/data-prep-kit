@@ -17,47 +17,48 @@ import pandas as pd
 import pyarrow.parquet as pq
 from dpk_rep_removal.runtime import RepRemoval
 
+basedir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../test-data"))
 
 class TestRepRemovalPython:
     def test_rep_removal(self):
-        RepRemoval(input_folder="test-data/input",
-                   output_folder="test-data/output",
+        RepRemoval(input_folder=basedir + "/input",
+                   output_folder=basedir + "/output",
                    rep_removal_contents_column_name='text',
                    rep_removal_num_threads='1',
                    ).transform()
 
-        table1 = pq.read_table('test-data/expected/test1.parquet')
-        table2 = pq.read_table(os.path.join('test-data', 'output', 'test1.parquet'))
+        table1 = pq.read_table(os.path.join(basedir, 'expected', 'test1.parquet'))
+        table2 = pq.read_table(os.path.join(basedir, 'output', 'test1.parquet'))
 
         assert table1.equals(table2)
 
     def test_wrong_contents_field(self):
-        RepRemoval(input_folder="test-data/input",
-                   output_folder="test-data/output",
+        RepRemoval(input_folder=basedir + "/input",
+                   output_folder=basedir + "/output",
                    rep_removal_contents_column_name='contents',
                    rep_removal_num_threads='1',
                    ).transform()
 
-        with open(os.path.join('test-data', 'output', 'metadata.json'), 'r') as f:
+        with open(os.path.join(basedir, 'output', 'metadata.json'), 'r') as f:
             data = json.load(f)
             assert data['job_output_stats']['result_files'] == 0
 
     def test_remove_first_copy(self):
-        RepRemoval(input_folder="test-data/input",
-                   output_folder="test-data/output",
+        RepRemoval(input_folder=basedir + "/input",
+                   output_folder=basedir + "/output",
                    rep_removal_contents_column_name='text',
                    rep_removal_num_threads='1',
                    rep_removal_retain_first_copy=False,
                    ).transform()
 
-        table1 = pq.read_table('test-data/expected/test1.parquet')
-        table2 = pq.read_table(os.path.join('test-data', 'output', 'test1.parquet'))
+        table1 = pq.read_table(os.path.join(basedir, 'expected', 'test1.parquet'))
+        table2 = pq.read_table(os.path.join(basedir, 'output', 'test1.parquet'))
 
         assert not table1.equals(table2)
 
     def test_no_duplicates(self):
         with tempfile.TemporaryDirectory() as td:
-            df = pd.read_parquet(os.path.join('test-data/input/test1.parquet'))
+            df = pd.read_parquet(os.path.join(basedir, 'expected', 'test1.parquet'))
             new_df = df.loc[[0, 1, 2, 3, 4, 10, 11, 12, 13, 14]].copy()
             os.mkdir(os.path.join(td, 'input'))
             new_df.to_parquet(os.path.join(td, 'input', 'test1.parquet'))
