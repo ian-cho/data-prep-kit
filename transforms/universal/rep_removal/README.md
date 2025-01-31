@@ -53,9 +53,14 @@ pip install --no-binary :all: psutil
 ```
 
 B) Compile the dedup_dataset binary from the **dpk_rep_removal** package dir:
+- Install from git clone repo:
 ```shell
-cd dpk_rep_removal/rust
-cargo install
+cargo install --path dpk_rep_removal/rust
+```
+- Install from pip install (Note: Activate venv before running next commands):
+```shell
+PACKAGE_LOCATION=$(pip show data_prep_toolkit_transforms | grep Location | awk '{print $2}')
+cargo install --path $PACKAGE_LOCATION/dpk_rep_removal/rust
 ```
 ## Input Parameters
 
