@@ -12,8 +12,8 @@
 import os
 
 from data_processing.data_access import DataAccessLocal
-#from dpk_bloom.transform import BLOOMTransform
-from transform import BLOOMTransform
+from dpk_bloom.transform import BLOOMTransform
+#from transform import BLOOMTransform
 
 # create parameters
 input_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "../test-data/input"))

@@ -15,8 +15,8 @@ import sys
 
 from data_processing.runtime.pure_python import PythonTransformLauncher
 from data_processing.utils import ParamsUtils
-#from dpk_bloom.transform_python import BLOOMPythonTransformConfiguration
-from transform_python import BLOOMPythonTransformConfiguration
+from dpk_bloom.transform_python import BLOOMPythonTransformConfiguration
+#from transform_python import BLOOMPythonTransformConfiguration
 
 # create parameters
 input_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "../test-data/input"))
