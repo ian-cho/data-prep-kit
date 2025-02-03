@@ -17,8 +17,8 @@ from data_processing.runtime.pure_python.runtime_configuration import (
     PythonTransformRuntimeConfiguration,
 )
 from data_processing.utils import ParamsUtils, get_logger
-#from dpk_bloom.transform import BLOOMTransformConfiguration
-from transform import BLOOMTransformConfiguration
+from dpk_bloom.transform import BLOOMTransformConfiguration
+#from transform import BLOOMTransformConfiguration
 
 logger = get_logger(__name__)
 
