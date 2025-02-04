@@ -15,8 +15,8 @@ from data_processing.test_support import get_tables_in_folder
 from data_processing.test_support.transform.table_transform_test import (
     AbstractTableTransformTest,
 )
-#from dpk_bloom.transform import BLOOMTransform, BLOOMTransformConfiguration
-from transform import BLOOMTransform, BLOOMTransformConfiguration
+from dpk_bloom.transform import BLOOMTransform, BLOOMTransformConfiguration
+#from transform import BLOOMTransform, BLOOMTransformConfiguration
 
 bloom_params = {
     "model_name_or_path": "../bf.bloom",
