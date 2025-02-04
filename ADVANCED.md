@@ -1,6 +1,8 @@
 
 <h1 align="center">Data Prep Kit for Advanced Users</h1>
 
+![alt text](doc/Data-prep-kit-diagram.png)
+
 ### Add your own transform
 
 At the core of the framework, is a data processing library, that provides a systematic way to implement the data processing modules. The library is python-based and enables the application of "transforms" to a one or more input data files to produce one or more output data files. We use the popular [parquet](https://arrow.apache.org/docs/python/parquet.html) format to store the data (code or language). 

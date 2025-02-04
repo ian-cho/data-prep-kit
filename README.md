@@ -2,7 +2,7 @@
 
 <h1 align="center">Data Prep Kit</h1>
 
-![alt text](doc/Data-prep-kit-diagram.png)
+<?[alt text](doc/Data-prep-kit-diagram.png)>
 
 <div align="center"> 
 
@@ -11,61 +11,52 @@
 <?  [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylelobo/The-Documentation-Compendium.svg)](https://github.com/IBM/data-prep-kit/pulls) ?>
 </div> 
 
-## &#x1F4D6; About <a name = "about"></a>
+Data Prep Kit is a community-driven project that simplifies unstructured data preparation for LLM application development. It addresses the growing challenge of preparing diverse data (language, code, vision, multimodal) for fine-tuning, instruction-tuning, and RAG applications. The modules in the kit have been tested in producing pre-training datasets for the [Granite open source LLM models](https://huggingface.co/ibm-granite).
 
-Data Prep Kit is a community-driven project simplifying unstructured data preparation for LLM application development. It addresses the growing challenge of preparing diverse data (language, code, vision, multimodal) for fine-tuning, instruction-tuning, and RAG applications. 
+## Features <a name = "features"></a>
 
-Features of the toolkit: 
+- The kit provides a growing set of [modules/transforms](#table) targeting laptop-scale to datacenter-scale processing.
+- The data modalities supported _today_ are: Natural Language and Code.
+- The modules are built on common frameworks for Python, Ray and Spark runtimes for scaling up data processing.
+- The kit provides a framework for developing custom transforms for processing parquet files. 
+- The kit uses [Kubeflow Pipelines](https://www.kubeflow.org/docs/components/pipelines/v1/introduction/)-based [workflow automation](kfp/doc/simple_transform_pipeline.md).
 
-- The kit provides growing set of pre-built [modules/transforms](transforms) with sample implementations across multiple runtimes, targeting laptop-scale to datacenter-scale processing.
-- These modules have been tested while producing pre-training datasets for the [Granite open source LLM models](https://huggingface.co/ibm-granite).
-- Data modalities supported _today_: Natural Language and Code.
-- Plug and play [complete data processing recipes](examples) that can be used for real enterprise use cases like RAG, fine-tuning etc.
-- [Data processing library](data-processing-lib/ray) to enable contribution of new custom modules. Check out [guidance](ADVANCED.md) for advanced users from adding your transform to scaling and automation.
-- How to [contribute](CONTRIBUTING.md).
-- It uses [Kubeflow Pipelines](https://www.kubeflow.org/docs/components/pipelines/v1/introduction/)-based [workflow automation](kfp/doc/simple_transform_pipeline.md).
-- The modules are built on common frameworks for Python, Spark and Ray runtimes.
-- [Repository Structure and Use](doc/repo.md).
-- Access [Resources (papers, talks, presentations and tutorials)](resources.md).
+## Installation
 
+The latest version of the Data Prep Kit is available on PyPi for Python 3.10, 3.11 or 3.12. It can be installed using: 
+
+```bash
+pip install  'data-prep-toolkit-transforms[all]'
+```
+
+This will install all available transforms. 
+
+For guidance on creating the virtual environment for installing the data prep kit, click [here](doc/quick-start/quick-start.md).
 
 ## &#x1F680; Getting Started <a name = "gettingstarted"></a>
 
 ### Fastest way to experience Data Prep Kit
 
-With no setup necessary, let's use a Google Colab friendly notebook to try Data Prep Kit. This is a simple transform to extract content from PDF files: [examples/notebooks/Run_your_first_transform_colab.ipynb](examples/notebooks/Run_your_first_transform_colab.ipynb)  | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IBM/data-prep-kit/blob/dev/examples/notebooks/Run_your_first_transform_colab.ipynb). ([Here](doc/google-colab.md) are some tips for running Data Prep Kit transforms on Google Colab. For this simple example, these tips are either already taken care of, or are not needed.)  The same notebook can be downloaded and run on the local machine, without cloning the repo or any other setup. For additional guidance on setting up Jupyter lab, click [here](doc/quick-start/quick-start.md#jupyter). 
+With no setup necessary, let's use a Google Colab friendly notebook to try Data Prep Kit. This is a simple transform to extract content from PDF files: [examples/notebooks/Run_your_first_transform_colab.ipynb](examples/notebooks/Run_your_first_transform_colab.ipynb)  | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IBM/data-prep-kit/blob/dev/examples/notebooks/Run_your_first_transform_colab.ipynb). ([Here](doc/google-colab.md) are some tips for running Data Prep Kit transforms on Google Colab. For this simple example, these tips are either already taken care of, or are not needed.)  The same notebook can be downloaded and run on the local machine, without cloning the repo or any other setup. 
 
-### Install data prep kit from PyPi
-
-The latest version of the Data Prep Kit is available on PyPi for Python 3.10, 3.11 or 3.12. It can be installed using: 
-
-```bash
-pip install  'data-prep-toolkit-transforms[ray,all]'
-```
-
-The above installs all available transforms. 
-
-When installing select transforms, users can specify the name of the transform in the pip command, rather than [all]. For example, use the following command to install only the pdf2parquet transform:
-```bash
-pip install 'data-prep-toolkit-transforms[pdf2parquet]'
-```
-For additional guidance on creating the virtual environment for installing the data prep kit, click [here](doc/quick-start/quick-start.md#conda).
-
-### Run your first data prep pipeline
+### Examples
 
 Now that you have run a single transform, the next step is to explore how to put these transforms 
-together to run a data prep pipeline for an end to end use case like fine tuning a model or building 
-a RAG application. 
-This [notebook](examples/notebooks/fine%20tuning/code/sample-notebook.ipynb) gives an example of 
-how to build an end to end data prep pipeline for fine tuning for code LLMs. 
-You can also explore how to build a RAG pipeline [here](examples/notebooks/rag).
+together to run a data prep pipeline for end to end real enterprise use cases like fine-tuning a model or building a RAG application. 
+
+We have a complete set of data processing [recipes](examples) for such use cases. 
+
+We also have [a developer tutorial](doc/quick-start/contribute-your-own-transform.md) for contributing a new transform to the kit. 
+
+For advanced users, [here](ADVANCED.md) is more information for adding your own transform, its scaling and automation. Also,repository structure and use are discussed [here](doc/repo.md).
 
 ### Windows users
 
-Please click [here](doc/quick-start/quick-start.md#running-transforms-on-windows) for guidance on how to run transforms in Windows. 
+Please click [here](doc/quick-start/quick-start.md#running-transforms-on-windows) for guidance on how to run transforms in Windows.
 
-### Current list of transforms 
-The matrix below shows the the combination of modules and supported runtimes. All the modules can be accessed [here](transforms) and can be combined to form data processing pipelines, as shown in the [examples](examples/notebooks) folder. 
+
+## Current list of transforms <a name="table"></a>
+The matrix below shows the the combination of modules and supported runtimes. All the modules can be accessed [here](transforms) and can be combined to form data processing pipelines, as shown in the [examples](examples) folder. 
 
 
 | Modules                                                                              |    Python-only     |        Ray         |       Spark        |     KFP on Ray     |
@@ -100,10 +91,16 @@ The matrix below shows the the combination of modules and supported runtimes. Al
 | [License Select Annotation](transforms/code/license_select/python/README.md)         | :white_check_mark: | :white_check_mark: |                    | :white_check_mark: |
 | [Code profiler](transforms/code/code_profiler/README.md)                             | :white_check_mark: | :white_check_mark: |                    |  |
 
+## Contributing
+Contributors are welcome to add new modules to expand to other data modalities as well as add runtime support for existing modules! Please read [this](CONTRIBUTING.md) for details.
 
-Contributors are welcome to add new modules to expand to other data modalities as well as add runtime support for existing modules!
+## Get help and support
+Please feel free to connect with us using the [discussion](https://github.com/IBM/data-prep-kit/discussions) section.
 
-## Citations <a name = "citations"></a>
+## Resources
+[Papers, talks, presentations and tutorials](resources.md).
+
+## Citation <a name = "citations"></a>
 
 If you use Data Prep Kit in your research, please cite our paper:
 
