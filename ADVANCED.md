@@ -51,6 +51,20 @@ In addition, if you want to combine several transformers in a single pipeline, y
 When you finish working with the cluster, and want to clean up or destroy it. See the 
 [clean up the cluster](kfp/doc/setup.md#cleanup)
 
+### Using data from HuggingFace 
+
+If you wish to download and use real parquet data files from HuggingFace while testing any of the toolkit transforms, use HuggingFace [download APIs](https://huggingface.co/docs/huggingface_hub/en/guides/download) that provide caching and optimize the download process. Here is an example of the code needed to download a sample file: 
+
+ ```bash
+ !pip install --upgrade huggingface_hub
+from huggingface_hub import hf_hub_download
+import pandas as pd
+
+REPO_ID = "HuggingFaceFW/fineweb"
+FILENAME = "data/CC-MAIN-2013-20/000_00000.parquet"
+
+hf_hub_download(repo_id=REPO_ID, filename=FILENAME, repo_type="dataset")
+```
 
 ### Run your first transform using command line options
 

@@ -54,6 +54,10 @@ For advanced users, [here](ADVANCED.md) is more information for adding your own 
 
 Please click [here](doc/quick-start/quick-start.md#running-transforms-on-windows) for guidance on how to run transforms in Windows.
 
+### Using HuggingFace data files 
+
+All the transforms in the kit include small sample data files for testing, but advanced users who want to download real data files from HuggingFace and use them in testing, can refer to [this](ADVANCED.md#using-data-from-huggingface). 
+
 
 ## Current list of transforms <a name="table"></a>
 The matrix below shows the the combination of modules and supported runtimes. All the modules can be accessed [here](transforms) and can be combined to form data processing pipelines, as shown in the [examples](examples) folder. 
