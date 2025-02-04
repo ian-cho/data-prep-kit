@@ -43,6 +43,7 @@ class RepRemovalTransform(AbstractTableTransform):
 
         else:
             self.retain_first_copy = True
+
     def transform(self, table: pa.Table, file_name: str = None) -> tuple[list[pa.Table], dict[str, Any]]:
         """ """
         pq_df = table.to_pandas()
@@ -51,8 +52,6 @@ class RepRemovalTransform(AbstractTableTransform):
                 save_dir = os.path.join(td, 'save_dir')
                 logging.info(f"{datetime.datetime.now()}: encoding parquet")
                 encoded_pq = os.path.join(save_dir, self.dedup_level)
-
-
                 load_pq_docs_once_avoidIO(pq_df, self.contents_column_name, save_dir, self.dedup_level,
                                           self.tokenize, int(self.num_threads))
 
