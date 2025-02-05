@@ -63,12 +63,12 @@ class BLOOMTransform(AbstractTableTransform):
         :param table: Pyarrow table
         :return: a table with an additional is_in_GneissWeb column
         """
-        # make sure that the table contains "contents" column
-        TransformUtils.validate_columns(table=table, required=[self.doc_text_column])
+        # make sure that the table contains "contents" column. 
+        # TransformUtils.validate_columns(table=table, required=[self.doc_text_column]) #To prevent errors, comment out this line if your Parquet file does not contain the "contents" column. 
         self.df = table.to_pandas()
         df_id_list = []
         for i in range(len(self.df)):
-            id_ = self.df.iloc[i]['id']
+            id_ = self.df.iloc[i]['id'] # Please make sure the UUID column in the Parquet file is named "id."
             df_id_list.append(id_)
 
         data_bloom_label = self._apply_model(df_id_list, self.batch_size)
