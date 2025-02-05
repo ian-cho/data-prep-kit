@@ -31,8 +31,11 @@ pip3 install  -r requirements.txt
 jupyter lab
 ```
 
-## Running the code
+## Data Files
 
+PDF files are located in [examples/data-files/pdf-processing-1](../../data-files/pdf-processing-1/)
+
+## Running the code
 
 [python version](pdf_processing_1_python.ipynb)  &nbsp;    [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sujee/data-prep-kit/blob/process-pdf-1/examples/notebooks/pdf-processing-1/pdf_processing_1_python.ipynb)
 
@@ -47,18 +50,4 @@ python -m ipykernel install --user --name=data-prep-kit --display-name "dataprep
 # and select this kernel within jupyter notebook
 ```
 
-
-## Creating Input PDFs (Optional)
-
-Sample PDFs we use for this example are created from markdown documents using pandoc utility, as follows.
-
-```bash
-cd input
-
-pandoc earth.md  -o earth.pdf
-pandoc earth2.md  -o earth2.pdf
-pandoc mars.md  -o mars.pdf
-pandoc spam.md  -o spam.pdf
-pandoc lorem-ipsum.md  -o lorem-ipsum.pdf
-```
 
