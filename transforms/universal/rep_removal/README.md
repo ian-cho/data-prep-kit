@@ -52,16 +52,25 @@ pip install --no-binary :all: psutil
 
 ```
 
-B) Compile the dedup_dataset binary from the **dpk_rep_removal** package dir:
-- Install from git clone repo:
-```shell
-cargo install --path dpk_rep_removal/rust
-```
-- Install from pip install (Note: Activate venv before running next commands):
-```shell
-PACKAGE_LOCATION=$(pip show data_prep_toolkit_transforms | grep Location | awk '{print $2}')
-cargo install --path $PACKAGE_LOCATION/dpk_rep_removal/rust
-```
+[//]: # (B&#41; Compile the dedup_dataset binary from the **dpk_rep_removal** package dir:)
+
+[//]: # (- Install from git clone repo:)
+
+[//]: # (```shell)
+
+[//]: # (cargo install --path dpk_rep_removal/rust)
+
+[//]: # (```)
+
+[//]: # (- Install from pip install &#40;Note: Activate venv before running next commands&#41;:)
+
+[//]: # (```shell)
+
+[//]: # (PACKAGE_LOCATION=$&#40;pip show data_prep_toolkit_transforms | grep Location | awk '{print $2}'&#41;)
+
+[//]: # (cargo install --path $PACKAGE_LOCATION/dpk_rep_removal/rust)
+
+[//]: # (```)
 ## Input Parameters
 
 The transform can be initialized with the following parameters:

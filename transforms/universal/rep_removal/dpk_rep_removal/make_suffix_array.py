@@ -31,14 +31,13 @@ Modifications has been made to make_suffix_array.py to avoid resource conflict h
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import logging
 import os
 import time
 import subprocess
 import numpy as np
 from dpk_rep_removal.utils import calculate_timeout
-
-logging.basicConfig(level=logging.DEBUG)
+from data_processing.utils import get_logger
+logging = get_logger(__name__, level="INFO")
 
 
 def make_suffix_array(input, tmp_dir_sub, dedup_level, num_threads, num_cpus):

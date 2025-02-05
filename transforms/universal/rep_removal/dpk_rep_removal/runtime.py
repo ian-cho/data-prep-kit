@@ -85,7 +85,7 @@ class RepRemovalTransformConfiguration(TransformConfiguration):
             "--rep_removal_num_threads",
             type=str,
             required=False,
-            default="4",
+            default=str(cpu_count(logical=False)),
             help="Value for number of threads to use for processing",
         )
         parser.add_argument(
