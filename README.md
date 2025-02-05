@@ -82,6 +82,10 @@ This [notebook](examples/notebooks/fine%20tuning/code/sample-notebook.ipynb) giv
 how to build an end to end data prep pipeline for fine tuning for code LLMs. 
 You can also explore how to build a RAG pipeline [here](examples/notebooks/rag).
 
+### Windows users
+
+Please click [here](doc/quick-start/quick-start.md#running-transforms-on-windows) for guidance on how to run transforms in Windows. 
+
 ### Current list of transforms 
 The matrix below shows the the combination of modules and supported runtimes. All the modules can be accessed [here](transforms) and can be combined to form data processing pipelines, as shown in the [examples](examples/notebooks) folder. 
 
