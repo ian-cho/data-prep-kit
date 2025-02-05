@@ -12,6 +12,7 @@
 import logging
 import os
 import tempfile
+import datetime
 import pyarrow as pa
 import pandas as pd
 from dpk_rep_removal.dedup_pq_level import load_pq_docs_once_avoidIO, extract_dup_per_doc_avoidIO_further, save_deduped_pq_once
@@ -21,7 +22,7 @@ from psutil import cpu_count
 from dpk_rep_removal.make_suffix_array import make_suffix_array
 from data_processing.transform import AbstractTableTransform
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s', level=logging.INFO)
 
 
 class RepRemovalTransform(AbstractTableTransform):
@@ -42,14 +43,15 @@ class RepRemovalTransform(AbstractTableTransform):
 
         else:
             self.retain_first_copy = True
+
     def transform(self, table: pa.Table, file_name: str = None) -> tuple[list[pa.Table], dict[str, Any]]:
         """ """
         pq_df = table.to_pandas()
         try:
             with tempfile.TemporaryDirectory() as td:
                 save_dir = os.path.join(td, 'save_dir')
+                logging.info(f"{datetime.datetime.now()}: encoding parquet")
                 encoded_pq = os.path.join(save_dir, self.dedup_level)
-
                 load_pq_docs_once_avoidIO(pq_df, self.contents_column_name, save_dir, self.dedup_level,
                                           self.tokenize, int(self.num_threads))
 
@@ -58,10 +60,12 @@ class RepRemovalTransform(AbstractTableTransform):
                 os.makedirs(cache_dir)
                 os.makedirs(temp_dir)
 
+                logging.info(f"{datetime.datetime.now()}: making suffix array")
                 make_suffix_array(encoded_pq, temp_dir, self.dedup_level, int(self.num_threads), int(self.num_cpus))
+                logging.info(f"{datetime.datetime.now()}: finding repeated substrings")
                 find_repeated_substrings(encoded_pq, self.length_thresh, cache_dir, self.num_threads,
                                          self.frequency_threshold, self.retain_first_copy)
-
+                logging.info(f"{datetime.datetime.now()}: collecting duplicates")
                 repeated_pairs = collect_duplicates_avoidIO(encoded_pq, self.length_thresh, cache_dir)
 
                 # no duplicates found
@@ -74,7 +78,7 @@ class RepRemovalTransform(AbstractTableTransform):
                                                                                       self.contents_column_name,
                                                                                       self.num_threads,
                                                                                       self.tokenize)
-
+                logging.info(f"Num Duplicate Rows: {len(repeated_pairs) - 4}")
                 metadata = {
                     "pre_content col size": pre_content_col_size,
                     "rep_removed_content col size": deduped_content_col_size,
