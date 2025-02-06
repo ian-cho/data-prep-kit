@@ -1,15 +1,23 @@
 # Bloom Annotation
-Please see the set of [transform project conventions](../../README.md#transform-project-conventions) for details on general project conventions, transform configuration, testing and IDE set up.
+
+## Summary
+Recently, IBM has introduced GneissWeb; a large dataset yielding around 10 trillion tokens that
+caters to the data quality and quantity requirements of training LLMs. The models trained using GneissWeb dataset outperform
+those trained on FineWeb by 2.14 percentage points in terms of average score computed
+on a set of 11 commonly used benchmarks.
+
+The Bloom Annotator transform assigns a label of 1 if the document is present in the GneissWeb Bloom filter; otherwise, it assigns 0. This approach provides a clear understanding of which documents in FineWeb are also present in GneissWeb and which are not. The GneissWeb Bloom filter is just one use case; the Bloom Annotator transform can work with any Bloom filter.
+
+Bloom annotator transform maps a non-empty input table to an output table with an added is_in_GneissWeb column. Each row in the table corresponds to a UUID and its associated document. The Bloom annotator transform verifies whether the document's UUID exists in the GneissWeb Bloom filter.
 
 ## Contributor
 - Yang Zhao (yangzhao@ibm.com)
 
-## Description
-### Prerequisite 
-Please refer to `requirements.txt` to install the necessary packages.
+## General Information
+Please see the set of [transform project conventions](../../README.md#transform-project-conventions) for details on general project conventions, transform configuration, testing and IDE set up.
 
-### Overview
-The bloom transform maps a non-empty input table to an output table with an added `is_in_GneissWeb` column. Each row in the table corresponds to a UUID and its associated document. The Bloom transform verifies whether the document's UUID exists in the GneissWeb Bloom filter.
+## Prerequisite 
+Please refer to `requirements.txt` to install the necessary packages.
 
 
 ### input format
@@ -39,7 +47,6 @@ configuration for values are as follows:
 * --doc_text_column - the column name containing the document text in the input .parquet file. Defaults to `contents`.
 * --annotation_column - the column name containing binary score in the output .parquet file. Defaults to `is_in_GneissWeb`.
   
-
 
 
 ## Usage
