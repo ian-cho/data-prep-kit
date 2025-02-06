@@ -24,11 +24,8 @@ import multiprocessing as mp
 import pandas as pd
 import struct
 from collections import defaultdict
-import dpk_rep_removal.utils
 import transformers
 from transformers import GPT2Tokenizer
-
-run_in_OCP = True
 
 #### Save the tokenizer in a local path to speed up the process
 #### Get tokenizer from the local path to speed up the process
@@ -80,9 +77,6 @@ def decode(x):
 def load_pq_docs_once_avoidIO(pq_df, content_col, save_dir, dataset_name, tokenize, num_threads):
     global args_tokenize, encoded_docs, loaded_size
     args_tokenize = tokenize
-
-    pre_sep = b"\xff\xff"
-    post_sep = b""
 
     if not os.path.exists(save_dir):
         os.mkdir(save_dir)
@@ -207,9 +201,3 @@ def extract_dup_per_doc_avoidIO_further(repeated_pairs):
                                  int(min(int(remove[ptr][1] - byte_start),
                                          byte_end - byte_start)) - 6))  ################## added -6 to exclude sep
             ptr += 1
-    # print ('############# Number of duplicate made from two subsequent documents: ', count_between_docs)
-    # print ('############# Number of duplicate made from two subsequent documents: ', duplicate_between_docs)
-
-    # df_dict = pd.DataFrame(remove_ex)
-    # print(remove_ex)
-    # return remove_ex

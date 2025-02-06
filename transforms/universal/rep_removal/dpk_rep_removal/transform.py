@@ -13,7 +13,6 @@
 import os
 import subprocess
 import tempfile
-import datetime
 import pyarrow as pa
 import pandas as pd
 from dpk_rep_removal.dedup_pq_level import load_pq_docs_once_avoidIO, extract_dup_per_doc_avoidIO_further, save_deduped_pq_once
@@ -32,12 +31,12 @@ class RepRemovalTransform(AbstractTableTransform):
 
         self.contents_column_name = config.get("rep_removal_contents_column_name", "contents")
         self.dedup_level = config.get("rep_removal_dedup_level_name", "parquet")
-        self.length_thresh = config.get("rep_removal_length_thresh", str(50))
-        self.frequency_threshold = config.get("rep_removal_frequency_threshold", str(1))
+        self.length_thresh = str(config.get("rep_removal_length_thresh", 5))
+        self.frequency_threshold = str(config.get("rep_removal_frequency_threshold", 1))
         self.retain_first_copy = str(config.get("rep_removal_retain_first_copy", True))
         self.tokenize = str(config.get("rep_removal_tokenize", True))
-        self.num_threads = config.get("rep_removal_num_threads", str(cpu_count(logical=False)))
-        self.num_cpus = config.get("rep_removal_num_cpus", cpu_count(logical=False))
+        self.num_threads = str(config.get("rep_removal_num_threads", cpu_count(logical=False)))
+        self.num_cpus = str(config.get("rep_removal_num_cpus", cpu_count(logical=False)))
 
         if self.retain_first_copy.lower() == 'false':
             self.retain_first_copy = False
