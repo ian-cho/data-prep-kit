@@ -1,12 +1,37 @@
+import os
 from dotenv import dotenv_values
 from langchain_core.language_models.chat_models import BaseChatModel
 from langchain_core.language_models.llms import LLM
+from langchain.callbacks.base import BaseCallbackHandler
+from langchain.schema import BaseMessage, ChatResult, ChatGeneration, AIMessage
+from langchain.chat_models.base import BaseChatModel
+from pydantic import Field
 from llm_utils.callbacks import LoggingCallbackHandler
-from typing import Optional, Any, Dict
+from typing import Iterator, List, Optional, Any, Dict
 from langchain_openai import ChatOpenAI
+import replicate
 
 CONFIG_LOCATION = ".env"
 
+class ReplicateChatModel(BaseChatModel):
+    model_id: str = Field(description="The Replicate model ID")
+    params: Dict = Field(default_factory=dict, description="Model parameters")
+
+    def _generate(self, messages: List[BaseMessage], stop: Optional[List[str]] = None, run_manager: Optional = None, **kwargs) -> ChatResult:
+        prompt = " ".join(m.content for m in messages)
+        response = replicate.run(self.model_id, input={"prompt": prompt, **self.params})
+        message = AIMessage(content=response)
+        return ChatResult(generations=[ChatGeneration(message=message)])
+
+    def _stream(self, messages: List[BaseMessage], stop: Optional[List[str]] = None, run_manager: Optional = None, **kwargs) -> Iterator[ChatGeneration]:
+        print(f"replicate stream")
+        prompt = " ".join(m.content for m in messages)
+        for chunk in replicate.stream(self.model_id, input={"prompt": prompt, **self.params}):
+            yield ChatGeneration(message=AIMessage(content=chunk))
+
+    @property
+    def _llm_type(self) -> str:
+        return "replicate"
 
 def getLLM(inference: str, model_id: str = None, config: dict = None) -> LLM:
     loggingCallbackHandler = LoggingCallbackHandler()
@@ -81,7 +106,7 @@ def getChatLLM(
     inference: str, model_id: str = None, config: dict = None, params: Optional[Dict[str, Any]] = None
 ) -> BaseChatModel:
     loggingCallbackHandler = LoggingCallbackHandler()
-    
+
     if config is None:
         config = dotenv_values(CONFIG_LOCATION)
 
@@ -135,6 +160,19 @@ def getChatLLM(
             temperature=0,
             **(params or {})
         )
+    elif inference == "replicate":
+        if model_id is None:
+            model_id = "meta/meta-llama-3-70b-instruct"
+        default_params = {
+            "temperature": 0,  
+            "max_length": 1024,
+            "max_new_tokens": 4096,
+            "top_p": 1
+        }
+        # if params:
+        #     default_params.update(params)
+        os.environ["REPLICATE_API_TOKEN"] = config["REPLICATE_API_TOKEN"]
+        return ReplicateChatModel(model_id=model_id, params=default_params, callbacks=[loggingCallbackHandler])
     else:
         raise ValueError(
             f"Inference type {inference} is wrong, supported values are [ollama, watsonx]"

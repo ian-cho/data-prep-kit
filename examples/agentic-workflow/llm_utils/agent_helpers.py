@@ -1,3 +1,4 @@
+from pathlib import Path
 import requests
 import json
 from typing import List, TypedDict
@@ -37,6 +38,7 @@ def planner(state: State, llm, prompt: str, tools: str, example: str, context: s
         "previous_plan": '\n'.join(state['plan']),
         "feedback": state['feedback']
     })
+    output.content = "".join(output.content)
     state['plan'] = output.content.split('\n')
     state['current_step'] = 0
     print(f"\033[36m\033[1m\nPlanner: suggested plan is:\033[0m")
@@ -56,6 +58,7 @@ def generate_run_file(llm, plan, prompt, output_file) -> State:
         "plan": plan
     })
     # Split the evaluation into feedback and decision
+    evaluation.content = "".join(evaluation.content)
     eval_parts = evaluation.content.split('\n')
     code = extract_python_code(eval_parts)
     # format the content
@@ -72,8 +75,8 @@ def judge(state: State, llm, prompt: str, tools: str, context: str) -> State:
         "context": context,
         "tools": tools,
     })
-    
     # Split the evaluation into feedback and decision
+    evaluation.content = "".join(evaluation.content)
     eval_parts = evaluation.content.split('\n')
     decision_line = next((line for line in eval_parts if 'NEEDS_REVISION:' in line), '')
     needs_revision = 'yes' in decision_line.lower()
@@ -96,7 +99,7 @@ def judge(state: State, llm, prompt: str, tools: str, context: str) -> State:
     return state
 
 def is_plan_OK(state: State) -> bool:
-    if state["planning_attempts"] >= 5:
+    if state["planning_attempts"] >= 3:
         return True
     return not state['needs_revision']
 
@@ -140,9 +143,6 @@ def generator(state: State, llm, prompt: str, file_name: str="llm_plan_generated
     llm_output = generate_run_file(llm, steps, prompt, file_name)
     return state
 
-def code_validator(state: State) -> State:
-    return state
-
 def extract_python_code(llm_output: list) -> str:
     code = []
     in_code_block = False
@@ -167,3 +167,57 @@ def save_python_file(code: str, filename: str):
         print(f"Successfully saved code to {filename}")
     except Exception as e:
         print(f"Error saving file: {e}")
+
+def code_validator_noop(state: State) -> State:
+    return state
+
+def code_validator(state: State) -> State:
+    import docker
+    # Create a Docker client
+    client = docker.from_env()
+    
+    try:
+        # Write the generated code to a file in a temp directory
+        script_dir = Path(".")
+        # script_dir.mkdir(exist_ok=True)
+        script_path = script_dir / "llm_plan_generated.py"
+
+        print("Running the docker image")
+        # Run the container with mounted script
+        container = client.containers.run(
+            "isolated-test",
+            network="workflow-network",
+            environment={
+                "ACCESS_KEY": "minio",
+                "SECRET_KEY": "minio123",
+                "MINIO_URL": "http://minio:9000"
+            },
+            volumes={
+                str(script_path.absolute()): {
+                    'bind': '/app/llm_plan_generated.py',
+                    'mode': 'ro'
+                }
+            },
+            command=[
+                "--in_folder", "test-input",
+                "--out_folder", "test-output/output",
+                "--data_files_to_use", "['.pdf']",
+                "--docq_bad_word_filepath", "./input/ldnoobw/en",
+                "--filter_criteria_list", "['docq_contain_bad_word==False']",
+            ],
+            detach=True
+        )
+
+        # Wait for the container to complete and get logs
+        result = container.wait()
+        logs = container.logs().decode()
+        
+        # Clean up
+        container.remove()
+        
+        print(logs)
+            
+    except Exception as e:
+       print(str(e))
+
+    return state

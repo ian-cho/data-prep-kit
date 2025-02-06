@@ -11,3 +11,5 @@ PyGithub
 pypdf
 GitPython
 black==24.10.0
+docker
+replicate
