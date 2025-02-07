@@ -105,7 +105,7 @@ to define them unless a parent directory does not recurse into the directory.
 
     ```shell
     mv dist/data_prep_toolkit_transforms-1.0.1.dev1-py3-none-any.whl dist/data_prep_toolkit_transforms-1.0.1.dev1-1-py3-none-any.whl 
-    make publish
+    make publish-dist
     ```
     
 
