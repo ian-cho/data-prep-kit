@@ -5,8 +5,8 @@
         "job name": "readability",
         "job type": "pure python",
         "job id": "job_id",
-        "start_time": "2025-02-07 11:51:23",
-        "end_time": "2025-02-07 11:51:24",
+        "start_time": "2025-02-07 13:27:11",
+        "end_time": "2025-02-07 13:27:11",
         "status": "success"
     },
     "code": null,
@@ -20,18 +20,18 @@
         "num_processors": 0
     },
     "execution_stats": {
-        "cpus": 2.1,
+        "cpus": 3.7,
         "gpus": 0,
-        "memory": 20.35,
+        "memory": 13.97,
         "object_store": 0,
-        "execution time, min": 0.003
+        "execution time, min": 0.002
     },
     "job_output_stats": {
         "source_files": 1,
         "source_size": 14884,
         "result_files": 1,
         "result_size": 13171,
-        "processing_time": 0.157,
+        "processing_time": 0.139,
         "nrows": 2,
         "source_doc_count": 2,
         "result_doc_count": 2
