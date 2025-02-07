@@ -104,9 +104,13 @@ to define them unless a parent directory does not recurse into the directory.
 1. **Note**- If a previous dev build with the same tag is already present on pypi, add a build tag  and publish again. The build tag is optional and immediately follows the distribution package version `({distribution}-{version}(-{build tag})?-{python tag}-{abi tag}-{platform tag}.whl)`
 
     ```shell
-    mv dist/data_prep_toolkit_transforms-1.0.1.dev1-py3-none-any.whl dist/data_prep_toolkit_transforms-1.0.1.dev1-1-py3-none-any.whl 
+    mv dist/data_prep_toolkit_transforms-1.0.1.dev1-py3-none-any.whl dist/data_prep_toolkit_transforms-1.0.1.dev1-1-py3-none-any.whl
+    ```
+    ```shell
     make publish-dist
     ```
+1. Install the new wheel using --no-cache in a new venv
+    
     
 
 ## Developers
