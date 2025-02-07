@@ -78,6 +78,37 @@ This might include things published to pypi or the docker registry.
 Sub-directories are free to define these as empty/no-op targets, but generally are required
 to define them unless a parent directory does not recurse into the directory.
 
+### Build and deploy a dev release for integration testing (Recommended step for all transforms prior to merging the corresponding PR)
+
+1. Create your fork from the main repo or sync an existing fork with main repo
+1. clone the fork and create a new local branch
+    ```shell
+    git clone git@github.com:<USER>/data-prep-kit.git data-prep-kit-dev
+    cd data-prep-kit-dev
+    git checkout -b "testing-$(date '+%Y-%m-%d')"
+    ```
+1. Merge changes from remote branch (if more than one PR, repeat below for each PR). In the example below, replace '<fork_url>' and '<branch_name>' with the git url and branch from the PR
+    ```shell
+     git remote add <remote_name> <fork_url> 
+     git fetch <remote_name> <branch_name>
+     git merge <remote_name>/<remote_branch>
+     ```
+1. Change to the transforms folder, clean any previous build, build a new wheel and publish the wheel as a dev branch tp pypi. Follow [instructions](https://packaging.python.org/en/latest/specifications/pypirc/#using-another-package-index) to setup your environment to be able to publish:
+    ```shell
+    cd transforms
+    rm --fr build dist data_prep_toolkit_transforms.egg-info
+    make build-pkg-dist
+    pip install twine
+    make publish
+    ```
+1. **Note**- If a previous dev build with the same tag is already present on pypi, add a build tag  and publish again. The build tag is optional and immediately follows the distribution package version `({distribution}-{version}(-{build tag})?-{python tag}-{abi tag}-{platform tag}.whl)`
+
+    ```shell
+    mv dist/data_prep_toolkit_transforms-1.0.1.dev1-py3-none-any.whl dist/data_prep_toolkit_transforms-1.0.1.dev1-1-py3-none-any.whl 
+    make publish
+    ```
+    
+
 ## Developers
 Generally, developers will be working in a python project directory
 (e.g., data-processing-lib/python, transforms/universal/filter, etc.) 
