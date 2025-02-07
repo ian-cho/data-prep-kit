@@ -75,15 +75,15 @@ pip install --no-binary :all: psutil
 
 The transform can be initialized with the following parameters:
 
-| Parameter                          | Default    | Description                                       |
-|------------------------------------|------------|---------------------------------------------------|
-| `rep_removal_contents_column_name` | `contents` | Name of the column holding the document contents  |
-| `rep_removal_dedup_level_name`     | `parquet`  | Name of the type of file to process               |
-| `rep_remova_length_thresh`         | `50`       | Length threshold for processing                   |
-| `rep_removal_frequency_threshold`  | `1`        | Frequency threshold for processing                |
-| `rep_removal_retain_first_copy`    | `True`     | Boolean value for whether to retain first copy    |
-| `rep_removal_tokenize`             | `True`     | Boolean value for whether to tokenize             |
-| `rep_removal_num_threads`          | `4`        | Value for number of threads to use for processing |
+| Parameter                          | Default                            | Description                                       |
+|------------------------------------|------------------------------------|---------------------------------------------------|
+| `rep_removal_contents_column_name` | `contents`                         | Name of the column holding the document contents  |
+| `rep_removal_dedup_level_name`     | `parquet`                          | Name of the type of file to process               |
+| `rep_remova_length_thresh`         | `50`                               | Length threshold for processing                   |
+| `rep_removal_frequency_threshold`  | `1`                                | Frequency threshold for processing                |
+| `rep_removal_retain_first_copy`    | `True`                             | Boolean value for whether to retain first copy    |
+| `rep_removal_tokenize`             | `True`                             | Boolean value for whether to tokenize             |
+| `rep_removal_num_threads`          | `psutils.cpu_count(logical=False)` | Value for number of threads to use for processing |
 
 
 ## Output Format
@@ -125,8 +125,7 @@ You can invoke the transform via command line, as shown in sample make command `
 ```commandline
 python -m dpk_rep_removal.runtime \
                 --data_local_config "{ 'input_folder' : 'test-data/input', 'output_folder' : 'output'}" \
-                --rep_removal_contents_column_name 'text' \
-                --rep_removal_num_threads '1'
+                --rep_removal_contents_column_name 'text' 
 
 ```
 
