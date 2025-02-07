@@ -96,7 +96,7 @@ to define them unless a parent directory does not recurse into the directory.
 1. Change to the transforms folder, clean any previous build, build a new wheel and publish the wheel as a dev branch tp pypi. Follow [instructions](https://packaging.python.org/en/latest/specifications/pypirc/#using-another-package-index) to setup your environment to be able to publish:
     ```shell
     cd transforms
-    rm --fr build dist data_prep_toolkit_transforms.egg-info
+    rm -fr build dist data_prep_toolkit_transforms.egg-info
     make build-pkg-dist
     pip install twine
     make publish
