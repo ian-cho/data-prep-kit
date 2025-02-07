@@ -99,7 +99,7 @@ to define them unless a parent directory does not recurse into the directory.
     rm -fr build dist data_prep_toolkit_transforms.egg-info
     make build-pkg-dist
     pip install twine
-    make publish
+    make publish-dist
     ```
 1. **Note**- If a previous dev build with the same tag is already present on pypi, add a build tag  and publish again. The build tag is optional and immediately follows the distribution package version `({distribution}-{version}(-{build tag})?-{python tag}-{abi tag}-{platform tag}.whl)`
 
