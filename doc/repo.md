@@ -87,11 +87,11 @@ to define them unless a parent directory does not recurse into the directory.
     cd data-prep-kit-dev
     git checkout -b "testing-$(date '+%Y-%m-%d')"
     ```
-1. Merge changes from remote branch (if more than one PR, repeat below for each PR). In the example below, replace '<fork_url>' and '<branch_name>' with the git url and branch from the PR
+1. Merge changes from remote branch (if more than one PR, repeat below for each PR). In the example below, replace '<fork_url>' and '<branch_name>' with the git url and branch from each PR (e.g, PR1, PR2, ...)
     ```shell
-     git remote add <remote_name> <fork_url> 
-     git fetch <remote_name> <branch_name>
-     git merge <remote_name>/<remote_branch>
+     git remote add <remote_name_PR1> <fork_url> 
+     git fetch <remote_name_PR1> <branch_name>
+     git merge <remote_name_PR1>/<branch_name>
      ```
 1. Change to the transforms folder, clean any previous build, build a new wheel and publish the wheel as a dev branch tp pypi. Follow [instructions](https://packaging.python.org/en/latest/specifications/pypirc/#using-another-package-index) to setup your environment to be able to publish:
     ```shell
