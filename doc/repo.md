@@ -105,7 +105,7 @@ to define them unless a parent directory does not recurse into the directory.
     pip install twine
     make publish-dist
     ```
-1. **Note**- 'make publish-dist' will fail if f a previous build with the same tag is already present on pypi. In this case, add a 'build tag' and publish again. The build tag is a number that immediately follows the distribution package version `({distribution}-{version}(-{build tag})?-{python tag}-{abi tag}-{platform tag}.whl)`
+1. **Note**- 'make publish-dist' will fail if f a previous build with the same tag is already present on pypi. In this case, add a 'build tag' and publish again. The 'build tag' is a number that immediately follows the distribution package version seperated by a dash `({distribution}-{version}(-{build tag})?-{python tag}-{abi tag}-{platform tag}.whl)`
 
     ```shell
     mv dist/data_prep_toolkit_transforms-1.0.1.dev1-py3-none-any.whl dist/data_prep_toolkit_transforms-1.0.1.dev1-1-py3-none-any.whl
@@ -113,9 +113,9 @@ to define them unless a parent directory does not recurse into the directory.
     ```shell
     make publish-dist
     ```
-   **Note**-  'make publish-dist' will fail if the build tag already exists. In this case, consult the pypi site to identify the latest build tag previously used and increment by 1
+   **Note**-  'make publish-dist' will fail if the choosen 'build tag' already exists. In this case, consult the pypi site to identify the latest build tag previously used and increment by 1
    
-1. When testing the new wheel in a notebook or a venv, make sure to use the --no-cache option: `pip install --no-cache data-prep-kit-transofmrs-1.0.1.dev1`
+1. When testing the new wheel in a notebook or a venv, make sure to use the --no-cache option: `pip install --no-cache data-prep-toolkkit-transforms-1.0.1.dev1`
     
     
 
