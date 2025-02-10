@@ -85,6 +85,7 @@ to define them unless a parent directory does not recurse into the directory.
     ```shell
     git clone git@github.com:<USER>/data-prep-kit.git data-prep-kit-dev
     cd data-prep-kit-dev
+    git checkout dev
     git checkout -b "testing-$(date '+%Y-%m-%d')"
     ```
 1. Merge changes from remote branch (if more than one PR, repeat below for each PR). In the example below, replace '<fork_url>' and '<branch_name>' with the git url and branch from each PR (e.g, PR1, PR2, ...)
