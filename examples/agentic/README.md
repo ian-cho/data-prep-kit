@@ -15,7 +15,7 @@ This project focuses on automating the integration of LLM based workflow in the 
 1. Clone the repository:
 ```bash
 git clone git@github.com:IBM/data-prep-kit.git
-cd examples/agentic-workflow
+cd examples/agentic
 ```
 
 2. Create Python virtual environment:
@@ -29,16 +29,27 @@ pip install -r requirements.txt
 ```
 
 3. Configure access to LLM
-   1. If you plan to work with Olama:
-      1.  install ollama, see https://ollama.com/download
-      2.  pull a model e.g. `ollama pull llama3.1:70b`
-   2. In order to work with WatsonX, you have to create a `.env` file in the root directory of the project with the following fields:
-```python
-WATSONX_APIKEY="Your WatsonX API key"
-WATSON_PROJECT_ID="Your WatsonX project"
-WATSONX_URL="WatsonX access point"
-```
-See [WatsonX documentation](https://www.ibm.com/watsonx), how to obtain the values.
+   Currently, we support [Watsonx](https://www.ibm.com/watsonx), [Replicate](https://replicate.com/), and locally running [Ollama](https://ollama.com/).
+   - To use Ollama: 
+      - Download Ollama](https://ollama.com/download).
+      - Download one of the supported [modules](https://ollama.com/search).
+      - update the `model_ollama_*` names in the cell below
+   - To use Watsonx:
+      - Register for Watsonx
+      - Obtain its API key
+      - Store the following values in the `.env` file located in your project directory:
+         ```
+            WATSONX_URL=<WatsonX entry point, e.g. https://us-south.ml.cloud.ibm.com>
+            WATSON_PROJECT_ID=<your Watsonx project ID>
+            WATSONX_APIKEY=<your Watsonx API key>
+         ```
+      - Uncomment the Watsonx configuration entries, update the Watsonx `model_watsonx_*` names, and comment out the Ollama configuration entries.
+   - To use Replicate:
+      - Obtain Replicate API token
+      - Store the following value in the `.env` file located in your project directory:
+         ```
+            REPLICATE_API_TOKEN=<your Replicate API token>
+         ```
 
 ## Usage
 **TBD**
