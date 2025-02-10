@@ -115,7 +115,7 @@ to define them unless a parent directory does not recurse into the directory.
     ```
    **Note**-  'make publish-dist' will fail if the choosen 'build tag' already exists. In this case, consult the pypi site to identify the latest build tag previously used and increment by 1
    
-1. When testing the new wheel in a notebook or a venv, make sure to use the --no-cache option: `pip install --no-cache data-prep-toolkkit-transforms-1.0.1.dev1`
+1. When testing the new wheel in a notebook or a venv, make sure to use the --no-cache option: `pip install --no-cache data-prep-toolkit-transforms-1.0.1.dev1`
     
     
 
