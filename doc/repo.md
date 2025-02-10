@@ -81,7 +81,7 @@ to define them unless a parent directory does not recurse into the directory.
 ### Build and deploy a dev release for integration testing (Recommended step for all transforms prior to merging the corresponding PR)
 
 1. Create your fork from the main repo or sync an existing fork with main repo
-1. clone the fork
+1. Clone the fork
     ```shell
     git clone git@github.com:<USER>/data-prep-kit.git data-prep-kit-dev
     cd data-prep-kit-dev
@@ -97,7 +97,7 @@ to define them unless a parent directory does not recurse into the directory.
      git fetch <remote_name_PR1> <branch_name>
      git merge <remote_name_PR1>/<branch_name>
      ```
-1. Change to the transforms folder, clean any previous build, build a new wheel and publish the wheel as a dev branch tp pypi. Follow [instructions](https://packaging.python.org/en/latest/specifications/pypirc/#using-another-package-index) to setup your environment to be able to publish:
+1. Change to the transforms folder, clean any previous build, build a new wheel and publish the wheel as a dev branch to pypi. Follow [instructions](https://packaging.python.org/en/latest/specifications/pypirc/#using-another-package-index) to setup your environment to be able to publish:
     ```shell
     cd transforms
     rm -fr build dist data_prep_toolkit_transforms.egg-info
@@ -105,7 +105,7 @@ to define them unless a parent directory does not recurse into the directory.
     pip install twine
     make publish-dist
     ```
-1. **Note**- 'make publish-dist' will fail if f a previous build with the same tag is already present on pypi. In this case, add a 'build tag' and publish again. The 'build tag' is a number that immediately follows the distribution package version seperated by a dash `({distribution}-{version}(-{build tag})?-{python tag}-{abi tag}-{platform tag}.whl)`
+1. **Note**- 'make publish-dist' will fail if a previous build with the same tag is already present on pypi. In this case, add a 'build tag' and publish again. The 'build tag' is a number that immediately follows the distribution package version seperated by a dash `({distribution}-{version}(-{build tag})?-{python tag}-{abi tag}-{platform tag}.whl)`
 
     ```shell
     mv dist/data_prep_toolkit_transforms-1.0.1.dev1-py3-none-any.whl dist/data_prep_toolkit_transforms-1.0.1.dev1-1-py3-none-any.whl
