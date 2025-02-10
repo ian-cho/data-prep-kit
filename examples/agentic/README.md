@@ -8,7 +8,19 @@
 
 ## Project Overview
 
-This project focuses on automating the integration of LLM based workflow in the data access.
+This project focuses on automating the integration of Large Language Models (LLM) based workflow in the data access.
+It contains the following notebooks:
+
+- [Planning_DPK_agent.ipynb](Planning_DPK_agent.ipynb): Planner for Data-Prep-Kit tasks with code generation.
+- [dpk_langchain.ipynb](dpk_tools.ipynb): Use DPK transforms defined as [langchain tools](https://python.langchain.com/v0.1/docs/modules/tools/) or  [llama-index tools](https://docs.llamaindex.ai/en/stable/module_guides/deploying/agents/tools/). 
+This notebook leverages LLM to generate a DPK transforms pipeline based on natural language inputs. 
+The LLM processes the provided input and produces the pipeline in the correct format, making it ready for execution.
+Subsequently, each transform in the pipeline is invoked by calling its lang-chain or llama-index implementations.
+
+
+## Before you begin
+
+Ensure that you have python 3.11
 
 ## Installation Guide
 
@@ -52,8 +64,9 @@ pip install -r requirements.txt
          ```
 
 ## Usage
-**TBD**
 
-## Notes
-- [Planning_DPK_agent.ipynb](Planning_DPK_agent.ipynb): Planner for Data-Prep-Kit tasks with code generation.
-- [dpk_langchain.ipynb](dpk_tools.ipynb): Invoke DPK transforms defined as [langchain tools](https://python.langchain.com/v0.1/docs/modules/tools/) or  [llama-index tools](https://docs.llamaindex.ai/en/stable/module_guides/deploying/agents/tools/).
+To lunch a notebook execute the following command:
+```bash
+Jupyter notebook
+```
+
