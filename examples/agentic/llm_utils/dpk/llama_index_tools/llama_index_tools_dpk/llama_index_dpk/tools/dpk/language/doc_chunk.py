@@ -1,11 +1,9 @@
 import logging
 from typing import Optional, Type
 import sys
+from typing import Any
 
-from langchain_core.callbacks import CallbackManagerForToolRun
-from langchain_core.tools import BaseTool
 from pydantic import BaseModel, Field
-
 
 from llm_utils.dpk.dpk_common import (
     DPKDataAccessInput,
@@ -71,55 +69,49 @@ def add_transform_params(transform_params: dict, kwargs):
             transform_params[field] = kwargs[field]
 
 
-class DocChunkTransform(BaseTool):  # type: ignore[override, override]
+def doc_chunk(**kwargs: Any) -> str:
     """Tool that apples doc_chunk transform."""
 
-    name: str = "doc_chunk"
-    args_schema: Type[BaseModel] = DocChunkInput
-    description: str = "Apply DocChunk transform on files in input folder"
+    kwargs = kwargs.get("kwargs", None)
 
-    def _run(
-        self,
-        input_folder: str = "",
-        output_folder: str = "",
-        run_manager: Optional[CallbackManagerForToolRun] = None,
-        **kwargs,
-    ) -> str:
-        if input_folder == "" or output_folder == "":
-            return "Error: input folder or output folder are missing"
-        try:
-            runtime_type = kwargs.get("runtime_type", "python")
-            data_type = kwargs.get("data_type", "local")
-            transform_params = {
-                "input_folder": input_folder,
-                "output_folder": output_folder,
-            }
-            add_runtime_params(transform_params, runtime_type, kwargs)
-            add_data_access_params(transform_params, data_type, kwargs)
-            add_transform_params(transform_params, kwargs)
+    input_folder = kwargs.get("input_folder", "")
+    output_folder = kwargs.get("output_folder", "")
 
-            if runtime_type.strip().lower() == "ray":
-                from dpk_doc_chunk.ray.transform import DocChunkRayTransformConfiguration
-                from data_processing_ray.runtime.ray import RayTransformLauncher
+    if input_folder == "" or output_folder == "":
+        return "Error: input folder or output folder are missing"
+    try:
+        runtime_type = kwargs.get("runtime_type", "python")
+        data_type = kwargs.get("data_type", "local")
+        transform_params = {
+            "input_folder": input_folder,
+            "output_folder": output_folder,
+        }
+        add_runtime_params(transform_params, runtime_type, kwargs)
+        add_data_access_params(transform_params, data_type, kwargs)
+        add_transform_params(transform_params, kwargs)
 
-                sys.argv = ParamsUtils.dict_to_req(d=transform_params)
-                launcher = RayTransformLauncher(DocChunkRayTransformConfiguration())
+        if runtime_type.strip().lower() == "ray":
+            from dpk_doc_chunk.ray.transform import DocChunkRayTransformConfiguration
+            from data_processing_ray.runtime.ray import RayTransformLauncher
 
-            elif runtime_type.strip().lower() == "python":
-                from data_processing.runtime.pure_python import PythonTransformLauncher
-                from dpk_doc_chunk.transform_python import DocChunkPythonTransformConfiguration
+            sys.argv = ParamsUtils.dict_to_req(d=transform_params)
+            launcher = RayTransformLauncher(DocChunkRayTransformConfiguration())
 
-                sys.argv = ParamsUtils.dict_to_req(d=transform_params)
-                launcher = PythonTransformLauncher(
-                    DocChunkPythonTransformConfiguration()
-                )
-            else:
-                return f"Error: Unrecognizable type of TransformRuntimeConfiguration  in doc_chunk transform - {runtime_type}."
-            print(f"launching transform with params: {transform_params}")
-            return_code = launcher.launch()
-            if return_code != 0:
-                return "Error doc_chunk Job Failed"
+        elif runtime_type.strip().lower() == "python":
+            from data_processing.runtime.pure_python import PythonTransformLauncher
+            from dpk_doc_chunk.transform_python import DocChunkPythonTransformConfiguration
 
-            return f"doc_chunk transform successfully applied with input_folder {input_folder} output_folder {output_folder}."
-        except Exception as e:
-            return "Error: " + str(e)
+            sys.argv = ParamsUtils.dict_to_req(d=transform_params)
+            launcher = PythonTransformLauncher(
+                DocChunkPythonTransformConfiguration()
+            )
+        else:
+            return f"Error: Unrecognizable type of TransformRuntimeConfiguration  in doc_chunk transform - {runtime_type}."
+        print(f"launching transform with params: {transform_params}")
+        return_code = launcher.launch()
+        if return_code != 0:
+            return "Error doc_chunk Job Failed"
+
+        return f"doc_chunk transform successfully applied with input_folder {input_folder} output_folder {output_folder}."
+    except Exception as e:
+        return "Error: " + str(e)
