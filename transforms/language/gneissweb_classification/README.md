@@ -34,6 +34,7 @@ The prefix gcls is short name for Gneissweb CLaSsification.
   --gcls_content_column_name GCLS_CONTENT_COLUMN_NAME   A name of the column containing documents
   --gcls_output_lable_column_name GCLS_OUTPUT_LABEL_COLUMN_NAME   Column name to store classification results
   --gcls_output_score_column_name GCLS_OUTPUT_SCORE_COLUMN_NAME   Column name to store the score of prediction
+  --gcls_n_processes NUMBER_OF_PROCESSES   number of processes, an integer value. Larger value will give a better throughput in compensation for memory consumption
 ```
 These correspond to the configuration keys described above.
 

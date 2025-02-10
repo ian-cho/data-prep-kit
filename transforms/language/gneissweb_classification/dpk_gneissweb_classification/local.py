@@ -15,10 +15,11 @@ import os
 from data_processing.data_access import DataAccessLocal
 from dpk_gneissweb_classification.transform import (
     ClassificationTransform,
-    content_column_name_key,
-    model_credential_key,
-    model_file_name_key,
-    model_url_key,
+    content_column_name_cli_param,
+    model_credential_cli_param,
+    model_file_name_cli_param,
+    model_url_cli_param,
+    n_processes_cli_param,
 )
 
 
@@ -26,10 +27,11 @@ from dpk_gneissweb_classification.transform import (
 input_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "test-data", "input"))
 
 classification_params = {
-    model_credential_key: "PUT YOUR OWN HUGGINGFACE CREDENTIAL",
-    model_file_name_key: "model.bin",
-    model_url_key:"facebook/fasttext-language-identification",
-    content_column_name_key: "text",
+    model_credential_cli_param: "PUT YOUR OWN HUGGINGFACE CREDENTIAL",
+    model_file_name_cli_param: "model.bin",
+    model_url_cli_param:"facebook/fasttext-language-identification",
+    content_column_name_cli_param: "text",
+    n_processes_cli_param: 1,
 }
 if __name__ == "__main__":
     # Here we show how to run outside of the runtime

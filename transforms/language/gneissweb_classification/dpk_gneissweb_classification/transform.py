@@ -19,6 +19,7 @@ from data_processing.transform import AbstractTableTransform, TransformConfigura
 from data_processing.utils import CLIArgumentProvider, TransformUtils
 from dpk_gneissweb_classification.classification_models import ClassificationModelFactory, ClassificationModel
 from dpk_gneissweb_classification.nlp import get_label_ds_pa
+from dpk_gneissweb_classification.nlp_parallel import get_label_ds_pa_parallel
 
 
 short_name = "gcls"
@@ -29,16 +30,19 @@ model_url_key = "model_url"
 content_column_name_key = "content_column_name"
 output_label_column_name_key = "output_label_column_name"
 output_score_column_name_key = "output_score_column_name"
+n_processes_key = "n_processes"
 model_credential_cli_param = f"{cli_prefix}{model_credential_key}"
 model_file_name_cli_param = f"{cli_prefix}{model_file_name_key}"
 model_url_cli_param = f"{cli_prefix}{model_url_key}"
 content_column_name_cli_param = f"{cli_prefix}{content_column_name_key}"
 output_label_column_name_cli_param = f"{cli_prefix}{output_label_column_name_key}"
 output_score_column_name_cli_param = f"{cli_prefix}{output_score_column_name_key}"
+n_processes_cli_param = f"{cli_prefix}{n_processes_key}"
 
 default_content_column_name = "contents"
 default_output_label_column_name = "lang"
 default_output_score_column_name = "score"
+default_n_processes = 1
 
 
 class ClassificationTransform(AbstractTableTransform):
@@ -61,27 +65,21 @@ class ClassificationTransform(AbstractTableTransform):
         # Make sure that the param name corresponds to the name used in apply_input_params method
         # of ClassificationTransformConfiguration class
         super().__init__(config)
-        self.nlp_classfication = self._get_nlp_classfication(config)
+        
+        self.model_credential = config.get(model_credential_cli_param)
+        self.model_file_name = config.get(model_file_name_cli_param)
+        self.model_url = config.get(model_url_cli_param)
+        self.n_processes = config.get(n_processes_cli_param, default_n_processes)
+        
+        if self.n_processes <= 1:
+            self.nlp_classfication = ClassificationModelFactory.create_model(url=self.model_url, file_name=self.model_file_name, credential=self.model_credential)
+        else:
+            # Suppress memory consumption as the main process does not actually use this model when multiprocessing
+            self.nlp_classfication = None
+
         self.content_column_name = config.get(content_column_name_cli_param, default_content_column_name)
         self.output_label_column_name = config.get(output_label_column_name_cli_param, default_output_label_column_name)
         self.output_score_column_name = config.get(output_score_column_name_cli_param, default_output_score_column_name)
-
-    @staticmethod
-    def _get_nlp_classfication(config) -> ClassificationModel:
-        nlp_classfication: ClassificationModel
-
-        model_credential = config.get(model_credential_cli_param)
-        model_file_name = config.get(model_file_name_cli_param)
-        model_url = config.get(model_url_cli_param)
-
-        if model_credential is None or len(model_credential) == 0:
-            raise ValueError("model_credential_cli_param is not specified.")
-        elif model_file_name is None or len(model_credential) == 0:
-            raise ValueError("model_file_name_cli_param is not specified.")
-        else:
-            nlp_classfication = ClassificationModelFactory.create_model(url=model_url, file_name = model_file_name, credential=model_credential)
-
-        return nlp_classfication
 
     def transform(self, table: pa.Table, file_name: str | None = None) -> tuple[list[pa.Table], dict[str, Any]]:  # pylint:disable=unused-argument
         """
@@ -98,13 +96,26 @@ class ClassificationTransform(AbstractTableTransform):
                 f"column to store score of label ({self.output_score_column_name}) already exist"
             )
         self.logger.debug(f"Transforming one table with {len(table)} rows")
-        table, stats = get_label_ds_pa(
-            table,
-            self.nlp_classfication,
-            self.content_column_name,
-            self.output_label_column_name,
-            self.output_score_column_name,
-        )
+        if self.n_processes <= 1:
+            table, stats = get_label_ds_pa(
+                table,
+                self.nlp_classfication,
+                self.content_column_name,
+                self.output_label_column_name,
+                self.output_score_column_name,
+            )
+        else:
+            table, stats = get_label_ds_pa_parallel(
+                table,
+                self.content_column_name,
+                self.output_label_column_name,
+                self.output_score_column_name,
+                self.n_processes,
+                self.model_url,
+                self.model_file_name,
+                self.model_credential,
+            )
+            
         self.logger.debug(f"Transformed one table with {len(table)} rows")
         return [table], stats
 
@@ -157,6 +168,12 @@ class ClassificationTransformConfiguration(TransformConfiguration):
             f"--{output_score_column_name_cli_param}",
             default=default_output_score_column_name,
             help="Column name to store the score",
+        )
+        parser.add_argument(
+            f"--{n_processes_cli_param}",
+            type=int,
+            default=default_n_processes,
+            help="number of processes. Must be a positive integer.",
         )
 
     def apply_input_params(self, args: Namespace) -> bool:

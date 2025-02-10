@@ -20,6 +20,7 @@ from dpk_gneissweb_classification.transform import (
     model_credential_cli_param,
     model_file_name_cli_param,
     model_url_cli_param,
+    n_processes_cli_param,
 )
 from dpk_gneissweb_classification.transform_python import ClassificationPythonTransformConfiguration
 
@@ -44,6 +45,7 @@ params = {
     model_file_name_cli_param: "model.bin",
     model_url_cli_param: "facebook/fasttext-language-identification",
     content_column_name_cli_param: "text",
+    n_processes_cli_param: 1,
 }
 if __name__ == "__main__":
     # Set the simulated command line args
