@@ -56,4 +56,4 @@ pip install -r requirements.txt
 
 ## Notes
 - [Planning_DPK_agent.ipynb](Planning_DPK_agent.ipynb): Planner for Data-Prep-Kit tasks with code generation.
-- [dpk_intro_1_langchain.ipynb](dpk_intro_1_langchain.ipynb): .
+- [dpk_langchain.ipynb](dpk_tools.ipynb): Invoke DPK transforms defined as [langchain tools](https://python.langchain.com/v0.1/docs/modules/tools/) or  [llama-index tools](https://docs.llamaindex.ai/en/stable/module_guides/deploying/agents/tools/).

@@ -1,9 +1,8 @@
 import logging
 from typing import Optional, Type
 import sys
+from typing import Any
 
-from langchain_core.callbacks import CallbackManagerForToolRun
-from langchain_core.tools import BaseTool
 from pydantic import BaseModel, Field
 
 logger = logging.getLogger(__name__)
@@ -66,55 +65,49 @@ def add_transform_params(transform_params: dict, kwargs):
             transform_params[field] = kwargs[field]
 
 
-class Pdf2parquetTransform(BaseTool):
+def pdf2parquet(**kwargs: Any) -> str:
     """Tool that apples pdf2parquet transform."""
 
-    name: str = "pdf2parquet"
-    args_schema: Type[BaseModel] = Pdf2parquetInput
-    description: str = "Apply pdf2parquet transform on files in input folder"
+    kwargs = kwargs.get("kwargs", None)
 
-    def _run(
-        self,
-        input_folder: str = "",
-        output_folder: str = "",
-        run_manager: Optional[CallbackManagerForToolRun] = None,
-        **kwargs,
-    ) -> str:
-        if input_folder == "" or output_folder == "":
-            return "Error: input folder or output folder are missing"
-        try:
-            runtime_type = kwargs.get("runtime_type", "python")
-            data_type = kwargs.get("data_type", "local")
-            transform_params = {
-                "input_folder": input_folder,
-                "output_folder": output_folder,
-            }
-            add_runtime_params(transform_params, runtime_type, kwargs)
-            add_data_access_params(transform_params, data_type, kwargs)
-            add_transform_params(transform_params, kwargs)
+    input_folder = kwargs.get("input_folder", "")
+    output_folder = kwargs.get("output_folder", "")
 
-            if runtime_type.strip().lower() == "ray":
-                from data_processing_ray.runtime.ray import RayTransformLauncher
-                from dpk_pdf2parquet.ray.transform import Pdf2ParquetRayTransformConfiguration
+    if input_folder == "" or output_folder == "":
+        return "Error: input folder or output folder are missing"
+    try:
+        runtime_type = kwargs.get("runtime_type", "python")
+        data_type = kwargs.get("data_type", "local")
+        transform_params = {
+            "input_folder": input_folder,
+            "output_folder": output_folder,
+        }
+        add_runtime_params(transform_params, runtime_type, kwargs)
+        add_data_access_params(transform_params, data_type, kwargs)
+        add_transform_params(transform_params, kwargs)
 
-                sys.argv = ParamsUtils.dict_to_req(d=transform_params)
-                launcher = RayTransformLauncher(Pdf2ParquetRayTransformConfiguration())
+        if runtime_type.strip().lower() == "ray":
+            from data_processing_ray.runtime.ray import RayTransformLauncher
+            from dpk_pdf2parquet.ray.transform import Pdf2ParquetRayTransformConfiguration
 
-            elif runtime_type.strip().lower() == "python":
-                from dpk_pdf2parquet.transform_python import Pdf2ParquetPythonTransformConfiguration
-                from data_processing.runtime.pure_python import PythonTransformLauncher
+            sys.argv = ParamsUtils.dict_to_req(d=transform_params)
+            launcher = RayTransformLauncher(Pdf2ParquetRayTransformConfiguration())
 
-                sys.argv = ParamsUtils.dict_to_req(d=transform_params)
-                launcher = PythonTransformLauncher(
-                    Pdf2ParquetPythonTransformConfiguration()
-                )
+        elif runtime_type.strip().lower() == "python":
+            from dpk_pdf2parquet.transform_python import Pdf2ParquetPythonTransformConfiguration
+            from data_processing.runtime.pure_python import PythonTransformLauncher
 
-            else:
-                return f"Error: Unrecognizable type of TransformRuntimeConfiguration  in pdf2parquet transform - {runtime_type}."
-            return_code = launcher.launch()
-            if return_code != 0:
-                return "Error pdf2parquet Job Failed"
+            sys.argv = ParamsUtils.dict_to_req(d=transform_params)
+            launcher = PythonTransformLauncher(
+                Pdf2ParquetPythonTransformConfiguration()
+            )
 
-            return f"pdf2parquet transform successfully applied with input_folder {input_folder} output_folder {output_folder}."
-        except Exception as e:
-            return "Error: " + str(e)
+        else:
+            return f"Error: Unrecognizable type of TransformRuntimeConfiguration  in pdf2parquet transform - {runtime_type}."
+        return_code = launcher.launch()
+        if return_code != 0:
+            return "Error pdf2parquet Job Failed"
+
+        return f"pdf2parquet transform successfully applied with input_folder {input_folder} output_folder {output_folder}."
+    except Exception as e:
+        return "Error: " + str(e)

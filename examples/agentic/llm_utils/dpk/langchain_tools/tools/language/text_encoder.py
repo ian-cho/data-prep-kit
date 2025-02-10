@@ -8,7 +8,7 @@ from pydantic import BaseModel, Field
 
 logger = logging.getLogger(__name__)
 
-from llm_utils.dpk.langchain_tools.tools.dpk_common import (
+from llm_utils.dpk.dpk_common import (
     DPKDataAccessInput,
     DPKRuntimeInput,
     add_runtime_params,
