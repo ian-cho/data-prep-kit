@@ -60,8 +60,8 @@ pip install -r requirements.txt
          ```
    - Ollama: 
       - Download [Ollama](https://ollama.com/download).
-      - Download one of the supported [models](https://ollama.com/search).
-      - update the `model_ollama_*` names in the relevant cells.
+      - Download one of the supported [models](https://ollama.com/search). We used `llama3.3` in our testing.
+      - update the `model_ollama_*` names in the relevant cells if needed.
    - Watsonx:
       - Register for Watsonx
       - Obtain its API key
