@@ -42,20 +42,24 @@ pip install -r requirements.txt
 ```
 
 3. Configure access to LLM:
-   Please note that the notebooks have been tested on specific Large Language Models (LLMs), and due to the inherent nature of LLMs, using a different model may not yield the same results.
 
-   We have currently tested the following frameworks:
+   We have currently used the following frameworks:
    - [Replicate](https://replicate.com/) 
    - [Watsonx](https://www.ibm.com/watsonx)
-   - locally running [Ollama](https://ollama.com/)
+   - locally running [Ollama](https://ollama.com/) (on mac)
 
-   Setup Instructions for each framework:
+   Please note that the notebooks have been tested with a specific LLM and due to the inherent nature of LLMs, using a different model may not produce the same results.
+
+   3.1 Setup Instructions for each framework:
+
+   The notebook cell that defines the models contains all frameworks with only the replicate part uncomment.  To use one of the other frameworks uncomment its part in the cell while commenting out the other frameworks. 
 
    - Replicate:
       - Obtain Replicate API token
       - Store the following value in the `.env` file located in your project directory:
          ```
             REPLICATE_API_TOKEN=<your Replicate API token>
+         ```
    - Ollama: 
       - Download [Ollama](https://ollama.com/download).
       - Download one of the supported [models](https://ollama.com/search).
@@ -69,7 +73,6 @@ pip install -r requirements.txt
             WATSON_PROJECT_ID=<your Watsonx project ID>
             WATSONX_APIKEY=<your Watsonx API key>
          ```
-      - Uncomment the Watsonx configuration entries, update the Watsonx `model_watsonx_*` names, and comment out the Ollama configuration entries.
 
 ## Usage
 
