@@ -7,6 +7,6 @@ langchain-openai==0.2.14
 langgraph==0.2.35
 ibm_watsonx_ai==1.1.11
 python-dotenv
-PyGithub
 pypdf
 replicate
+black==24.10.0

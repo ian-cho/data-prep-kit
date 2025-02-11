@@ -11,7 +11,8 @@
 This project focuses on automating the integration of Large Language Models (LLM) based workflow in the data access.
 It contains the following notebooks:
 
-- [Planning_DPK_agent.ipynb](Planning_DPK_agent.ipynb): Planner for Data-Prep-Kit tasks with code generation.
+- [Planning_DPK_agent.ipynb](Planning_DPK_agent.ipynb): Planner for Data-Prep-Kit tasks with code generation. This notebook enables the data engineer (or data user) to efficiently build and run pipelines that performs required tasks defined by a natural language. It includes a langgraph LLM agent that has several components like planner, judge, and code generator. This agent can generate as a result a python code of a DPK pipeline which can be run by the user from command line.
+
 - [dpk_as_tools.ipynb](dpk_as_tools.ipynb): Use DPK transforms defined as [langchain tools](https://python.langchain.com/v0.1/docs/modules/tools/) or  [llama-index tools](https://docs.llamaindex.ai/en/stable/module_guides/deploying/agents/tools/). 
 This notebook leverages LLM to generate a DPK transforms pipeline based on natural language inputs. 
 The LLM processes the provided input and produces the pipeline in the correct format, making it ready for execution.
@@ -56,9 +57,9 @@ pip install -r requirements.txt
          ```
             REPLICATE_API_TOKEN=<your Replicate API token>
    - Ollama: 
-      - Download Ollama](https://ollama.com/download).
+      - Download [Ollama](https://ollama.com/download).
       - Download one of the supported [models](https://ollama.com/search).
-      - update the `model_ollama_*` names in the relevant cell below
+      - update the `model_ollama_*` names in the relevant cells.
    - Watsonx:
       - Register for Watsonx
       - Obtain its API key
@@ -78,4 +79,3 @@ Jupyter notebook
 ```
 
 Once the Jupyter interface is loaded, select the desired notebook to begin working with it.
-
