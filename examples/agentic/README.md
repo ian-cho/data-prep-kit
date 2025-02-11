@@ -48,11 +48,9 @@ pip install -r requirements.txt
    - [Watsonx](https://www.ibm.com/watsonx)
    - locally running [Ollama](https://ollama.com/) (on mac)
 
-   Please note that the notebooks have been tested with a specific LLM and due to the inherent nature of LLMs, using a different model may not produce the same results.
-
    3.1 Setup Instructions for each framework:
 
-   The notebook cell that defines the models contains all frameworks with only the replicate part uncomment.  To use one of the other frameworks uncomment its part in the cell while commenting out the other frameworks. 
+   The notebook cell that defines the models contains all frameworks with only the `replicate` part uncomment.  To use one of the other frameworks uncomment its part in the cell while commenting out the other frameworks. Please note that the frameworks have been tested with a specific LLM and due to the inherent nature of LLMs, using a different model may not produce the same results.
 
    - Replicate:
       - Obtain Replicate API token
