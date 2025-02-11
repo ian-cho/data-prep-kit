@@ -43,7 +43,7 @@ pip install -r requirements.txt
 
 3. Configure access to LLM:
 
-   We have currently used the following frameworks:
+   We have have tested our project with the following LLM execution frameworks:
    - [Replicate](https://replicate.com/) 
    - [Watsonx](https://www.ibm.com/watsonx)
    - locally running [Ollama](https://ollama.com/) (on mac)
@@ -60,7 +60,7 @@ pip install -r requirements.txt
          ```
    - Ollama: 
       - Download [Ollama](https://ollama.com/download).
-      - Download one of the supported [models](https://ollama.com/search). We used `llama3.3` in our testing.
+      - Download one of the supported [models](https://ollama.com/search). We tested with `llama3.3` model.
       - update the `model_ollama_*` names in the relevant cells if needed.
    - Watsonx:
       - Register for Watsonx
