@@ -13,17 +13,20 @@ import replicate
 
 CONFIG_LOCATION = ".env"
 
+
 class ReplicateChatModel(BaseChatModel):
     model_id: str = Field(description="The Replicate model ID")
     params: Dict = Field(default_factory=dict, description="Model parameters")
 
-    def _generate(self, messages: List[BaseMessage], stop: Optional[List[str]] = None, run_manager: Optional = None, **kwargs) -> ChatResult:
+    def _generate(self, messages: List[BaseMessage], stop: Optional[List[str]] = None, run_manager: Optional = None,
+                  **kwargs) -> ChatResult:
         prompt = " ".join(m.content for m in messages)
         response = replicate.run(self.model_id, input={"prompt": prompt, **self.params})
         message = AIMessage(content=response)
         return ChatResult(generations=[ChatGeneration(message=message)])
 
-    def _stream(self, messages: List[BaseMessage], stop: Optional[List[str]] = None, run_manager: Optional = None, **kwargs) -> Iterator[ChatGeneration]:
+    def _stream(self, messages: List[BaseMessage], stop: Optional[List[str]] = None, run_manager: Optional = None,
+                **kwargs) -> Iterator[ChatGeneration]:
         print(f"replicate stream")
         prompt = " ".join(m.content for m in messages)
         for chunk in replicate.stream(self.model_id, input={"prompt": prompt, **self.params}):
@@ -32,6 +35,7 @@ class ReplicateChatModel(BaseChatModel):
     @property
     def _llm_type(self) -> str:
         return "replicate"
+
 
 def getLLM(inference: str, model_id: str = None, config: dict = None) -> LLM:
     loggingCallbackHandler = LoggingCallbackHandler()
@@ -44,31 +48,6 @@ def getLLM(inference: str, model_id: str = None, config: dict = None) -> LLM:
         if model_id is None or len(model_id) == 0:
             model_id = "llama3.1:70b"
         return OllamaLLM(model=model_id, temperature=0, callbacks=[loggingCallbackHandler])
-
-    elif inference == "bamllm":
-        from llm import BAMLLM
-        from genai.schema import TextGenerationParameters, DecodingMethod
-
-        parameters = {
-            "decoding_method": DecodingMethod.GREEDY,  # GREEDY or SAMPLE
-            "max_new_tokens": 1024,  # 0 to 4096
-            "min_new_tokens": 1,  # >=0
-            "stop_sequence": None,
-            "temperature": 0,  # 0.0 - 2.0, step 0.01
-        }
-        if model_id is None or len(model_id) == 0:
-            model_id = "meta-llama/llama-3-70b-instruct"
-
-        api_key = config["BAM_KEY"]
-        api_base = config["API_BASE"]
-
-        return BAMLLM(
-            model_id=model_id,
-            api_key=api_key,
-            api_base=api_base,
-            llm_params=TextGenerationParameters(**parameters),
-            callbacks=[loggingCallbackHandler],
-        )
     elif inference == "watsonx":
         from langchain_ibm import WatsonxLLM
         from genai.schema import DecodingMethod
@@ -98,12 +77,12 @@ def getLLM(inference: str, model_id: str = None, config: dict = None) -> LLM:
         )
     else:
         raise ValueError(
-            f"Inference type {inference} is wrong, supported values are [ollama, bamllm, watsonx]"
+            f"Inference type {inference} is wrong, supported values are [ollama, watsonx]"
         )
 
 
 def getChatLLM(
-    inference: str, model_id: str = None, config: dict = None, params: Optional[Dict[str, Any]] = None
+        inference: str, model_id: str = None, config: dict = None, params: Optional[Dict[str, Any]] = None
 ) -> BaseChatModel:
     loggingCallbackHandler = LoggingCallbackHandler()
 
@@ -117,8 +96,6 @@ def getChatLLM(
             model_id = "llama3.1:70b"
         return ChatOllama(model=model_id, temperature=0, callbacks=[loggingCallbackHandler])
 
-    # elif inference == "bamllm": TODO
-    #
     elif inference == "watsonx":
         from langchain_ibm import ChatWatsonx
         from genai.schema import DecodingMethod
@@ -164,7 +141,7 @@ def getChatLLM(
         if model_id is None:
             model_id = "meta/meta-llama-3-70b-instruct"
         default_params = {
-            "temperature": 0,  
+            "temperature": 0,
             "max_length": 1024,
             "max_new_tokens": 4096,
             "top_p": 1
@@ -177,6 +154,7 @@ def getChatLLM(
         raise ValueError(
             f"Inference type {inference} is wrong, supported values are [ollama, watsonx]"
         )
+
 
 BASE_URL = "https://inference-3scale-apicast-production.apps.rits.fmaas.res.ibm.com/{model_name}/v1"
 

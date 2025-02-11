@@ -9,7 +9,4 @@ ibm_watsonx_ai==1.1.11
 python-dotenv
 PyGithub
 pypdf
-GitPython
-black==24.10.0
-docker
 replicate

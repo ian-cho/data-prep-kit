@@ -12,7 +12,7 @@ This project focuses on automating the integration of Large Language Models (LLM
 It contains the following notebooks:
 
 - [Planning_DPK_agent.ipynb](Planning_DPK_agent.ipynb): Planner for Data-Prep-Kit tasks with code generation.
-- [dpk_langchain.ipynb](dpk_tools.ipynb): Use DPK transforms defined as [langchain tools](https://python.langchain.com/v0.1/docs/modules/tools/) or  [llama-index tools](https://docs.llamaindex.ai/en/stable/module_guides/deploying/agents/tools/). 
+- [dpk_as_tools.ipynb](dpk_as_tools.ipynb): Use DPK transforms defined as [langchain tools](https://python.langchain.com/v0.1/docs/modules/tools/) or  [llama-index tools](https://docs.llamaindex.ai/en/stable/module_guides/deploying/agents/tools/). 
 This notebook leverages LLM to generate a DPK transforms pipeline based on natural language inputs. 
 The LLM processes the provided input and produces the pipeline in the correct format, making it ready for execution.
 Subsequently, each transform in the pipeline is invoked by calling its lang-chain or llama-index implementations.
@@ -40,13 +40,26 @@ pip install ipython && pip install ipykernel
 pip install -r requirements.txt
 ```
 
-3. Configure access to LLM
-   Currently, we support [Watsonx](https://www.ibm.com/watsonx), [Replicate](https://replicate.com/), and locally running [Ollama](https://ollama.com/).
-   - To use Ollama: 
+3. Configure access to LLM:
+   Please note that the notebooks have been tested on specific Large Language Models (LLMs), and due to the inherent nature of LLMs, using a different model may not yield the same results.
+
+   We have currently tested the following frameworks:
+   - [Replicate](https://replicate.com/) 
+   - [Watsonx](https://www.ibm.com/watsonx)
+   - locally running [Ollama](https://ollama.com/)
+
+   Setup Instructions for each framework:
+
+   - Replicate:
+      - Obtain Replicate API token
+      - Store the following value in the `.env` file located in your project directory:
+         ```
+            REPLICATE_API_TOKEN=<your Replicate API token>
+   - Ollama: 
       - Download Ollama](https://ollama.com/download).
-      - Download one of the supported [modules](https://ollama.com/search).
-      - update the `model_ollama_*` names in the cell below
-   - To use Watsonx:
+      - Download one of the supported [models](https://ollama.com/search).
+      - update the `model_ollama_*` names in the relevant cell below
+   - Watsonx:
       - Register for Watsonx
       - Obtain its API key
       - Store the following values in the `.env` file located in your project directory:
@@ -56,17 +69,13 @@ pip install -r requirements.txt
             WATSONX_APIKEY=<your Watsonx API key>
          ```
       - Uncomment the Watsonx configuration entries, update the Watsonx `model_watsonx_*` names, and comment out the Ollama configuration entries.
-   - To use Replicate:
-      - Obtain Replicate API token
-      - Store the following value in the `.env` file located in your project directory:
-         ```
-            REPLICATE_API_TOKEN=<your Replicate API token>
-         ```
 
 ## Usage
 
-To lunch a notebook execute the following command:
+To launch the notebooks, execute the following command in your terminal:
 ```bash
 Jupyter notebook
 ```
+
+Once the Jupyter interface is loaded, select the desired notebook to begin working with it.
 
