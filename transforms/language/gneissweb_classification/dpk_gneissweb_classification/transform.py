@@ -90,8 +90,6 @@ class ClassificationTransform(AbstractTableTransform):
                 raise Exception(
                     f"column to store score of label ({score_column_name}) already exist"
                 )
-        #ここでfor終わるけどもう一回for始める
-        #modelを複数loadしておくとメモリ的にきついかもなのでn_processes 1でもここでloadすることにする
         self.logger.debug(f"Transforming one table with {len(table)} rows")
         for url, file_name, label_column_name, score_column_name in zip(self.model_url, self.model_file_name,self.output_label_column_name,self.output_score_column_name):
             if self.n_processes <= 1:
