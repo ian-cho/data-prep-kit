@@ -21,6 +21,8 @@ from dpk_gneissweb_classification.transform import (
     model_file_name_cli_param,
     model_url_cli_param,
     n_processes_cli_param,
+    output_label_column_name_cli_param,
+    output_score_column_name_cli_param
 )
 from dpk_gneissweb_classification.transform_python import ClassificationPythonTransformConfiguration
 
@@ -42,8 +44,10 @@ params = {
     "runtime_code_location": ParamsUtils.convert_to_ast(code_location),
     # classification params
     model_credential_cli_param: "PUT YOUR OWN HUGGINGFACE CREDENTIAL",
-    model_file_name_cli_param: "model.bin",
-    model_url_cli_param: "facebook/fasttext-language-identification",
+    model_file_name_cli_param:["model.bin", "model.bin"],
+    model_url_cli_param: ["facebook/fasttext-language-identification","facebook/fasttext-language-identification"],
+    output_label_column_name_cli_param:["lang1","lang2"],
+    output_score_column_name_cli_param:["score1","score2"],
     content_column_name_cli_param: "text",
     n_processes_cli_param: 1,
 }
@@ -54,3 +58,4 @@ if __name__ == "__main__":
     launcher = PythonTransformLauncher(runtime_config=ClassificationPythonTransformConfiguration())
     # Launch the ray actor(s) to process the input
     launcher.launch()
+
