@@ -15,11 +15,14 @@ from typing import Any
 
 import pyarrow as pa
 
+import ast
+
 from data_processing.transform import AbstractTableTransform, TransformConfiguration
 from data_processing.utils import CLIArgumentProvider, TransformUtils
 from dpk_gneissweb_classification.classification_models import ClassificationModelFactory, ClassificationModel
 from dpk_gneissweb_classification.nlp import get_label_ds_pa
 from dpk_gneissweb_classification.nlp_parallel import get_label_ds_pa_parallel
+
 
 
 short_name = "gcls"
@@ -40,8 +43,8 @@ output_score_column_name_cli_param = f"{cli_prefix}{output_score_column_name_key
 n_processes_cli_param = f"{cli_prefix}{n_processes_key}"
 
 default_content_column_name = "contents"
-default_output_label_column_name = ["lang"]
-default_output_score_column_name = ["score"]
+default_output_label_column_name = ["['lang']"]
+default_output_score_column_name = ["['score']"]
 default_n_processes = 1
 
 
@@ -67,12 +70,12 @@ class ClassificationTransform(AbstractTableTransform):
         super().__init__(config)
         
         self.model_credential = config.get(model_credential_cli_param)
-        self.model_file_name = config.get(model_file_name_cli_param)
-        self.model_url = config.get(model_url_cli_param)
+        self.model_file_name = ast.literal_eval(config.get(model_file_name_cli_param)[0])
+        self.model_url = ast.literal_eval(config.get(model_url_cli_param)[0])
         self.n_processes = config.get(n_processes_cli_param, default_n_processes)
         self.content_column_name = config.get(content_column_name_cli_param, default_content_column_name)
-        self.output_label_column_name = config.get(output_label_column_name_cli_param, default_output_label_column_name)
-        self.output_score_column_name = config.get(output_score_column_name_cli_param, default_output_score_column_name)
+        self.output_label_column_name = ast.literal_eval(config.get(output_label_column_name_cli_param, default_output_label_column_name)[0])
+        self.output_score_column_name = ast.literal_eval(config.get(output_score_column_name_cli_param, default_output_score_column_name)[0])
 
     def transform(self, table: pa.Table, file_name: str | None = None) -> tuple[list[pa.Table], dict[str, Any]]:  # pylint:disable=unused-argument
         """
@@ -151,10 +154,17 @@ class ClassificationTransformConfiguration(TransformConfiguration):
         parser.add_argument(
             f"--{model_file_name_cli_param}",
             type=str,
+            nargs="+",
             default="",
             help="filename of model",
         )
-        parser.add_argument(f"--{model_url_cli_param}", help="Url to model")
+        parser.add_argument(
+            f"--{model_url_cli_param}",
+            type=str,
+            nargs="+",
+            default="",
+            help="Url to model"
+        )
         parser.add_argument(
             f"--{content_column_name_cli_param}",
             default=default_content_column_name,
@@ -163,11 +173,15 @@ class ClassificationTransformConfiguration(TransformConfiguration):
         parser.add_argument(
             f"--{output_label_column_name_cli_param}",
             default=default_output_label_column_name,
+            type=str,
+            nargs="+",
             help="Column name to store label",
         )
         parser.add_argument(
             f"--{output_score_column_name_cli_param}",
             default=default_output_score_column_name,
+            type=str,
+            nargs="+",
             help="Column name to store the score",
         )
         parser.add_argument(
