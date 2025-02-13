@@ -36,11 +36,11 @@ class TestRayLangIdentificationTransform(AbstractTransformLauncherTest):
         basedir = os.path.abspath(os.path.join(os.path.dirname(__file__), basedir))
         config = {
             model_credential_cli_param: "PUT YOUR OWN HUGGINGFACE CREDENTIAL",
-            model_file_name_cli_param: "model.bin",
-            model_url_cli_param:"facebook/fasttext-language-identification",
+            model_file_name_cli_param: ["model.bin"],
+            model_url_cli_param:["facebook/fasttext-language-identification"],
             content_column_name_cli_param: "text",
-            output_label_column_name_cli_param: "ft_lang",
-            output_score_column_name_cli_param: "ft_score",
+            output_label_column_name_cli_param: ["ft_lang"],
+            output_score_column_name_cli_param: ["ft_score"],
             "run_locally": True,
 
         }

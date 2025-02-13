@@ -26,13 +26,12 @@ class TestLangIdentificationTransform(AbstractTableTransformTest):
     def get_test_transform_fixtures(self) -> list[tuple]:
         config = {
             "gcls_model_credential": "PUT YOUR OWN HUGGINGFACE CREDENTIAL",
-            "gcls_model_file_name": "model.bin",
-            "gcls_model_url": "facebook/fasttext-language-identification",
+            "gcls_model_file_name": ["['model.bin']"],
+            "gcls_model_url": ["['facebook/fasttext-language-identification']"],
             "gcls_content_column_name": "contents",
-            "gcls_output_label_column_name": "l",
-            "gcls_output_score_column_name": "s",
+            "gcls_output_label_column_name": ["['l']"],
+            "gcls_output_score_column_name": ["['s']"],
         }
-
 
         table = pa.Table.from_arrays(
             [
