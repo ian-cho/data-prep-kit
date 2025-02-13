@@ -13,12 +13,12 @@ configuration for values are as follows:
 
 | Configuration Parameters  | Default  | Description |
 |------------|----------|--------------|
-| gcls_model_credential | _unset_ | specifies the credential you use to get model. This will be huggingface token. [Guide to get huggingface token](https://huggingface.co/docs/hub/security-tokens) |
-| gcls_model_file_name | _unset_ | specifies what filename of model you use to get model, like `model.bin` |
-| gcls_model_url | _unset_ |  specifies url that model locates. For fasttext, this will be repo name of the model, like `facebook/fasttext-language-identification` |
+| gcls_model_credential | _unset_ | specifies the credential you use to get models. This will be huggingface token. [Guide to get huggingface token](https://huggingface.co/docs/hub/security-tokens) |
+| gcls_model_file_name | _unset_ | specifies what filename of models you use to get models, like [`model.bin`] |
+| gcls_model_url | _unset_ |  specifies urls that models locate. For fasttext, this will be repo name of the models, like [`facebook/fasttext-language-identification`] |
 | gcls_content_column_name | `contents` | specifies name of the column containing documents |
-| gcls_output_lablel_column_name | `label` | specifies name of the output column to hold predicted classes|
-| gcls_output_score_column_name | `score` | specifies name of the output column to hold score of prediction |
+| gcls_output_lablel_column_name | [`label`] | specifies name of the output column to hold predicted classes|
+| gcls_output_score_column_name | [`score`] | specifies name of the output column to hold score of prediction |
 
 ## Running
 
@@ -28,12 +28,12 @@ the options provided by
 the [launcher](../../../data-processing-lib/doc/launcher-options.md).
 The prefix gcls is short name for Gneissweb CLaSsification.
 ```
-  --gcls_model_credential GCLS_MODEL_CREDENTIAL   the credential you use to get model. This will be huggingface token.
-  --gcls_model_file_name GCLS_MODEL_KIND   filename of model you use to get model. Currently,like `model.bin`
-  --gcls_model_url GCLS_MODEL_URL   url that model locates. For fasttext, this will be repo name of the model, like `facebook/fasttext-language-identification`
+  --gcls_model_credential GCLS_MODEL_CREDENTIAL   the credential you use to get models. This will be huggingface token.
+  --gcls_model_file_name GCLS_MODEL_KIND   filename of models you use to get models. Currently,like [`model.bin`]
+  --gcls_model_url GCLS_MODEL_URL   urls that models locate. For fasttext, this will be repo name of the models, like [`facebook/fasttext-language-identification`]
   --gcls_content_column_name GCLS_CONTENT_COLUMN_NAME   A name of the column containing documents
-  --gcls_output_lable_column_name GCLS_OUTPUT_LABEL_COLUMN_NAME   Column name to store classification results
-  --gcls_output_score_column_name GCLS_OUTPUT_SCORE_COLUMN_NAME   Column name to store the score of prediction
+  --gcls_output_lable_column_name GCLS_OUTPUT_LABEL_COLUMN_NAME   Column names to store classification results
+  --gcls_output_score_column_name GCLS_OUTPUT_SCORE_COLUMN_NAME   Column names to store the score of prediction
   --gcls_n_processes NUMBER_OF_PROCESSES   number of processes, an integer value. Larger value will give a better throughput in compensation for memory consumption
 ```
 These correspond to the configuration keys described above.
