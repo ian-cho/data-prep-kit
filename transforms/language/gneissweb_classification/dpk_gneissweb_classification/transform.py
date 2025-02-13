@@ -40,8 +40,8 @@ output_score_column_name_cli_param = f"{cli_prefix}{output_score_column_name_key
 n_processes_cli_param = f"{cli_prefix}{n_processes_key}"
 
 default_content_column_name = "contents"
-default_output_label_column_name = "lang"
-default_output_score_column_name = "score"
+default_output_label_column_name = ["lang"]
+default_output_score_column_name = ["score"]
 default_n_processes = 1
 
 
@@ -70,13 +70,6 @@ class ClassificationTransform(AbstractTableTransform):
         self.model_file_name = config.get(model_file_name_cli_param)
         self.model_url = config.get(model_url_cli_param)
         self.n_processes = config.get(n_processes_cli_param, default_n_processes)
-        
-        if self.n_processes <= 1:
-            self.nlp_classfication = ClassificationModelFactory.create_model(url=self.model_url, file_name=self.model_file_name, credential=self.model_credential)
-        else:
-            # Suppress memory consumption as the main process does not actually use this model when multiprocessing
-            self.nlp_classfication = None
-
         self.content_column_name = config.get(content_column_name_cli_param, default_content_column_name)
         self.output_label_column_name = config.get(output_label_column_name_cli_param, default_output_label_column_name)
         self.output_score_column_name = config.get(output_score_column_name_cli_param, default_output_score_column_name)
@@ -88,33 +81,43 @@ class ClassificationTransform(AbstractTableTransform):
         This implementation makes no modifications so effectively implements a copy of the
         input parquet to the output folder, without modification.
         """
-        TransformUtils.validate_columns(table, [self.content_column_name])
-        if self.output_label_column_name in table.schema.names:
-            raise Exception(f"column to store label ({self.output_label_column_name}) already exist")
-        if self.output_score_column_name in table.schema.names:
-            raise Exception(
-                f"column to store score of label ({self.output_score_column_name}) already exist"
-            )
+        
+        for label_column_name, score_column_name in zip(self.output_label_column_name,self.output_score_column_name):
+            TransformUtils.validate_columns(table, [self.content_column_name])
+            if label_column_name in table.schema.names:
+                raise Exception(f"column to store label ({label_column_name}) already exist")
+            if score_column_name in table.schema.names:
+                raise Exception(
+                    f"column to store score of label ({score_column_name}) already exist"
+                )
+        #ここでfor終わるけどもう一回for始める
+        #modelを複数loadしておくとメモリ的にきついかもなのでn_processes 1でもここでloadすることにする
         self.logger.debug(f"Transforming one table with {len(table)} rows")
-        if self.n_processes <= 1:
-            table, stats = get_label_ds_pa(
-                table,
-                self.nlp_classfication,
-                self.content_column_name,
-                self.output_label_column_name,
-                self.output_score_column_name,
-            )
-        else:
-            table, stats = get_label_ds_pa_parallel(
-                table,
-                self.content_column_name,
-                self.output_label_column_name,
-                self.output_score_column_name,
-                self.n_processes,
-                self.model_url,
-                self.model_file_name,
-                self.model_credential,
-            )
+        for url, file_name, label_column_name, score_column_name in zip(self.model_url, self.model_file_name,self.output_label_column_name,self.output_score_column_name):
+            if self.n_processes <= 1:
+                nlp_classfication = ClassificationModelFactory.create_model(url=url, file_name=file_name, credential=self.model_credential)
+            else:
+                # Suppress memory consumption as the main process does not actually use this model when multiprocessing
+                nlp_classfication = None
+            if self.n_processes <= 1:
+                table, stats = get_label_ds_pa(
+                    table,
+                    nlp_classfication,
+                    self.content_column_name,
+                    label_column_name,
+                    score_column_name,
+                )
+            else:
+                table, stats = get_label_ds_pa_parallel(
+                    table,
+                    self.content_column_name,
+                    label_column_name,
+                    score_column_name,
+                    self.n_processes,
+                    url,
+                    file_name,
+                    self.model_credential,
+                )
             
         self.logger.debug(f"Transformed one table with {len(table)} rows")
         return [table], stats
