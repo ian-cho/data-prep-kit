@@ -21,8 +21,8 @@ run-cli-sample:
 	$(PYTHON) -m dpk_$(TRANSFORM_NAME).transform_python \
                 --data_local_config "{ 'input_folder' : 'test-data/input', 'output_folder' : 'output'}"  \
                 --gcls_model_credential "PUT YOUR OWN HUGGINGFACE CREDENTIAL"	\
-				--gcls_model_file_name "model.bin"	\
-				--gcls_model_url "facebook/fasttext-language-identification" \
+				--gcls_model_file_name "['model.bin']"	\
+				--gcls_model_url "['facebook/fasttext-language-identification']"\
 				--gcls_content_column_name "text"
 
 run-cli-ray-sample: 
@@ -31,6 +31,6 @@ run-cli-ray-sample:
 	$(PYTHON) -m dpk_$(TRANSFORM_NAME).ray.transform \
                 --run_locally True --data_local_config "{ 'input_folder' : 'test-data/input', 'output_folder' : 'output'}"  \
                 --gcls_model_credential "PUT YOUR OWN HUGGINGFACE CREDENTIAL"	\
-				--gcls_model_file_name "model.bin"	\
-				--gcls_model_url "facebook/fasttext-language-identification" \
+				--gcls_model_file_name "['model.bin']"	\
+				--gcls_model_url "['facebook/fasttext-language-identification']" \
 				--gcls_content_column_name "text"
