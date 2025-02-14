@@ -15,6 +15,7 @@ from typing import Any
 from rbloom import Bloom
 from hashlib import sha256
 from pickle import dumps
+import os
 import warnings
 import pandas as pd
 import pyarrow as pa
