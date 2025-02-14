@@ -28,11 +28,18 @@ class BLOOMTransform(AbstractTableTransform):
     """
     def __init__(self, config: dict[str, Any]):
         super().__init__(config)
-        self.model_name_or_path = config.get("model_name_or_path", "bf.bloom")
+        self.model_name_or_path = config.get("model_name_or_path", "ibm-granite/GneissWeb.bloom")
         self.annotation_column = config.get("annotation_column", "is_in_GneissWeb")
         self.doc_text_column = config.get("doc_text_column", "contents")
         self.batch_size = config.get("batch_size", 1000)
-        self.model = Bloom.load(self.model_name_or_path, self._hash_func)
+        if os.path.exists(self.model_name_or_path):  
+            # If it's a local path, use it directly
+            self.model_path = self.model_name_or_path
+        else:
+            # Otherwise, download from Hugging Face
+            self.model_path = hf_hub_download(repo_id=self.model_name_or_path, filename="gneissweb.bloom")
+        
+        self.model = Bloom.load(self.model_path, self._hash_func)
         warnings.warn(
                 "We are using the default hash function below. Please verify if it is correct for your Bloom filter configuration.",
                 UserWarning
@@ -105,7 +112,7 @@ class BLOOMTransformConfiguration(TransformConfiguration):
             "--model_name_or_path",
             type=str,
             required=False,
-            default="bf.bloom",
+            default="ibm-granite/GneissWeb.bloom",
             help="bloom filer model path",
         )
 
