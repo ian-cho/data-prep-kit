@@ -13,6 +13,7 @@
 import os
 from argparse import ArgumentParser, Namespace
 from pathlib import Path
+from typing import Any
 
 import pyarrow as pa
 import pyarrow.compute as pc
