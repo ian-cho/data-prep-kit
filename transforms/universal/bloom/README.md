@@ -6,9 +6,11 @@ caters to the data quality and quantity requirements of training LLMs. The model
 those trained on FineWeb by 2.14 percentage points in terms of average score computed
 on a set of 11 commonly used benchmarks.
 
-The Bloom Annotator transform assigns a label of 1 if the document is present in the GneissWeb Bloom filter; otherwise, it assigns 0. This approach provides a clear understanding of which documents in FineWeb are also present in GneissWeb and which are not. The GneissWeb Bloom filter is just one use case; the Bloom Annotator transform can work with any Bloom filter.
+The Bloom Annotator transform assigns a label of 1 if the document is present in the GneissWeb Bloom filter; otherwise, it assigns 0. This approach provides a clear understanding of which documents in FineWeb are also present in GneissWeb and which are not. The GneissWeb Bloom filter is just one use case; the Bloom Annotator transform can work with any Bloom filter. 
 
 Bloom annotator transform maps a non-empty input table to an output table with an added is_in_GneissWeb column. Each row in the table corresponds to a UUID and its associated document. The Bloom annotator transform verifies whether the document's UUID exists in the GneissWeb Bloom filter.
+
+In order to be able to reproduce GneissWeb, we provide [here](https://huggingface.co/ibm-granite/GneissWeb.bloom) a Bloom filter representing all the document ids of FineWeb 1.1.0 whose documents are part of GneissWeb. It is of size 28GB and is of the rbloom family of Bloom filters. It is to be probed with the id column of FineWeb 1.1.0 or of Common Crawl. Due to the large size of the model, a machine with larger than 16GB of memory is needed to run the transform on the local machine. 
 
 ## Contributor
 - Yang Zhao (yangzhao@ibm.com)
@@ -42,7 +44,7 @@ The set of dictionary keys holding [BLOOMTransformConfiguration](dpk_bloom/trans
 configuration for values are as follows:
 
 
-* --model_name_or_path - specify the GneissWeb Bloom filter model, which should be sourced from HuggingFace. The default is the test Bloom filter model.
+* --model_name_or_path - specify the GneissWeb Bloom filter model, which should be sourced from HuggingFace. 
 * --batch_size - modify it based on the infrastructure capacity. Defaults to `1000`.
 * --doc_text_column - the column name containing the document text in the input .parquet file. Defaults to `contents`.
 * --annotation_column - the column name containing binary score in the output .parquet file. Defaults to `is_in_GneissWeb`.
