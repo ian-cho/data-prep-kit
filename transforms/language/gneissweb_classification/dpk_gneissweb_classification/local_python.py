@@ -44,10 +44,10 @@ params = {
     "runtime_code_location": ParamsUtils.convert_to_ast(code_location),
     # classification params
     model_credential_cli_param: "PUT YOUR OWN HUGGINGFACE CREDENTIAL",
-    model_file_name_cli_param:["model.bin", "model.bin"],
-    model_url_cli_param: ["facebook/fasttext-language-identification","facebook/fasttext-language-identification"],
-    output_label_column_name_cli_param:["lang1","lang2"],
-    output_score_column_name_cli_param:["score1","score2"],
+    model_file_name_cli_param:["fasttext_medical.bin"],
+    model_url_cli_param: ["ibm-granite/GneissWeb.Med_classifier"],
+    output_label_column_name_cli_param:["label_med"],
+    output_score_column_name_cli_param:["score"],
     content_column_name_cli_param: "text",
     n_processes_cli_param: 1,
 }
