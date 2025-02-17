@@ -4,7 +4,12 @@ of a simple 1:1 transform.
 Please see the set of [transform project conventions](../../README.md#transform-project-conventions) for details on general project conventions, transform configuration, testing and IDE set up.
 
 ## Summary 
-This transform will classify each text with confidence score with fasttext classification model such as [ref](https://huggingface.co/facebook/fasttext-language-identification).
+This transform will classify each text with confidence score with fasttext classification model such as:
+- [ibm-granite/GneissWeb.Quality_annotator](https://huggingface.co/ibm-granite/GneissWeb.Quality_annotator)
+- [ibm-granite/GneissWeb.Sci_classifier](https://huggingface.co/ibm-granite/GneissWeb.Sci_classifier)
+- [ibm-granite/GneissWeb.Tech_classifier](https://huggingface.co/ibm-granite/GneissWeb.Tech_classifier)
+- [ibm-granite/GneissWeb.Edu_classifier](https://huggingface.co/ibm-granite/GneissWeb.Edu_classifier)
+- [ibm-granite/GneissWeb.Med_classifier](https://huggingface.co/ibm-granite/GneissWeb.Med_classifier)
 
 ## Configuration and command line Options
 
@@ -14,11 +19,11 @@ configuration for values are as follows:
 | Configuration Parameters  | Default  | Description |
 |------------|----------|--------------|
 | gcls_model_credential | _unset_ | specifies the credential you use to get models. This will be huggingface token. [Guide to get huggingface token](https://huggingface.co/docs/hub/security-tokens) |
-| gcls_model_file_name | _unset_ | specifies what filename of models you use to get models, like [`model.bin`] |
-| gcls_model_url | _unset_ |  specifies urls that models locate. For fasttext, this will be repo name of the models, like [`facebook/fasttext-language-identification`] |
+| gcls_model_file_name | _unset_ | specifies what filename of models you use to get models, like [`fasttext_gneissweb_quality_annotator.bin`,`fasttext_science.bin`,`fasttext_technology_computing.bin`,`fasttext_education.bin`,`fasttext_medical.bin`] |
+| gcls_model_url | _unset_ |  specifies urls that models locate. For fasttext, this will be repo name of the models, like [`ibm-granite/GneissWeb.Quality_annotator`,`ibm-granite/GneissWeb.Sci_classifier`,`ibm-granite/GneissWeb.Tech_classifier`,`ibm-granite/GneissWeb.Edu_classifier`,`ibm-granite/GneissWeb.Med_classifier`] |
 | gcls_content_column_name | `contents` | specifies name of the column containing documents |
-| gcls_output_lablel_column_name | [`label`] | specifies name of the output column to hold predicted classes|
-| gcls_output_score_column_name | [`score`] | specifies name of the output column to hold score of prediction |
+| gcls_output_lablel_column_name | [`label_quality`,`label_sci`,`label_tech`,`label_edu`,`label_med`] | specifies name of the output column to hold predicted classes|
+| gcls_output_score_column_name | [`score_quality`,`score_sci`,`score_tech`,`score_edu`,`score_med`]  | specifies name of the output column to hold score of prediction |
 
 ## Running
 
@@ -29,11 +34,11 @@ the [launcher](../../../data-processing-lib/doc/launcher-options.md).
 The prefix gcls is short name for Gneissweb CLaSsification.
 ```
   --gcls_model_credential GCLS_MODEL_CREDENTIAL   the credential you use to get models. This will be huggingface token.
-  --gcls_model_file_name GCLS_MODEL_KIND   filename of models you use to get models. Currently,like [`model.bin`]
-  --gcls_model_url GCLS_MODEL_URL   urls that models locate. For fasttext, this will be repo name of the models, like [`facebook/fasttext-language-identification`]
+  --gcls_model_file_name GCLS_MODEL_KIND   filename of models you use to get models. Currently,like [`fasttext_gneissweb_quality_annotator.bin`,`fasttext_science.bin`,`fasttext_technology_computing.bin`,`fasttext_education.bin`,`fasttext_medical.bin`]
+  --gcls_model_url GCLS_MODEL_URL   urls that models locate. For fasttext, this will be repo name of the models, like [`ibm-granite/GneissWeb.Quality_annotator`,`ibm-granite/GneissWeb.Sci_classifier`,`ibm-granite/GneissWeb.Tech_classifier`,`ibm-granite/GneissWeb.Edu_classifier`,`ibm-granite/GneissWeb.Med_classifier`]
   --gcls_content_column_name GCLS_CONTENT_COLUMN_NAME   A name of the column containing documents
-  --gcls_output_lable_column_name GCLS_OUTPUT_LABEL_COLUMN_NAME   Column names to store classification results
-  --gcls_output_score_column_name GCLS_OUTPUT_SCORE_COLUMN_NAME   Column names to store the score of prediction
+  --gcls_output_lable_column_name GCLS_OUTPUT_LABEL_COLUMN_NAME   Column names to store classification results, like [`label_quality`,`label_sci`,`label_tech`,`label_edu`,`label_med`]
+  --gcls_output_score_column_name GCLS_OUTPUT_SCORE_COLUMN_NAME   Column names to store the score of prediction, like [`score_quality`,`score_sci`,`score_tech`,`score_edu`,`score_med`]
   --gcls_n_processes NUMBER_OF_PROCESSES   number of processes, an integer value. Larger value will give a better throughput in compensation for memory consumption
 ```
 These correspond to the configuration keys described above.
