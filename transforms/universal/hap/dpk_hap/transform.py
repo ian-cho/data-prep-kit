@@ -69,7 +69,7 @@ class HAPTransform(AbstractTableTransform):
         doc_scores = []
         for i in range(nb_doc):
             temp = [score for idx, score in zip(sent_ids, sent_scores) if i == idx]
-            doc_scores.append(max(temp))
+            doc_scores.append(max(temp, default=-1))
         return doc_scores
 
     def transform(self, table: pa.Table, file_name: str = None) -> tuple[list[pa.Table], dict[str, Any]]:
