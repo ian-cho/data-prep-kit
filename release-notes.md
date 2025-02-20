@@ -33,6 +33,7 @@ Integrate Semantic profiler and report generation for code profiler transform
 ## Release 0.2.2 - 11/25/2024
 
 ### General 
+
 1. Update RAG example to use granite model 
 1. Updated transforms with Docling 2
 1. Added single package for dpk with extra for \[spark\] and \[ray\]
@@ -70,6 +71,7 @@ Integrate Semantic profiler and report generation for code profiler transform
 ## Release 0.2.2- HTTP Connector Module - 10/23/2024
 
 ### General 
+
 1. Bug fixes across the repo
 1. Minor enhancements and experimentation with single packaging techniques using \[extra\]
 1. Decoupled the release process for each of the component so we can be more responsive to the needs of our stakeholders
@@ -86,6 +88,7 @@ Integrate Semantic profiler and report generation for code profiler transform
 ## Release 0.2.1 - 9/24/2024
 
 ### General 
+
 1. Bug fixes across the repo
 1. Added AI Alliance RAG demo, tutorials and notebooks and tips for running on google colab
 1. Added new transforms and single package for transforms published to pypi
@@ -117,6 +120,7 @@ Integrate Semantic profiler and report generation for code profiler transform
 ## Release 0.2.0 - 6/27/2024
 
 ### General 
+
 1. Many bug fixes across the repo, plus the following specifics.
 1. Enhanced CI/CD and makefile improvements  include definition of top-level targets (clean, set-verions, build, publish, test)
 1. Automation of release process branch/tag management
