@@ -3,6 +3,10 @@ The Gneissweb Classification transform serves as a simple exemplar to demonstrat
 of a simple 1:1 transform.  
 Please see the set of [transform project conventions](../../README.md#transform-project-conventions) for details on general project conventions, transform configuration, testing and IDE set up.
 
+## Contributors
+
+- Ran Iwamoto (ran.iwamoto1@ibm.com)
+
 ## Summary 
 This transform will classify each text with confidence score with fasttext classification model such as:
 - [ibm-granite/GneissWeb.Quality_annotator](https://huggingface.co/ibm-granite/GneissWeb.Quality_annotator)
