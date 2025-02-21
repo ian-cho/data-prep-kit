@@ -21,6 +21,7 @@ configuration for values are as follows:
 | gcls_model_credential | _unset_ | specifies the credential you use to get models. This will be huggingface token. [Guide to get huggingface token](https://huggingface.co/docs/hub/security-tokens) |
 | gcls_model_file_name | _unset_ | specifies what filename of models you use to get models, like [`fasttext_gneissweb_quality_annotator.bin`,`fasttext_science.bin`,`fasttext_technology_computing.bin`,`fasttext_education.bin`,`fasttext_medical.bin`] |
 | gcls_model_url | _unset_ |  specifies urls that models locate. For fasttext, this will be repo name of the models, like [`ibm-granite/GneissWeb.Quality_annotator`,`ibm-granite/GneissWeb.Sci_classifier`,`ibm-granite/GneissWeb.Tech_classifier`,`ibm-granite/GneissWeb.Edu_classifier`,`ibm-granite/GneissWeb.Med_classifier`] |
+| gcls_n_processes | 1 | number of processes. Must be a positive integer |
 | gcls_content_column_name | `contents` | specifies name of the column containing documents |
 | gcls_output_lablel_column_name | [`label_quality`,`label_sci`,`label_tech`,`label_edu`,`label_med`] | specifies name of the output column to hold predicted classes|
 | gcls_output_score_column_name | [`score_quality`,`score_sci`,`score_tech`,`score_edu`,`score_med`]  | specifies name of the output column to hold score of prediction |
