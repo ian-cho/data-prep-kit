@@ -2,16 +2,8 @@
 
 <h1 align="center">Data Prep Kit</h1>
 
-<?[alt text](doc/Data-prep-kit-diagram.png)>
-
-<div align="center"> 
-
-<?  [![Status](https://img.shields.io/badge/status-active-success.svg)]() ?>
-<?  [![GitHub Issues](https://img.shields.io/github/issues/kylelobo/The-Documentation-Compendium.svg)](https://github.com/IBM/data-prep-kit/issues) ?>
-<?  [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylelobo/The-Documentation-Compendium.svg)](https://github.com/IBM/data-prep-kit/pulls) ?>
-</div> 
-
 Data Prep Kit is a community-driven project that simplifies unstructured data preparation for LLM application development. It addresses the growing challenge of preparing diverse data (language, code, vision, multimodal) for fine-tuning, instruction-tuning, and RAG applications. The modules in the kit have been tested in producing pre-training datasets for the [Granite open source LLM models](https://huggingface.co/ibm-granite).
+
 
 ## Features <a name = "features"></a>
 
@@ -20,6 +12,7 @@ Data Prep Kit is a community-driven project that simplifies unstructured data pr
 - The modules are built on common frameworks for Python, Ray and Spark runtimes for scaling up data processing.
 - The kit provides a framework for developing custom transforms for processing parquet files. 
 - The kit uses [Kubeflow Pipelines](https://www.kubeflow.org/docs/components/pipelines/v1/introduction/)-based [workflow automation](kfp/doc/simple_transform_pipeline.md).
+
 
 ## Installation
 
@@ -48,7 +41,9 @@ We have a complete set of data processing [recipes](examples) for such use cases
 
 We also have [a developer tutorial](doc/quick-start/contribute-your-own-transform.md) for contributing a new transform to the kit. 
 
-For advanced users, [here](ADVANCED.md) is more information for adding your own transform, its scaling and automation. Also,repository structure and use are discussed [here](doc/repo.md).
+For advanced users, [here](ADVANCED.md) is more information for adding your own transform, 
+running transforms from the command line, scaling and automation and more. 
+Also, repository structure and use are discussed [here](doc/repo.md).
 
 ### Windows users
 
@@ -60,6 +55,7 @@ All the transforms in the kit include small sample data files for testing, but a
 
 
 ## Current list of transforms <a name="table"></a>
+
 The matrix below shows the the combination of modules and supported runtimes. All the modules can be accessed [here](transforms) and can be combined to form data processing pipelines, as shown in the [examples](examples) folder. 
 
 
@@ -95,13 +91,17 @@ The matrix below shows the the combination of modules and supported runtimes. Al
 | [License Select Annotation](transforms/code/license_select/python/README.md)         | :white_check_mark: | :white_check_mark: |                    | :white_check_mark: |
 | [Code profiler](transforms/code/code_profiler/README.md)                             | :white_check_mark: | :white_check_mark: |                    |  |
 
+
 ## Contributing
+
 Contributors are welcome to add new modules to expand to other data modalities as well as add runtime support for existing modules! Please read [this](CONTRIBUTING.md) for details.
 
 ## Get help and support
+
 Please feel free to connect with us using the [discussion](https://github.com/IBM/data-prep-kit/discussions) section.
 
 ## Resources
+
 [Papers, talks, presentations and tutorials](resources.md).
 
 ## Citation <a name = "citations"></a>
