@@ -16,6 +16,7 @@ import kfp.compiler as compiler
 import kfp.components as comp
 import kfp.dsl as dsl
 from universal.doc_id.kfp_ray.doc_id_wf import doc_id
+from universal.ededup.kfp_ray.ededup_wf import ededup
 from universal.noop.kfp_ray.noop_wf import noop
 
 from kfp import dsl
@@ -23,20 +24,45 @@ from kfp import dsl
 
 noop_image = "quay.io/dataprep1/data-prep-kit/noop-ray:latest"
 doc_id_image = "quay.io/dataprep1/data-prep-kit/doc_id-ray:latest"
+ededup_image = "quay.io/dataprep1/data-prep-kit/ededup-ray:latest"
 
+# A list of the transform names, arranged in the order of their execution within the superpipeline.
+ordered_transforms = ["noop", "doc_id", "ededup"]
 
-def _remove_unused_params(d: dict[str, Any]) -> None:
+def _remove_unused_params(d: dict[str, Any], remove_params: list = None) -> None:
     d.pop("input_path", None)
     d.pop("output_path", None)
     d.pop("intermediate_path", None)
     d.pop("skip", None)
     d.pop("name", None)
     d.pop("overriding_params", None)
+    if remove_params is None or remove_params == []:
+        return
+
+    for param in remove_params:
+        d.pop(param)
     return
 
-
 @dsl.component
-def prepare_params(input_path: str, output_path: str) -> str:
+def prepare_params(first_transfom_input_path: str, final_output_path: str, intermediate_path: str,
+                   current_task_index: int) -> str:
+    """
+    This method prepares the data_s3_config parameter
+    :param first_transfom_input_path: input path of the first transform step
+    :param final_output_path: output path of the last transform step
+    :param intermediate_path: path of the intermediate transforms outputs
+    :param current_task_index: the index of the current transform
+    :return: data_s3_config
+    """
+    input_path = first_transfom_input_path
+    output_path = final_output_path
+
+    # ICalculate the directories of nested pipelines within the intermediate path.
+    if current_task_index != 0:
+        input_path = intermediate_path + "/" + ordered_transforms[current_task_index - 1]
+    if current_task_index != len(ordered_transforms) -  1:
+        output_path = intermediate_path + "/" + ordered_transforms[current_task_index]
+        
     data_s3_config = "{'input_folder': '" + input_path + "', 'output_folder': '" + output_path + "'}"
     return data_s3_config
 
@@ -95,46 +121,74 @@ def super_pipeline(
     p3_doc_id_hash_column: str = "hash_column",
     p3_doc_id_int_column: str = "int_id_column",
     p3_doc_id_start_id: int = 0,
+    # ededup step parameters
+    p4_name: str = "ededup",
+    p4_ray_name: str = "ededup-kfp-ray",
+    p4_ray_head_options: dict = {"cpu": 1, "memory": 4, "image_pull_secret": "", "image": ededup_image},
+    p4_ray_worker_options: dict = {
+        "replicas": 2,
+        "max_replicas": 2,
+        "min_replicas": 2,
+        "cpu": 2,
+        "memory": 4,
+        "image_pull_secret": "",
+        "image": ededup_image,
+    },
+    # p4_skip: bool = False,
+    # ededup parameters
+    p4_ededup_n_samples: int = 10,
+    p4_ededup_hash_cpu: float = 0.5,
+    p4_ededup_doc_column: str = "contents",
+    p4_ededup_use_snapshot: bool = False,
+    p4_ededup_snapshot_directory: str = "",
 ):
     args = locals()
     common_params_prefix = "p1_pipeline_"
-    transform1_prefix = "p2_"
-    transform2_prefix = "p3_"
     # split the input parameters according to thier prefixes.
     common_params = {
         key[len(common_params_prefix) :]: value for key, value in args.items() if key.startswith(common_params_prefix)
     }
-    task1_params = {
-        key[len(transform1_prefix) :]: value for key, value in args.items() if key.startswith(transform1_prefix)
-    }
-    task2_params = {
-        key[len(transform2_prefix) :]: value for key, value in args.items() if key.startswith(transform2_prefix)
-    }
-
     # get the input path, output path of the whole pipeline, and the intermediate path for storing the files between the transforms
     input_path = common_params.get("input_path", "")
     output_path = common_params.get("output_path", "")
-    inter_path = common_params.get("intermediate_path", "")
+    intermediate_path=common_params.get("intermediate_path")
 
-    # execute the first transform
-    pipeline_prms_to_pass = common_params | task1_params
-    _remove_unused_params(pipeline_prms_to_pass)
-    # get the data config
-    data_config = prepare_params(input_path=input_path, output_path=inter_path)
-    pipeline_prms_to_pass["data_s3_config"] = data_config.output
-    # call the noop pipeline from noop_wf.py file with the expected parameters
-    noop_task = noop(**pipeline_prms_to_pass)
-
-    # execute the second transform
-    pipeline_prms_to_pass = common_params | task2_params
-    _remove_unused_params(pipeline_prms_to_pass)
-    # get the data config
-    data_config = prepare_params(input_path=inter_path, output_path=output_path)
-    pipeline_prms_to_pass["data_s3_config"] = data_config.output
-    # call the doc_id pipeline from doc_id_wf.py file with the expected parameters
-    doc_id_task = doc_id(**pipeline_prms_to_pass)
-    doc_id_task.after(noop_task)
-
+    # The index of the current task
+    # It is used to calculate the directories of nested pipelines within the intermediate path.
+    task_index: int = 0
+    
+    def _set_step(nested_pipeline, execute_after = None, remove_params: list = None):
+        """
+        Add a transform task step
+        :param nested_pipeline: the transform module to execute in this pipeline step
+        :param execute_after: the transform module to execute before this pipeline step
+        :param remove_params: a list of params to remove for this step
+        :return: the task
+        """
+        nonlocal task_index
+        nonlocal common_params
+        
+        prefix = "p" + str(task_index + 2) + "_"
+        task_params = {
+            key[len(prefix):]: value for key, value in args.items() if key.startswith(prefix)
+        }
+        pipeline_prms_to_pass = common_params | task_params
+        _remove_unused_params(pipeline_prms_to_pass, remove_params)
+        data_config = prepare_params(first_transfom_input_path=input_path, final_output_path=output_path,
+                                     intermediate_path=intermediate_path,
+                                     current_task_index=task_index)
+        pipeline_prms_to_pass["data_s3_config"] = data_config.output
+        task = nested_pipeline(**pipeline_prms_to_pass)
+        if execute_after is not None:
+            task.after(execute_after)
+        # increment the task index
+        task_index = task_index + 1
+        return task
+       
+    noop_task = _set_step(noop)
+    doc_id_task = _set_step(doc_id, noop_task)
+    # checkpointing is not supported by ededup
+    _set_step(ededup, doc_id_task, ["data_checkpointing"])
 
 if __name__ == "__main__":
     # Compiling the pipeline
