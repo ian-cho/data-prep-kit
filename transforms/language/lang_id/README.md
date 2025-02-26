@@ -57,30 +57,30 @@ for details on general project conventions, transform configuration,
 testing and IDE set up.
 
 # Supported Languages
-| Supported Languages |                     |                     |                     |                     |                     |                     |                     |
+|                     |                     |                     | Supported           | Languages           |    |  |  |
 | :-----------------: | :-----------------: | :-----------------: | :-----------------: | :-----------------: | :-----------------: | :-----------------: | :-----------------: |
-| Afrikaans           | Buriat              | Basque              | Indonesian          | Limburgish          | Neapolitan          | Rusyn               | Tagalog             |
-| Alemannic           | Catalan             | Persian             | Interlingue         | Lombard             | Low German          | Sanskrit            | Turkish             |
-| Amharic             | Chavacano           | Finnish             | Ilokano             | Lao                 | Nepali              | Yakut               | Tatar               |
-| Aragonese           | Chechen             | French              | Ido                 | Northern Luri       | Nepal Bhasa         | Sardinian           | Tuvan               |
-| Arabic              | Cebuano             | Northern Frisian    | Icelandic           | Lithuanian          | Dutch               | Sicilian            | Uighur              |
-| Egyptian Arabic     | Central Kurdish     | Western Frisian     | Italian             | Latvian             | Norwegian Nynorsk   | Scots               | Ukrainian           |
-| Assamese            | Corsican            | Irish               | Japanese            | Maithili            | Norwegian           | Sindhi              | Urdu                |
-| Asturian            | Czech               | Scottish Gaelic     | Lojban              | Malagasy            | Occitan             | Serbo-Croatian      | Uzbek               |
-| Avaric              | Chuvash             | Galician            | Javanese            | Eastern Mari        | Odia                | Sinhala             | Venetian            |
-| Azerbaijani         | Welsh               | Guarani             | Georgian            | Min                 | Ossetian            | Slovak              | Veps                |
-| South Azerbaijani   | Danish              | Goan Konkani        | Kazakh              | Macedonian          | Punjabi             | Slovenian           | Vietnamese          |
-| Bashkir             | German              | Gujarati            | Central Khmer       | Malayalam           | Kapampangan         | Somali              | West Flemish        |
-| Bavarian            | Dimli               | Manx                | Kannada             | Mongolian           | Palatine            | Albanian            | Volapük             |
-| Central Bikol       | Lower Sorbian       | Hebrew              | Korean              | Marathi             | Polish              | Serbian             | Walloon             |
-| Belarusian          | Doteli              | Hindi               | Karachay-Balkar     | Hill Mari           | Piedmontese         | Sundanese           | Waray               |
-| Bulgarian           | Divehi              | Fiji Hindi          | Kurdish             | Malay               | Western Punjabi     | Swedish             | Wu Chinese          |
-| Bihari languages    | Greek               | Croatian            | Komi                | Maltese             | Pashto              | Swahili             | Kalmyk              |
-| Bengali             | Emilian-Romagnol    | Upper Sorbian       | Cornish             | Mirandese           | Portuguese          | Tamil               | Extensible Music Format |
-| Tibetan             | English             | Haitian Creole      | Kyrgyz              | Burmese             | Quechua             | Telugu              | Yiddish             |
-| Bishnupriya Manipuri| Esperanto           | Hungarian           | Latin               | Asaro'o             | Romansh             | Tajik               | Yoruba              |
-| Breton              | Spanish             | Armenian            | Luxembourgish       | Mazandarani         | Romanian            | Thai                | Yue                 |
-| Bosnian             | Estonian            | Interlingua         | Lezgian             | Nahuatl             | Russian             | Turkmen             | Chinese             |
+|Afrikaans 	|Buriat 	|Emilian-Romagnol 	|Ilokano 	|Lithuanian 	|Northern Frisian 	|Scottish Gaelic 	|Turkmen | 
+|Albanian 	|Burmese 	|English 	|Indonesian 	|Lojban 	|Northern Luri 	|Serbian 	|Tuvan |
+|Alemannic 	|Catalan 	|Esperanto 	|Interlingua 	|Lombard 	|Norwegian 	|Serbo-Croatian 	|Uighur |
+|Amharic 	|Cebuano 	|Estonian 	|Interlingue 	|Low German 	|Norwegian Nynorsk 	|Sicilian 	|Ukrainian |
+|Arabic 	|Central Bikol 	|Extensible Music Format	|Irish 	|Lower Sorbian 	|Occitan 	|Sindhi 	|Upper Sorbian |
+|Aragonese 	|Central Khmer 	|Fiji Hindi 	|Italian 	|Luxembourgish 	|Odia 	|Sinhala 	|Urdu  |
+|Armenian 	|Central Kurdish 	|Finnish 	|Japanese 	|Macedonian 	|Ossetian 	|Slovak 	|Uzbek  |
+|Asaro'o 	|Chavacano 	|French 	|Javanese 	|Maithili 	|Palatine 	|Slovenian 	|Venetian |
+|Assamese 	|Chechen 	|Galician 	|Kalmyk	|Malagasy 	|Pashto 	|Somali 	|Veps |
+|Asturian 	|Chinese	|Georgian 	|Kannada 	|Malay 	|Persian 	|South Azerbaijani 	|Vietnamese |
+|Avaric 	|Chuvash 	|German 	|Kapampangan 	|Malayalam 	|Piedmontese 	|Spanish 	|Volapük
+|Azerbaijani 	|Cornish 	|Goan Konkani 	|Karachay-Balkar 	|Maltese 	|Polish 	|Sundanese 	|Walloon|
+|Bashkir 	|Corsican 	|Greek 	|Kazakh 	|Manx 	|Portuguese 	|Swahili 	|Waray |
+|Basque 	|Croatian 	|Guarani 	|Komi 	|Marathi 	|Punjabi 	|Swedish 	|Welsh |
+|Bavarian 	|Czech 	|Gujarati 	|Korean 	|Mazandarani 	|Quechua 	|Tagalog	|West Flemish |
+|Belarusian 	|Danish 	|Haitian Creole 	|Kurdish 	|Min 	|Romanian 	|Tajik 	|Western Frisian |
+|Bengali 	|Dimli 	|Hebrew 	|Kyrgyz 	|Mirandese 	|Romansh 	|Tamil 	|Western Punjabi |
+|Bihari languages 	|Divehi 	|Hill Mari 	|Lao 	|Mongolian 	|Russian 	|Tatar	|Wu Chinese |
+|Bishnupriya Manipuri 	|Doteli 	|Hindi 	|Latin 	|Nahuatl 	|Rusyn 	|Telugu 	|Yakut |
+|Bosnian 	|Dutch 	|Hungarian 	|Latvian 	|Neapolitan 	|Sanskrit 	|Thai 	|Yiddish |
+|Breton 	|Eastern Mari 	|Icelandic 	|Lezgian 	|Nepal Bhasa 	|Sardinian 	|Tibetan 	|Yoruba |
+|Bulgarian 	|Egyptian Arabic 	|Ido 	|Limburgish 	|Nepali 	|Scots 	|Turkish	|Yue |
 
 ## Summary 
 This project wraps the language identification transform with a Ray runtime.
