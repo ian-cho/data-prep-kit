@@ -6,6 +6,11 @@ Please see the set of [transform project conventions](../../README.md#transform-
 ## Summary 
 This transform will identify language of each text with confidence score with fasttext language identification model. [ref](https://huggingface.co/facebook/fasttext-language-identification)
 
+## Contributors
+
+- Daiki Tsuzuku (dtsuzuku@jp.ibm.com)
+- Ryan Gordon (Ryan.Gordon@ibm.com)
+
 ## Configuration and command line Options
 
 The set of dictionary keys holding [LangIdentificationTransform](dpk_lang_id/transform.py) 
