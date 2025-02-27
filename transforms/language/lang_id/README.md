@@ -9,7 +9,7 @@ This transform will identify language of each text with confidence score with fa
 ## Contributors
 
 - Daiki Tsuzuku (dtsuzuku@jp.ibm.com)
-- Shahrokh Daijavad (shahrokh@us.ibm.com)
+- Maroun Touma (touma@us.ibm.com)
 
 ## Configuration and command line Options
 
