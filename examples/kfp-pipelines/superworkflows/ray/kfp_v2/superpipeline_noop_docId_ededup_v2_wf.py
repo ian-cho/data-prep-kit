@@ -33,7 +33,6 @@ def _remove_unused_params(d: dict[str, Any], remove_params: list = None) -> None
     d.pop("input_path", None)
     d.pop("output_path", None)
     d.pop("intermediate_path", None)
-    d.pop("skip", None)
     d.pop("name", None)
     d.pop("overriding_params", None)
     if remove_params is None or remove_params == []:
@@ -45,19 +44,21 @@ def _remove_unused_params(d: dict[str, Any], remove_params: list = None) -> None
 
 @dsl.component
 def prepare_params(first_transfom_input_path: str, final_output_path: str, intermediate_path: str,
-                   current_task_index: int) -> str:
+        current_task_index: int, ordered_transforms: list) -> str:
     """
     This method prepares the data_s3_config parameter
     :param first_transfom_input_path: input path of the first transform step
     :param final_output_path: output path of the last transform step
     :param intermediate_path: path of the intermediate transforms outputs
     :param current_task_index: the index of the current transform
+    :param ordered_transforms: A list of the transform names, 
+           arranged in the order of their execution within the superpipeline
     :return: data_s3_config
     """
     input_path = first_transfom_input_path
     output_path = final_output_path
 
-    # ICalculate the directories of nested pipelines within the intermediate path.
+    # Calculate the directories of nested pipelines within the intermediate path.
     if current_task_index != 0:
         input_path = intermediate_path + "/" + ordered_transforms[current_task_index - 1]
     if current_task_index != len(ordered_transforms) -  1:
@@ -86,7 +87,6 @@ def super_pipeline(
     p1_pipeline_ray_run_id_KFPv2: str = "",
     # noop step parameters
     p2_name: str = "noop",
-    p2_skip: bool = False,
     p2_noop_sleep_sec: int = 10,
     p2_ray_name: str = "noop-kfp-ray",
     p2_ray_head_options: dict = {"cpu": 1, "memory": 4, "image_pull_secret": "", "image": noop_image},
@@ -112,7 +112,6 @@ def super_pipeline(
         "image_pull_secret": "",
         "image": doc_id_image,
     },
-    # p3_skip: bool = False,
     # orchestrator
     p3_data_data_sets: str = "",
     p3_data_files_to_use: str = "['.parquet']",
@@ -134,7 +133,6 @@ def super_pipeline(
         "image_pull_secret": "",
         "image": ededup_image,
     },
-    # p4_skip: bool = False,
     # ededup parameters
     p4_ededup_n_samples: int = 10,
     p4_ededup_hash_cpu: float = 0.5,
@@ -176,7 +174,7 @@ def super_pipeline(
         _remove_unused_params(pipeline_prms_to_pass, remove_params)
         data_config = prepare_params(first_transfom_input_path=input_path, final_output_path=output_path,
                                      intermediate_path=intermediate_path,
-                                     current_task_index=task_index)
+                                     current_task_index=task_index, ordered_transforms=ordered_transforms)
         pipeline_prms_to_pass["data_s3_config"] = data_config.output
         task = nested_pipeline(**pipeline_prms_to_pass)
         if execute_after is not None:

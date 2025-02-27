@@ -33,6 +33,7 @@ export KFPv2=1
 make workflow-build
 ```
 
-Please be aware that in KFP v2, there is an (issue)[default pipeline input params are missing from the GUI](https://github.com/kubeflow/pipelines/issues/11515]] where default values for pipeline input parameters do not appear in the GUI, 
-making them required even if defaults are set. For fields with empty string values, inserting an single space can serve as a workaround. 
-This issue has been resolved in newer KFP versions.
+
+Please note that in KFP v2, there is an [issue](https://github.com/kubeflow/pipelines/issues/11515) where pipeline input parameters with default values of `False `or an empty 
+string do not appear in the GUI, causing them to be required despite having default values. As 
+a workaround for empty string fields, inserting a single space can be used. This issue has been resolved in newer KFP versions.
