@@ -55,37 +55,13 @@ To use the transform image to transform your data, please refer to the
 [running images quickstart](../../../doc/quick-start/run-transform-image.md),
 substituting the name of this transform image and runtime as appropriate.
 
+
+
 # Language Identification Ray Transform 
 Please see the set of
 [transform project conventions](../../README.md#transform-project-conventions)
 for details on general project conventions, transform configuration,
 testing and IDE set up.
-
-# Supported Languages
-|                     |                     |                     | Supported           | Languages           |    |  |  |
-| :-----------------: | :-----------------: | :-----------------: | :-----------------: | :-----------------: | :-----------------: | :-----------------: | :-----------------: |
-|Afrikaans 	|Buriat 	|Emilian-Romagnol 	|Ilokano 	|Lithuanian 	|Northern Frisian 	|Scottish Gaelic 	|Turkmen | 
-|Albanian 	|Burmese 	|English 	|Indonesian 	|Lojban 	|Northern Luri 	|Serbian 	|Tuvan |
-|Alemannic 	|Catalan 	|Esperanto 	|Interlingua 	|Lombard 	|Norwegian 	|Serbo-Croatian 	|Uighur |
-|Amharic 	|Cebuano 	|Estonian 	|Interlingue 	|Low German 	|Norwegian Nynorsk 	|Sicilian 	|Ukrainian |
-|Arabic 	|Central Bikol 	|Extensible Music Format	|Irish 	|Lower Sorbian 	|Occitan 	|Sindhi 	|Upper Sorbian |
-|Aragonese 	|Central Khmer 	|Fiji Hindi 	|Italian 	|Luxembourgish 	|Odia 	|Sinhala 	|Urdu  |
-|Armenian 	|Central Kurdish 	|Finnish 	|Japanese 	|Macedonian 	|Ossetian 	|Slovak 	|Uzbek  |
-|Asaro'o 	|Chavacano 	|French 	|Javanese 	|Maithili 	|Palatine 	|Slovenian 	|Venetian |
-|Assamese 	|Chechen 	|Galician 	|Kalmyk	|Malagasy 	|Pashto 	|Somali 	|Veps |
-|Asturian 	|Chinese	|Georgian 	|Kannada 	|Malay 	|Persian 	|South Azerbaijani 	|Vietnamese |
-|Avaric 	|Chuvash 	|German 	|Kapampangan 	|Malayalam 	|Piedmontese 	|Spanish 	|Volapük
-|Azerbaijani 	|Cornish 	|Goan Konkani 	|Karachay-Balkar 	|Maltese 	|Polish 	|Sundanese 	|Walloon|
-|Bashkir 	|Corsican 	|Greek 	|Kazakh 	|Manx 	|Portuguese 	|Swahili 	|Waray |
-|Basque 	|Croatian 	|Guarani 	|Komi 	|Marathi 	|Punjabi 	|Swedish 	|Welsh |
-|Bavarian 	|Czech 	|Gujarati 	|Korean 	|Mazandarani 	|Quechua 	|Tagalog	|West Flemish |
-|Belarusian 	|Danish 	|Haitian Creole 	|Kurdish 	|Min 	|Romanian 	|Tajik 	|Western Frisian |
-|Bengali 	|Dimli 	|Hebrew 	|Kyrgyz 	|Mirandese 	|Romansh 	|Tamil 	|Western Punjabi |
-|Bihari languages 	|Divehi 	|Hill Mari 	|Lao 	|Mongolian 	|Russian 	|Tatar	|Wu Chinese |
-|Bishnupriya Manipuri 	|Doteli 	|Hindi 	|Latin 	|Nahuatl 	|Rusyn 	|Telugu 	|Yakut |
-|Bosnian 	|Dutch 	|Hungarian 	|Latvian 	|Neapolitan 	|Sanskrit 	|Thai 	|Yiddish |
-|Breton 	|Eastern Mari 	|Icelandic 	|Lezgian 	|Nepal Bhasa 	|Sardinian 	|Tibetan 	|Yoruba |
-|Bulgarian 	|Egyptian Arabic 	|Ido 	|Limburgish 	|Nepali 	|Scots 	|Turkish	|Yue |
 
 ## Summary 
 This project wraps the language identification transform with a Ray runtime.
@@ -104,3 +80,34 @@ the set of
 To use the transform image to transform your data, please refer to the 
 [running images quickstart](../../../doc/quick-start/run-transform-image.md),
 substituting the name of this transform image and runtime as appropriate.
+
+# Supported Languages
+<style>
+table, th, td {
+   border: none;
+}
+</style>
+|                     |                     |                     |            |            |    |  |  |
+| :-----------------: | :-----------------: | :-----------------: | :-----------------: | :-----------------: | :-----------------: | :-----------------: | :-----------------: |
+|Afrikaans|Albanian|Alemannic|Amharic|Arabic|Aragonese|Armenian|Asaro'o
+|Assamese|Asturian|Avaric|Azerbaijani|Bashkir|Basque|Bavarian|Belarusian
+|Bengali|Bihari languages|Bishnupriya Manipuri|Bosnian|Breton|Bulgarian|Buriat|Burmese
+|Catalan|Cebuano|Central Bikol|Central Khmer|Central Kurdish|Chavacano|Chechen|Chinese
+|Chuvash|Cornish|Corsican|Croatian|Czech|Danish|Dimli|Divehi
+|Doteli|Dutch|Eastern Mari|Egyptian Arabic|Emilian-Romagnol|English|Esperanto|Estonian
+|Fiji Hindi|Finnish|French|Galician|Georgian|German|Goan Konkani|Greek
+Guarani|Gujarati|Haitian Creole|Hebrew|Hill Mari|Hindi|Hungarian|Icelandic
+Ido|Ilokano|Indonesian|Interlingua|Interlingue|Irish|Italian|Japanese
+Javanese|Kalmyk|Kannada|Kapampangan|Karachay-Balkar|Kazakh|Komi|Korean
+Kurdish|Kyrgyz|Lao|Latin|Latvian|Lezgian|Limburgish|Lithuanian
+Lojban|Lombard|Low German|Lower Sorbian|Luxembourgish|Macedonian|Maithili|Malagasy
+Malay|Malayalam|Maltese|Manx|Marathi|Mazandarani|Min|Mirandese
+Mongolian|Nahuatl|Neapolitan|Nepal Bhasa|Nepali|Northern Frisian|Northern Luri|Norwegian
+Norwegian Nynorsk|Occitan|Odia|Ossetian|Palatine|Pashto|Persian|Piedmontese
+Polish|Portuguese|Punjabi|Quechua|Romanian|Romansh|Russian|Rusyn
+Sanskrit|Sardinian|Scots|Scottish Gaelic|Serbian|Serbo-Croatian|Sicilian|Sindhi
+Sinhala|Slovak|Slovenian|Somali|South Azerbaijani|Spanish|Sundanese|Swahili
+Swedish|Tagalog|Tajik|Tamil|Tatar|Telugu|Thai|Tibetan
+Turkish|Turkmen|Tuvan|Uighur|Ukrainian|Upper Sorbian|Urdu|Uzbek
+Venetian|Veps|Vietnamese|Volapük|Walloon|Waray|Welsh|West Flemish
+Western Frisian|Western Punjabi|Wu Chinese|Yakut|Yiddish|Yoruba|Yue
