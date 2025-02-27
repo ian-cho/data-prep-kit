@@ -82,11 +82,6 @@ To use the transform image to transform your data, please refer to the
 substituting the name of this transform image and runtime as appropriate.
 
 # Supported Languages
-<style>
-table, th, td {
-   border: none;
-}
-</style>
 |                     |                     |                     |            |            |    |  |  |
 | :-----------------: | :-----------------: | :-----------------: | :-----------------: | :-----------------: | :-----------------: | :-----------------: | :-----------------: |
 |Afrikaans|Albanian|Alemannic|Amharic|Arabic|Aragonese|Armenian|Asaro'o
