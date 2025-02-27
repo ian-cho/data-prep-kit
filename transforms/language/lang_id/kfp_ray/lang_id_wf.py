@@ -123,7 +123,7 @@ def lang_id(
     runtime_pipeline_id: str = "pipeline_id",
     runtime_code_location: dict = {"github": "github", "commit_hash": "12345", "path": "path"},
     # lang_id parameters
-    lang_id_model_credential: str = "PUT YOUR OWN HUGGINGFACE CREDENTIAL",
+    lang_id_model_credential: str = os.environ.get('HF_READ_ACCESS_TOKEN', "PUT YOUR OWN HUGGINGFACE CREDENTIAL"),
     lang_id_model_kind: str = "fasttext",
     lang_id_model_url: str = "facebook/fasttext-language-identification",
     lang_id_content_column_name: str = "text",
