@@ -36,7 +36,7 @@ params = {
 
 
 bloom_params = {
-    "model_name_or_path": "ibm-granite/GneissWeb.bloom",
+    "model_name_or_path": "../bf.bloom",
     "annotation_column": "is_in_GneissWeb",
     "doc_text_column": "contents",
     "inference_engine": "CPU",
