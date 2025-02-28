@@ -10,6 +10,7 @@
 # limitations under the License.
 ################################################################################
 
+import os
 import pyarrow as pa
 from data_processing.test_support.transform.table_transform_test import (
     AbstractTableTransformTest,
