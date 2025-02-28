@@ -29,7 +29,7 @@ from dpk_gneissweb_classification.transform import (
 input_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "test-data", "input"))
 
 classification_params = {
-    model_credential_cli_param: "PUT YOUR OWN HUGGINGFACE CREDENTIAL",
+    model_credential_cli_param: os.environ.get('HF_READ_ACCESS_TOKEN', "PUT YOUR OWN HUGGINGFACE CREDENTIAL"),
     model_file_name_cli_param: ["['fasttext_medical.bin']"],
     model_url_cli_param:["['ibm-granite/GneissWeb.Med_classifier']"],
     output_label_column_name_cli_param:["['label_med']"],
