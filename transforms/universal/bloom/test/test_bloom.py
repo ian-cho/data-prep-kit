@@ -24,6 +24,7 @@ bloom_params = {
     "doc_text_column": "contents",
     "inference_engine": "CPU",
     "batch_size": 1000,
+    "model_credential": os.environ.get('HF_READ_ACCESS_TOKEN', "PUT YOUR OWN HUGGINGFACE CREDENTIAL"),
 }
 
 
