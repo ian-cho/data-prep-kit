@@ -38,7 +38,7 @@ class HAPTransform(AbstractTableTransform):
         self.max_length = config.get("max_length", 512)
         self.batch_size = config.get("batch_size", 128)
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_name_or_path)
-        self.model = AutoModelForSequenceClassification.from_pretrained(self.model_name_or_path)
+        self.model = AutoModelForSequenceClassification.from_pretrained(self.model_name_or_path).to(device)
 
     def _apply_model(self, data: list, batch_size: int) -> list[float]:
         num_batches = len(data) // batch_size
