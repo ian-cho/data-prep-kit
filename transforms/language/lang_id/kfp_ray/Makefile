@@ -29,7 +29,6 @@ workflow-build: workflow-venv
 
 .PHONY: workflow-test
 workflow-test: workflow-build
-	cat $(TRANSFORM_NAME)_wf.yaml
 	$(MAKE) TRANSFORM_SRC=${SRC_DIR} \
 		TRANSFORM_RUNTIME=$(TRANSFORM_RUNTIME) \
 		TRANSFORM_NAME=$(TRANSFORM_NAME) \
