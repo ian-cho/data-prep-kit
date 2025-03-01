@@ -27,7 +27,7 @@ EXEC_SCRIPT_NAME: str = "code_quality_transform_ray.py"
 PREFIX: str = ""
 
 task_image = "quay.io/dataprep1/data-prep-kit/code_quality-ray:latest"
-HF_TOKEN= "None" if os.getenv("KFPv2", "0") else None
+HF_TOKEN= "None" if os.getenv("KFPv2", "0") == "1" else None
 # components
 base_kfp_image = "quay.io/dataprep1/data-prep-kit/kfp-data-processing:latest"
 
