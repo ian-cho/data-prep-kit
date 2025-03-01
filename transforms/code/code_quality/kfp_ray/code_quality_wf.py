@@ -169,6 +169,8 @@ def code_quality(
         print("WARNING: the ray cluster name can be non-unique at runtime, please do not execute simultaneous Runs of the "
               "same version of the same pipeline !!!")
         run_id = ray_run_id_KFPv2
+        if cq_hf_token is None: 
+            cq_hf_token = "None"
     else:
         run_id = dsl.RUN_ID_PLACEHOLDER
     # create clean_up task
