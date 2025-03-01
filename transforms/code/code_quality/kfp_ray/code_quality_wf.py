@@ -118,7 +118,7 @@ def code_quality(
     cq_contents_column_name: str = "contents",
     cq_language_column_name: str = "language",
     cq_tokenizer: str = "codeparrot/codeparrot",
-    cq_hf_token: str = None,
+    cq_hf_token: str = "None",
     # additional parameters
     additional_params: str = '{"wait_interval": 2, "wait_cluster_ready_tmout": 400, "wait_cluster_up_tmout": 300, "wait_job_ready_tmout": 400, "wait_print_tmout": 30, "http_retries": 5, "delete_cluster_delay_minutes": 0}',
 ):
@@ -169,10 +169,10 @@ def code_quality(
         print("WARNING: the ray cluster name can be non-unique at runtime, please do not execute simultaneous Runs of the "
               "same version of the same pipeline !!!")
         run_id = ray_run_id_KFPv2
-        if cq_hf_token is None: 
-            cq_hf_token = "None"
     else:
         run_id = dsl.RUN_ID_PLACEHOLDER
+        if cq_hf_token == "None":
+            cq_hf_token = None
     # create clean_up task
     clean_up_task = cleanup_ray_op(ray_name=ray_name, run_id=run_id, server_url=server_url, additional_params=additional_params)
     ComponentUtils.add_settings_to_component(clean_up_task, ONE_HOUR_SEC * 2)
