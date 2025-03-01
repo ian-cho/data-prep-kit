@@ -27,7 +27,7 @@ EXEC_SCRIPT_NAME: str = "code_quality_transform_ray.py"
 PREFIX: str = ""
 
 task_image = "quay.io/dataprep1/data-prep-kit/code_quality-ray:latest"
-
+HF_TOKEN= "None" if os.getenv("KFPv2", "0") else None
 # components
 base_kfp_image = "quay.io/dataprep1/data-prep-kit/kfp-data-processing:latest"
 
@@ -118,7 +118,7 @@ def code_quality(
     cq_contents_column_name: str = "contents",
     cq_language_column_name: str = "language",
     cq_tokenizer: str = "codeparrot/codeparrot",
-    cq_hf_token: str = "None",
+    cq_hf_token: str = HF_TOKEN,
     # additional parameters
     additional_params: str = '{"wait_interval": 2, "wait_cluster_ready_tmout": 400, "wait_cluster_up_tmout": 300, "wait_job_ready_tmout": 400, "wait_print_tmout": 30, "http_retries": 5, "delete_cluster_delay_minutes": 0}',
 ):
@@ -171,8 +171,6 @@ def code_quality(
         run_id = ray_run_id_KFPv2
     else:
         run_id = dsl.RUN_ID_PLACEHOLDER
-        if cq_hf_token == "None":
-            cq_hf_token = None
     # create clean_up task
     clean_up_task = cleanup_ray_op(ray_name=ray_name, run_id=run_id, server_url=server_url, additional_params=additional_params)
     ComponentUtils.add_settings_to_component(clean_up_task, ONE_HOUR_SEC * 2)
