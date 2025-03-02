@@ -128,7 +128,7 @@ jobs:
                 done
                 if $restricted_access; then
                     echo "User ${{ github.triggering_actor }} is not allowed to trigger this workflow."
-                    echo "${{ github.triggering_actor }} is not in list: $allowed_list "
+                    echo "${{ github.triggering_actor }} is not in list: ${allowed_list[*]} "
                     echo "pr head:  ${{ github.event.pull_request.head.sha }}"
                     echo "github ref:  ${{ github.ref }}"
                     exit 1
