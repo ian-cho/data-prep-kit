@@ -28,6 +28,7 @@ on:
             - "dev"
             - "releases/**"
         paths:
+            - ".github/workflows/test-language-lang_id-kfp.yml"
             - ".make.*"
             - "scripts/k8s-setup/requirements.env"
             - "transforms/.make.workflows"
