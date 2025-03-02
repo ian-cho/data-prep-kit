@@ -22,8 +22,7 @@ on:
             - "!**/doc/**"
             - "!**/images/**"
             - "!**.gitignore"
-#    pull_request_target:
-    pull_request:
+    pull_request_target:
         branches:
             - "dev"
             - "releases/**"
@@ -48,25 +47,44 @@ concurrency:
 jobs:
     test-kfp-v1:
         runs-on: ubuntu-22.04
+        env:
+            HF_READ_ACCESS_TOKEN: ${{ secrets.HF_READ_ACCESS_TOKEN }}
         steps:
             - name: Expose secret to trusted users working in a fork
-              if: contains('["touma-I","revit13","roytman"]', ${{ github.triggering_actor }})
-              env:
-                HF_READ_ACCESS_TOKEN: ${{ secrets.HF_READ_ACCESS_TOKEN }}
               run: |
-                 echo "Checking ${{ github.triggering_actor }} permissions."
-                 echo "Only select users will be able to trigger this workflow from a fork"
-                 echo "This prevents the secret from being exposed to all public users"
+                allowed=false
+                allowed_list=("touma-I" "revit13" "roytman")
+                for user in "${allowed_list[@]}"; do
+                    if [ "$user" ==  "${{ github.triggering_actor }}" ]; then
+                       allowed=true
+                       break
+                    fi
+                done
+                if $allowed; then
+                   echo "Checking ${{ github.triggering_actor }} permissions."
+                   echo "Only select users will be able to trigger this workflow from a fork"
+                   echo "This prevents the secret from being exposed to all public users"
+                   echo "pr head:  ${{ github.event.pull_request.head.sha }}"
+                   echo "github ref:  ${{ github.ref }}"
+                else
+                   echo "User ${{ github.triggering_actor }} is not allowed to trigger this workflow."
+                   echo "${{ github.triggering_actor }} is not in list: $allowed_list "
+                   echo "pr head:  ${{ github.event.pull_request.head.sha }}"
+                   echo "github ref:  ${{ github.ref }}"
+                   exit 1
+                fi
 
             - name: Checkout
               uses: actions/checkout@v4
               with:
                 # Requires careful code review prior to triggering workflow
-                ref: ${{  github.event.pull_request.head.sha }}
+                ref: ${{ github.event.pull_request.head.sha }}
 
             - name: Free up space in github runner
               # Free space as indicated here : https://github.com/actions/runner-images/issues/2840#issuecomment-790492173
               run: |
+                  echo "pr head:  ${{ github.event.pull_request.head.sha }}"
+                  echo "github ref:  ${{ github.ref }}"
                   df -h
                   sudo rm -rf "/usr/local/share/boost"
                   sudo rm -rf "$AGENT_TOOLSDIRECTORY"
@@ -97,20 +115,37 @@ jobs:
 
     test-kfp-v2:
         runs-on: ubuntu-22.04
+        env:
+            HF_READ_ACCESS_TOKEN: ${{ secrets.HF_READ_ACCESS_TOKEN }}
         steps:
             - name: Expose secret to trusted users working in a fork
-              if: contains('["touma-I","revit13","roytman"]', ${{ github.triggering_actor }})
-              env:
-                HF_READ_ACCESS_TOKEN: ${{ secrets.HF_READ_ACCESS_TOKEN }}
               run: |
-                 echo "Checking ${{ github.triggering_actor }} permissions."
-                 echo "Only select users will be able to trigger this workflow from a fork"
-                 echo "This prevents the secret from being exposed to all public users"
+                allowed=false
+                allowed_list=("touma-I" "revit13" "roytman")
+                for user in "${allowed_list[@]}"; do
+                    if [ "$user" ==  "${{ github.triggering_actor }}" ]; then
+                       allowed=true
+                       break
+                    fi
+                done
+                if $allowed; then
+                   echo "Checking ${{ github.triggering_actor }} permissions."
+                   echo "Only select users will be able to trigger this workflow from a fork"
+                   echo "This prevents the secret from being exposed to all public users"
+                   echo "pr head:  ${{ github.event.pull_request.head.sha }}"
+                   echo "github ref:  ${{ github.ref }}"
+                else
+                   echo "User ${{ github.triggering_actor }} is not allowed to trigger this workflow."
+                   echo "${{ github.triggering_actor }} is not in list: $allowed_list "
+                   echo "pr head:  ${{ github.event.pull_request.head.sha }}"
+                   echo "github ref:  ${{ github.ref }}"
+                   exit 1
+                fi
 
             - name: Checkout
               uses: actions/checkout@v4
               with:
-                # Requires careful code review prior to triggering workflow
+                # Requires careful code review prior to triggering workflow from a fork
                 ref: ${{  github.event.pull_request.head.sha }}
             - name: Free up space in github runner
               # Free space as indicated here : https://github.com/actions/runner-images/issues/2840#issuecomment-790492173
