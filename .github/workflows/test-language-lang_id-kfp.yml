@@ -50,35 +50,17 @@ jobs:
         env:
             HF_READ_ACCESS_TOKEN: ${{ secrets.HF_READ_ACCESS_TOKEN }}
         steps:
-            - name: Expose secret to trusted users working in a fork
-              run: |
-                restricted_access=${{ github.event.pull_request.head.repo.fork }}
-                allowed_list=("touma-I" "revit13" "roytman")
-                for user in "${allowed_list[@]}"; do
-                    if [ "$user" ==  "${{ github.triggering_actor }}" ]; then
-                    restricted_access=false
-                    break
-                    fi
-                done
-                if $restricted_access; then
-                    echo "User ${{ github.triggering_actor }} is not allowed to trigger this workflow."
-                    echo "${{ github.triggering_actor }} is not in list: ${allowed_list[*]} "
-                    echo "pr head:  ${{ github.event.pull_request.head.sha }}"
-                    echo "github ref:  ${{ github.ref }}"
-                    exit 1
-                else
-                echo "Checking ${{ github.triggering_actor }} permissions."
-                echo "Only select users will be able to trigger this workflow from a fork"
-                echo "This prevents the secret from being exposed to all public users"
-                echo "pr head:  ${{ github.event.pull_request.head.sha }}"
-                echo "github ref:  ${{ github.ref }}"
-                fi
-
             - name: Checkout
               uses: actions/checkout@v4
               with:
                 # Requires careful code review prior to triggering workflow
                 ref: ${{ github.event.pull_request.head.sha }}
+
+            - name: Expose secret to trusted users working in a fork
+              run: |
+                  echo "Checking access- PR head:  ${{ github.event.pull_request.head.sha }}"
+                  echo "Checking access- github ref:  ${{ github.ref }}"
+                  $PWD/scripts/check-restricted-access.sh ${{ github.triggering_actor }} ${{ github.event.pull_request.head.repo.fork }}
 
             - name: Free up space in github runner
               # Free space as indicated here : https://github.com/actions/runner-images/issues/2840#issuecomment-790492173
@@ -116,35 +98,18 @@ jobs:
         env:
             HF_READ_ACCESS_TOKEN: ${{ secrets.HF_READ_ACCESS_TOKEN }}
         steps:
-            - name: Expose secret to trusted users working in a fork
-              run: |
-                restricted_access=${{ github.event.pull_request.head.repo.fork }}
-                allowed_list=("touma-I" "revit13" "roytman")
-                for user in "${allowed_list[@]}"; do
-                    if [ "$user" ==  "${{ github.triggering_actor }}" ]; then
-                    restricted_access=false
-                    break
-                    fi
-                done
-                if $restricted_access; then
-                    echo "User ${{ github.triggering_actor }} is not allowed to trigger this workflow."
-                    echo "${{ github.triggering_actor }} is not in list: ${allowed_list[*]} "
-                    echo "pr head:  ${{ github.event.pull_request.head.sha }}"
-                    echo "github ref:  ${{ github.ref }}"
-                    exit 1
-                else
-                echo "Checking ${{ github.triggering_actor }} permissions."
-                echo "Only select users will be able to trigger this workflow from a fork"
-                echo "This prevents the secret from being exposed to all public users"
-                echo "pr head:  ${{ github.event.pull_request.head.sha }}"
-                echo "github ref:  ${{ github.ref }}"
-                fi
-
             - name: Checkout
               uses: actions/checkout@v4
               with:
                 # Requires careful code review prior to triggering workflow from a fork
                 ref: ${{  github.event.pull_request.head.sha }}
+
+            - name: Expose secret to trusted users working in a fork
+              run: |
+                echo "Checking access- PR head:  ${{ github.event.pull_request.head.sha }}"
+                echo "Checking access- github ref:  ${{ github.ref }}"
+                $PWD/scripts/check-restricted-access.sh ${{ github.triggering_actor }} ${{ github.event.pull_request.head.repo.fork }}
+
             - name: Free up space in github runner
               # Free space as indicated here : https://github.com/actions/runner-images/issues/2840#issuecomment-790492173
               run: |
