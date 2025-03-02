@@ -22,12 +22,12 @@ on:
             - "!**/doc/**"
             - "!**/images/**"
             - "!**.gitignore"
-    pull_request:
+    pull_request_target:
         branches:
             - "dev"
             - "releases/**"
         paths:
-            - ".github/workflows/test-language-lang_id-kfp.yml"
+#            - ".github/workflows/test-language-lang_id-kfp.yml"   # used for testing
             - ".make.*"
             - "scripts/k8s-setup/requirements.env"
             - "transforms/.make.workflows"
@@ -53,7 +53,7 @@ jobs:
             - name: Expose secret to trusted users working in a fork
               run: |
                 restricted_access=${{ github.event.pull_request.head.repo.fork }}
-                allowed_list=("revit13" "roytman")
+                allowed_list=("touma-I" "revit13" "roytman")
                 for user in "${allowed_list[@]}"; do
                     if [ "$user" ==  "${{ github.triggering_actor }}" ]; then
                     restricted_access=false
@@ -62,7 +62,7 @@ jobs:
                 done
                 if $restricted_access; then
                     echo "User ${{ github.triggering_actor }} is not allowed to trigger this workflow."
-                    echo "${{ github.triggering_actor }} is not in list: $allowed_list "
+                    echo "${{ github.triggering_actor }} is not in list: ${allowed_list[*]} "
                     echo "pr head:  ${{ github.event.pull_request.head.sha }}"
                     echo "github ref:  ${{ github.ref }}"
                     exit 1
