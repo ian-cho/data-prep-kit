@@ -22,7 +22,8 @@ on:
             - "!**/doc/**"
             - "!**/images/**"
             - "!**.gitignore"
-    pull_request_target:
+#    pull_request_target:
+    pull_request:
         branches:
             - "dev"
             - "releases/**"
@@ -49,8 +50,21 @@ jobs:
         env:
             HF_READ_ACCESS_TOKEN: ${{ secrets.HF_READ_ACCESS_TOKEN }}
         steps:
+            - name: Expose secret to trusted users working in a fork
+              if: contains('["touma-I","revit13","roytman"]', triggering_actor)
+              env:
+                HF_READ_ACCESS_TOKEN: ${{ secrets.HF_READ_ACCESS_TOKEN }}
+              run: |
+                 echo "Checking ${{ github.triggering_actor }} permissions."
+                 echo "Only select users will be able to trigger this workflow from a fork"
+                 echo "This prevents the secret from being exposed to all public users"
+
             - name: Checkout
               uses: actions/checkout@v4
+              with:
+                # Requires careful code review prior to triggering workflow
+                ref: ${{  github.event.pull_request.head.sha }}
+
             - name: Free up space in github runner
               # Free space as indicated here : https://github.com/actions/runner-images/issues/2840#issuecomment-790492173
               run: |
