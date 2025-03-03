@@ -22,6 +22,8 @@ on:
             - "!**/doc/**"
             - "!**/images/**"
             - "!**.gitignore"
+    # This only works when using pull_request_target as it 
+    # runs in the context of the target branch and not the new branch
     pull_request_target:
         branches:
             - "dev"
