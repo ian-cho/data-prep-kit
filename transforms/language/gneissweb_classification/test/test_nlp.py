@@ -17,7 +17,7 @@ from dpk_gneissweb_classification.nlp import get_label_ds_pa
 
 def test_classification():
     nlp_langid = ClassificationModelFactory.create_model(
-      "ibm-granite/GneissWeb.Med_classifier", "fasttext_medical.bin","YOUR_HUGGINGFACE_ACCESS_TOKEN"
+      "ibm-granite/GneissWeb.Med_classifier", "fasttext_medical.bin","HF_READ_ACCESS_TOKEN"
     )
 
     documents = pa.array(
