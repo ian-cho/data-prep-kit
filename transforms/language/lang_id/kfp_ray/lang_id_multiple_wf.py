@@ -9,23 +9,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ################################################################################
-import os
 import json
+import os
 
 import kfp.compiler as compiler
 import kfp.components as comp
 import kfp.dsl as dsl
+from python_apiserver_client.params import (
+    EnvironmentVariables,
+    EnvVarFrom,
+    EnvVarSource,
+)
 from workflow_support.compile_utils import (
     DEFAULT_KFP_COMPONENT_SPEC_PATH,
     ONE_HOUR_SEC,
     ONE_WEEK_SEC,
     ComponentUtils,
 )
-from python_apiserver_client.params import (
-    EnvVarFrom,
-    EnvironmentVariables,
-    EnvVarSource,
-)
+
 
 # The name of the secret that holds the HugginFace credentials
 HF_SECRET = "hf-secret"
@@ -112,7 +113,7 @@ envs = EnvironmentVariables(from_ref={"HF_READ_ACCESS_TOKEN": env_v})
 def lang_id(
     # Ray cluster
     ray_name: str = "lang_id-kfp-ray",  # name of Ray cluster
-    ray_run_id_KFPv2: str = "",   # Ray cluster unique ID used only in KFP v2
+    ray_run_id_KFPv2: str = "",  # Ray cluster unique ID used only in KFP v2
     # Add image_pull_secret and image_pull_policy to ray workers if needed
     ray_head_options: dict = {"cpu": 1, "memory": 4, "image": task_image, "environment": envs.to_dict()},
     ray_worker_options: dict = {
@@ -122,7 +123,7 @@ def lang_id(
         "cpu": 2,
         "memory": 4,
         "image": task_image,
-        "environment": envs.to_dict()
+        "environment": envs.to_dict(),
     },
     server_url: str = "http://kuberay-apiserver-service.kuberay.svc.cluster.local:8888",
     # data access
@@ -189,8 +190,10 @@ def lang_id(
     # https://github.com/kubeflow/pipelines/issues/10187. Therefore, meantime the user is requested to insert
     # a unique string created at run creation time.
     if os.getenv("KFPv2", "0") == "1":
-        print("WARNING: the ray cluster name can be non-unique at runtime, please do not execute simultaneous Runs of the "
-              "same version of the same pipeline !!!")
+        print(
+            "WARNING: the ray cluster name can be non-unique at runtime, please do not execute simultaneous Runs of the "
+            "same version of the same pipeline !!!"
+        )
         run_id = ray_run_id_KFPv2
     else:
         run_id = dsl.RUN_ID_PLACEHOLDER

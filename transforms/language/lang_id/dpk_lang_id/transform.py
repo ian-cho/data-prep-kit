@@ -10,8 +10,8 @@
 # limitations under the License.
 ################################################################################
 
-import os
 import copy
+import os
 from argparse import ArgumentParser, Namespace
 from typing import Any
 
@@ -40,7 +40,7 @@ output_score_column_name_cli_param = f"{cli_prefix}{output_score_column_name_key
 default_content_column_name = "contents"
 default_output_lang_column_name = "lang"
 default_output_score_column_name = "score"
-model_credential_from_env = os.environ.get('HF_READ_ACCESS_TOKEN', "")
+model_credential_from_env = os.environ.get("HF_READ_ACCESS_TOKEN", "")
 
 
 class LangIdentificationTransform(AbstractTableTransform):

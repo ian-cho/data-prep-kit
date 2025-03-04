@@ -9,23 +9,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ################################################################################
-import os
 import json
+import os
 
 import kfp.compiler as compiler
 import kfp.components as comp
 import kfp.dsl as dsl
+from python_apiserver_client.params import (
+    EnvironmentVariables,
+    EnvVarFrom,
+    EnvVarSource,
+)
 from workflow_support.compile_utils import (
     DEFAULT_KFP_COMPONENT_SPEC_PATH,
     ONE_HOUR_SEC,
     ONE_WEEK_SEC,
     ComponentUtils,
 )
-from python_apiserver_client.params import (
-    EnvVarFrom,
-    EnvironmentVariables,
-    EnvVarSource,
-)
+
 
 # The name of the secret that holds the HugginFace token
 HF_SECRET = "hf-secret"
@@ -42,7 +43,6 @@ base_kfp_image = "quay.io/dataprep1/data-prep-kit/kfp-data-processing:latest"
 
 # path to kfp component specifications files
 component_spec_path = os.getenv("KFP_COMPONENT_SPEC_PATH", DEFAULT_KFP_COMPONENT_SPEC_PATH)
-
 
 
 # compute execution parameters. Here different tranforms might need different implementations. As
@@ -102,8 +102,8 @@ cleanup_ray_op = comp.load_component_from_file(component_spec_path + "deleteRayC
 TASK_NAME: str = "lang_id"
 
 # HuggingFace token is exported as environment variables in Ray node pods.
-# Alternatively, the secret name can be passed to the KFP component, 
-# which will set it as an environment variable in the Ray nodes. 
+# Alternatively, the secret name can be passed to the KFP component,
+# which will set it as an environment variable in the Ray nodes.
 # In this option the secret name can be set at runtime
 # but is dependent on the KFP version.
 env_v = EnvVarFrom(source=EnvVarSource.SECRET, name=HF_SECRET, key=HF_SECRET_KEY)
@@ -117,9 +117,9 @@ envs = EnvironmentVariables(from_ref={"HF_READ_ACCESS_TOKEN": env_v})
 def lang_id(
     # Ray cluster
     ray_name: str = "lang_id-kfp-ray",  # name of Ray cluster
-    ray_run_id_KFPv2: str = "",   # Ray cluster unique ID used only in KFP v2
+    ray_run_id_KFPv2: str = "",  # Ray cluster unique ID used only in KFP v2
     # Add image_pull_secret and image_pull_policy to ray workers if needed
-    ray_head_options: dict = {"cpu": 1, "memory": 4, "image": task_image,  "environment": envs.to_dict()},
+    ray_head_options: dict = {"cpu": 1, "memory": 4, "image": task_image, "environment": envs.to_dict()},
     ray_worker_options: dict = {
         "replicas": 2,
         "max_replicas": 2,
@@ -194,8 +194,10 @@ def lang_id(
     # https://github.com/kubeflow/pipelines/issues/10187. Therefore, meantime the user is requested to insert
     # a unique string created at run creation time.
     if os.getenv("KFPv2", "0") == "1":
-        print("WARNING: the ray cluster name can be non-unique at runtime, please do not execute simultaneous Runs of the "
-              "same version of the same pipeline !!!")
+        print(
+            "WARNING: the ray cluster name can be non-unique at runtime, please do not execute simultaneous Runs of the "
+            "same version of the same pipeline !!!"
+        )
         run_id = ray_run_id_KFPv2
     else:
         run_id = dsl.RUN_ID_PLACEHOLDER
