@@ -130,10 +130,11 @@ class ClassificationTransformConfiguration(TransformConfiguration):
     configuration with CLI args.
     """
 
-    def __init__(self):
-        super().__init__(
+    def init(self):
+        super().init(
             name=short_name,
             transform_class=ClassificationTransform,
+            remove_from_metadata=[model_credential_cli_param],
         )
         from data_processing.utils import get_logger
 
