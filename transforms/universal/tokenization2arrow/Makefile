@@ -13,6 +13,10 @@ TRANSFORM_NAME=$(shell basename `pwd`)
 
 ################################################################################
 
+TRANSFORM_PYTHON_SRC="-m dpk_$(TRANSFORM_NAME).runtime"
+TRANSFORM_RAY_SRC="-m dpk_$(TRANSFORM_NAME).ray.runtime"
+
+
 run-cli-sample-python:
 	# TODO: set env variable HF_TOKEN to download tokenizer from HF
 	make venv
