@@ -325,9 +325,9 @@ env_v = EnvVarFrom(source=EnvVarSource.SECRET, name=HF_SECRET, key=HF_SECRET_KEY
 envs = EnvironmentVariables(from_ref={"HF_READ_ACCESS_TOKEN": env_v})
 ```
 
-Also, before executing [Compiling a pipeline](#compilation) section the token should be 
-exported as follows:
-
+In addition, `"environment": envs.to_dict()` should be added to `ray_head_options`
+and `ray_worker_options` in [Input parameters definition](#inputs) section. For
+example:
 ```bash
-export HF_READ_ACCESS_TOKEN=<token>
+ray_head_options: dict = {"cpu": 1, "memory": 4, "image": task_image, "environment": envs.to_dict()},
 ```
