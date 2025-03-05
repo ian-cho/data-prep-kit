@@ -58,6 +58,7 @@
 
 
 ## Example Code
+
 Find example code in readme section of each tranform and some sample jupyter notebooks for getting started [**here**](examples/notebooks)
 
 ## Blogs / Tutorials
@@ -76,6 +77,7 @@ Find example code in readme section of each tranform and some sample jupyter not
 - [**DPK added to the Application Hub of “AI Sustainability Catalog”**](https://enterprise-neurosystem.github.io/Sustainability-Catalog/)
 
 ## We Want Your Feedback!
+
  Feel free to contribute to discussions or create a new one to share your [feedback](https://github.com/IBM/data-prep-kit/discussions)
 
 
