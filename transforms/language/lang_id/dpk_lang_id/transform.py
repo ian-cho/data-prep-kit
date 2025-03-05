@@ -102,6 +102,7 @@ class LangIdentificationTransformConfiguration(TransformConfiguration):
         super().__init__(
             name=short_name,
             transform_class=LangIdentificationTransform,
+            remove_from_metadata=[model_credential_key]
         )
         from data_processing.utils import get_logger
 
@@ -147,10 +148,10 @@ class LangIdentificationTransformConfiguration(TransformConfiguration):
         captured = CLIArgumentProvider.capture_parameters(args, cli_prefix, False)
         self.params = self.params | captured
         params_no_creds = copy.deepcopy(self.params)
-        if "model_credential" not in params_no_creds:
-            self.logger.warning(f"model_credential are missing")
+        if model_credential_key not in params_no_creds:
+            self.logger.warning(f"{model_credential_key} are missing")
         else:
-            if params_no_creds["model_credential"] != "":
-                params_no_creds["model_credential"] = "****"
+            if params_no_creds[model_credential_key] != "":
+                params_no_creds[model_credential_key] = "****"
         self.logger.info(f"lang_id parameters are : {params_no_creds}")
         return True
