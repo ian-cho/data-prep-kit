@@ -131,7 +131,7 @@ class ClassificationTransformConfiguration(TransformConfiguration):
     """
 
     def __init__(self):
-        super().init(
+        super().__init__(
             name=short_name,
             transform_class=ClassificationTransform,
             remove_from_metadata=[model_credential_cli_param],
