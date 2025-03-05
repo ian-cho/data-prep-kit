@@ -327,7 +327,36 @@ envs = EnvironmentVariables(from_ref={"HF_READ_ACCESS_TOKEN": env_v})
 
 In addition, `"environment": envs.to_dict()` should be added to `ray_head_options`
 and `ray_worker_options` in [Input parameters definition](#inputs) section. For
-example:
+example, for `ray_head_options`:
 ```bash
 ray_head_options: dict = {"cpu": 1, "memory": 4, "image": task_image, "environment": envs.to_dict()},
 ```
+
+and for `ray_worker_options`:
+```bash
+ray_worker_options: dict = {
+        "replicas": 2,
+        "max_replicas": 2,
+        "min_replicas": 2,
+        "cpu": 2,
+        "memory": 4,
+        "image": task_image,
+        "environment": envs.to_dict(),
+    },
+```
+
+Before running the pipeline, create a secret named `hf-secret` as shown below, ensuring that the `HF_READ_ACCESS_TOKEN` environment variable is defined first, holding the HugginFace token.
+
+```bash
+export HF_READ_ACCESS_TOKEN=<HugginFace token>
+```
+```bash
+apiVersion: v1
+kind: Secret
+metadata:
+  name: hf-secret
+  namespace: kubeflow
+type: Opaque
+stringData:
+      hf-token: "${HF_READ_ACCESS_TOKEN}"
+``` 

@@ -22,7 +22,7 @@ on:
             - "!**/doc/**"
             - "!**/images/**"
             - "!**.gitignore"
-    pull_request:
+    pull_request_target:
         branches:
             - "dev"
             - "releases/**"
@@ -45,9 +45,9 @@ concurrency:
 
 jobs:
     test-kfp-v1:
-        env:
-            HF_READ_ACCESS_TOKEN: ${{ secrets.HF_READ_ACCESS_TOKEN }}
         runs-on: ubuntu-22.04
+        env:
+           HF_READ_ACCESS_TOKEN: ${{ secrets.HF_READ_ACCESS_TOKEN }}
         steps:
             - name: Checkout
               uses: actions/checkout@v4
@@ -83,9 +83,9 @@ jobs:
                    fi
 
     test-kfp-v2:
-        env:
-            HF_READ_ACCESS_TOKEN: ${{ secrets.HF_READ_ACCESS_TOKEN }}
         runs-on: ubuntu-22.04
+        env:
+           HF_READ_ACCESS_TOKEN: ${{ secrets.HF_READ_ACCESS_TOKEN }}
         steps:
             - name: Checkout
               uses: actions/checkout@v4

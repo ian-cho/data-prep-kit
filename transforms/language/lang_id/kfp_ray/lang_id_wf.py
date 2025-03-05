@@ -102,6 +102,10 @@ cleanup_ray_op = comp.load_component_from_file(component_spec_path + "deleteRayC
 TASK_NAME: str = "lang_id"
 
 # HuggingFace token is exported as environment variables in Ray node pods.
+# Alternatively, the secret name can be passed to the KFP component, 
+# which will set it as an environment variable in the Ray nodes. 
+# In this option the secret name can be set at runtime
+# but is dependent on the KFP version.
 env_v = EnvVarFrom(source=EnvVarSource.SECRET, name=HF_SECRET, key=HF_SECRET_KEY)
 envs = EnvironmentVariables(from_ref={"HF_READ_ACCESS_TOKEN": env_v})
 

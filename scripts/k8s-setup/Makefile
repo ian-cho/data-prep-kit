@@ -59,9 +59,9 @@ cluster-deploy::
 	@# Help: Deploy all required tools on existing cluster
 	$(MAKE) .cluster-prepare
 	$(MAKE) .cluster-prepare-wait
+	cd ${K8S_SETUP_SCRIPTS} && ./apply_hugginface_secret.sh
 ifneq ($(EXTERNAL_CLUSTER), 1)
 	cd $(TOOLS_DIR) && ./ingress.sh deploy
-	cd ${K8S_SETUP_SCRIPTS} && ./apply_hugginface_secret.sh
 ifeq ($(DEPLOY_KUBEFLOW)$(USE_KFP_MINIO),11)
 	cd $(TOOLS_DIR) && ./install_minio.sh deploy
 	cd $(TOOLS_DIR) && ./install_minio.sh deploy-wait

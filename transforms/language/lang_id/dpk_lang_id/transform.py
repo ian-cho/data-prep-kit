@@ -40,7 +40,7 @@ output_score_column_name_cli_param = f"{cli_prefix}{output_score_column_name_key
 default_content_column_name = "contents"
 default_output_lang_column_name = "lang"
 default_output_score_column_name = "score"
-default_model_credential = os.environ.get('HF_READ_ACCESS_TOKEN', "")
+model_credential_from_env = os.environ.get('HF_READ_ACCESS_TOKEN', "")
 
 
 class LangIdentificationTransform(AbstractTableTransform):
@@ -117,7 +117,7 @@ class LangIdentificationTransformConfiguration(TransformConfiguration):
         parser.add_argument(
             f"--{model_credential_cli_param}",
             required=False,
-            default=default_model_credential,
+            default=model_credential_from_env,
             help="Credential to access model for language detection placed in url",
         )
         parser.add_argument(f"--{model_kind_cli_param}", required=True, help="Kind of model for language detection")
@@ -147,6 +147,10 @@ class LangIdentificationTransformConfiguration(TransformConfiguration):
         captured = CLIArgumentProvider.capture_parameters(args, cli_prefix, False)
         self.params = self.params | captured
         params_no_creds = copy.deepcopy(self.params)
-        del params_no_creds["model_credential"]
+        if "model_credential" not in params_no_creds:
+            self.logger.info(f"Warning model_credential are missing")
+        else:
+            if params_no_creds["model_credential"] != "":
+                params_no_creds["model_credential"] = "****"
         self.logger.info(f"lang_id parameters are : {params_no_creds}")
         return True
