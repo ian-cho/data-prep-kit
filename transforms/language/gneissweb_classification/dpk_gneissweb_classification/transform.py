@@ -130,7 +130,7 @@ class ClassificationTransformConfiguration(TransformConfiguration):
     configuration with CLI args.
     """
 
-    def init(self):
+    def __init__(self):
         super().init(
             name=short_name,
             transform_class=ClassificationTransform,
