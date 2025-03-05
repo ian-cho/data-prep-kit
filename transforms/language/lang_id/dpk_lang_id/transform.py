@@ -148,7 +148,7 @@ class LangIdentificationTransformConfiguration(TransformConfiguration):
         self.params = self.params | captured
         params_no_creds = copy.deepcopy(self.params)
         if "model_credential" not in params_no_creds:
-            self.logger.info(f"Warning model_credential are missing")
+            self.logger.warning(f"model_credential are missing")
         else:
             if params_no_creds["model_credential"] != "":
                 params_no_creds["model_credential"] = "****"
