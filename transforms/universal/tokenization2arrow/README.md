@@ -1,3 +1,16 @@
+# Tokenization2Arrow Transform 
+
+Please see the set of
+[transform project conventions](../../README.md#transform-project-conventions)
+for details on general project conventions, transform configuration,
+testing and IDE set up.
+
+## Contributors
+
+- Santosh Borse (ssborse@us.ibm.com)
+
+## Summary
+
 <p align="Left"> Distributed tokenization module for data sets using any Hugging Face compatible tokenizer. This Tokenizer is built upon existing [DPK Tokenizer](https://github.com/IBM/data-prep-kit/tree/dev/transforms/universal/tokenization)
     <br>
 
@@ -13,24 +26,13 @@ For every input .parquet file it generates .arrow and 2 metadata files ( in meta
 
 </p>
 
-## Contributors
-
-- Santosh Borse (ssborse@us.ibm.com)
-
-# Data Tokenization
-Please see the set of
-[transform project conventions](../../README.md#transform-project-conventions)
-for details on general project conventions, transform configuration,
-testing and IDE set up.
-
-## Summary 
 The data tokenization transform operates by converting a (non-empty) input table into an output table 
 using a pre-trained tokenizer. The input table is required to have a minimum of two columns, 
 named `document_id` and `contents` by default. However, alternate column names can be specified using 
 `--tkn_doc_id_column` for the document id and `--tkn_doc_content_column` for the document contents.
 It is essential for the values within the `document_id` column to be unique across the dataset, 
 while the `contents` column stores their respective document content. To execute example demonstrations within this directory, 
-a machine with `64GiB` of RAM is recommended.
+a machine with `64GB` of RAM is recommended.
 
 To specify a pre-trained tokenizer, utilize the `--tkn_tokenizer` parameter. 
 This parameter accepts the name of a tokenizer ready for download from Hugging Face, 
@@ -82,9 +84,13 @@ the options provided by the [launcher](../../../data-processing-lib/doc/launcher
 ```
 
 ### Running the samples
-To run the samples, use the following `make` target
+To run the samples, use one of the following `make` targets:
 
-* `run-cli-sample` - runs dpk_tokenization/transform_python.py using command line args
+* `run-cli-sample-python` - runs dpk_tokenization2arrow using python runtime
+
+or 
+
+* `run-cli-sample-ray` - runs dpk_tokenization2arrow using ray runtime
 
 
 These targets will activate the virtual environment and set up any configuration needed.
@@ -102,8 +108,7 @@ ls output
 To see results of the transform.
 
 ### Code example
-Here is a sample [notebook](tokenization.ipynb)
-
+Here is a sample [notebook](tokenization2arrow.ipynb)
 
 
 ### Transforming data using the transform image
@@ -112,14 +117,10 @@ To use the transform image to transform your data, please refer to the
 [running images quickstart](../../../doc/quick-start/run-transform-image.md),
 substituting the name of this transform image and runtime as appropriate.
 
-# Tokenization Transform for Ray
-Please see the set of
-[transform project conventions](../../README.md#transform-project-conventions)
-for details on general project conventions, transform configuration,
-testing and IDE set up.
+# Tokenization2Arrow Transform for Ray
 
 ## Summary 
-This project wraps the tokenization transform with a Ray runtime.
+This project wraps the tokenization2arrow transform with a Ray runtime.
 
 ## Configuration and command line Options
 
@@ -129,3 +130,6 @@ Configuration and command line options are the same as for the base python trans
 In addition to those available to the transform as defined in here,
 the set of 
 [launcher options](../../../data-processing-lib/doc/launcher-options.md) are available.
+
+### Code example
+Here is a sample [notebook](tokenization2arrow-ray.ipynb) that uses ray runtime. 
