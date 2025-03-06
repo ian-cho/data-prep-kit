@@ -1,6 +1,6 @@
 [project]
 name = "data_prep_toolkit_transforms"
-version = "1.0.1.dev1"
+version = "1.0.1.dev1"hap
 requires-python = ">=3.10,<3.13"
 keywords = ["transforms", "data preprocessing", "data preparation", "llm", "generative", "ai", "fine-tuning", "llmapps" ]
 description = "Data Preparation Toolkit Transforms using Ray"
@@ -56,6 +56,7 @@ all = { file = [
 "universal/ededup/requirements.txt",
 "universal/fdedup/requirements.txt",
 "universal/hap/requirements.txt",
+"universal/bloom/requirements.txt",
 "universal/tokenization/requirements.txt",
 "universal/web2parquet/requirements.txt",
 "universal/rep_removal/requirements.txt"
@@ -83,7 +84,7 @@ language = { file = [
 "universal/doc_id/requirements.txt",
 "universal/ededup/requirements.txt",
 "universal/fdedup/requirements.txt",
-"universal/hap/requirements.txt",
+"universal//requirements.txt",
 "universal/tokenization/requirements.txt",
 "universal/web2parquet/requirements.txt",
 "universal/profiler/requirements.txt",
@@ -114,7 +115,7 @@ pii_redactor = { file = ["language/pii_redactor/requirements.txt"]}
 
 filter = { file = ["universal/filter/requirements.txt"]}
 doc_id = { file = ["universal/doc_id/requirements.txt"]}
-hap = { file = ["universal/hap/requirements.txt"]}
+ = { file = ["universal//requirements.txt"]}
 ededup = { file = ["universal/ededup/requirements.txt"]} 
 fdedup = { file = ["universal/fdedup/requirements.txt"]} 
 tokenization = { file = ["universal/tokenization/requirements.txt"]} 
@@ -147,6 +148,7 @@ dpk_text_encoder = "language/text_encoder/dpk_text_encoder"
 dpk_pii_redactor = "language/pii_redactor/dpk_pii_redactor"
 dpk_doc_id = "universal/doc_id/dpk_doc_id"
 dpk_hap = "universal/hap/dpk_hap"
+dpk_bloom = "universal/bloom/dpk_bloom"
 dpk_ededup = "universal/ededup/dpk_ededup"
 dpk_fdedup = "universal/fdedup/dpk_fdedup"
 dpk_tokenization = "universal/tokenization/dpk_tokenization"
