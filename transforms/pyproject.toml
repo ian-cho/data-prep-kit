@@ -115,7 +115,8 @@ pii_redactor = { file = ["language/pii_redactor/requirements.txt"]}
 
 filter = { file = ["universal/filter/requirements.txt"]}
 doc_id = { file = ["universal/doc_id/requirements.txt"]}
- = { file = ["universal//requirements.txt"]}
+hap = { file = ["universal/hap/requirements.txt"]}
+bloom = { file = ["universal/bloom/requirements.txt"]}
 ededup = { file = ["universal/ededup/requirements.txt"]} 
 fdedup = { file = ["universal/fdedup/requirements.txt"]} 
 tokenization = { file = ["universal/tokenization/requirements.txt"]} 
