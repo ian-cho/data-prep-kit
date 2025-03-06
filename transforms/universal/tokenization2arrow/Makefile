@@ -13,8 +13,8 @@ TRANSFORM_NAME=$(shell basename `pwd`)
 
 ################################################################################
 
-TRANSFORM_PYTHON_SRC=-m dpk_$(TRANSFORM_NAME).runtime
-TRANSFORM_RAY_SRC=-m dpk_$(TRANSFORM_NAME).ray.runtime
+TRANSFORM_PYTHON_SRC="-m dpk_$(TRANSFORM_NAME).runtime"
+TRANSFORM_RAY_SRC="-m dpk_$(TRANSFORM_NAME).ray.runtime"
 
 
 run-cli-sample-python:
@@ -22,7 +22,7 @@ run-cli-sample-python:
 	make venv
 	source venv/bin/activate && \
 	rm -rf output/ds02 && \
-	$(PYTHON) $(TRANSFORM_PYTHON_SRC) \
+	$(PYTHON) -m dpk_$(TRANSFORM_NAME).runtime \
             --data_local_config "{ 'input_folder' : 'test-data/ds02/input', 'output_folder' : 'output/ds02'}"
 
 run-cli-sample-ray:
@@ -30,6 +30,6 @@ run-cli-sample-ray:
 	make venv
 	source venv/bin/activate && \
 	rm -rf output/ds02 && \
-	$(PYTHON) $(TRANSFORM_RAY_SRC) \
+	$(PYTHON) -m dpk_$(TRANSFORM_NAME).ray.runtime \
             --data_local_config "{ 'input_folder' : 'test-data/ds01/input', 'output_folder' : 'output/ds01'}" \
 			--run_locally True
