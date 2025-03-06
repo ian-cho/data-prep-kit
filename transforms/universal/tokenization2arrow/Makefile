@@ -13,8 +13,8 @@ TRANSFORM_NAME=$(shell basename `pwd`)
 
 ################################################################################
 
-TRANSFORM_PYTHON_SRC="-m dpk_$(TRANSFORM_NAME).runtime"
-TRANSFORM_RAY_SRC="-m dpk_$(TRANSFORM_NAME).ray.runtime"
+TRANSFORM_PYTHON_SRC=-m dpk_$(TRANSFORM_NAME).runtime
+TRANSFORM_RAY_SRC=-m dpk_$(TRANSFORM_NAME).ray.runtime
 
 
 run-cli-sample-python:
@@ -22,14 +22,14 @@ run-cli-sample-python:
 	make venv
 	source venv/bin/activate && \
 	rm -rf output/ds02 && \
-	$(PYTHON) -m dpk_$(TRANSFORM_NAME).transform_python \
+	$(PYTHON) $(TRANSFORM_PYTHON_SRC) \
             --data_local_config "{ 'input_folder' : 'test-data/ds02/input', 'output_folder' : 'output/ds02'}"
 
 run-cli-sample-ray:
 	# TODO: set env variable HF_TOKEN to download tokenizer from HF
 	make venv
 	source venv/bin/activate && \
-	rm -rf output/ds01 && \
-	$(PYTHON) -m dpk_$(TRANSFORM_NAME).transform_ray \
+	rm -rf output/ds02 && \
+	$(PYTHON) $(TRANSFORM_RAY_SRC) \
             --data_local_config "{ 'input_folder' : 'test-data/ds01/input', 'output_folder' : 'output/ds01'}" \
 			--run_locally True
